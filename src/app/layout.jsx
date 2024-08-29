@@ -1,8 +1,11 @@
 import { Inter } from "next/font/google";
+
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import "./globals.css";
 
 import Header from "@/components/pages/layout/Header";
 import Footer from "@/components/pages/layout/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +20,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Header/>
-        <main>
-          {children}
-        </main>
+          <main>
+            {children}
+          </main>
         <Footer/>
       </body>
     </html>
