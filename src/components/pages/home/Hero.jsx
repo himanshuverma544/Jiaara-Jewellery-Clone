@@ -2,8 +2,9 @@
 
 import "../../../styles/pure-react-carousel.css";
 
-import { useRef } from 'react';
+import Image from "next/image";
 
+import { useRef } from 'react';
 
 import { 
   CarouselProvider,
@@ -11,6 +12,7 @@ import {
   Slide,
   DotGroup
 } from 'pure-react-carousel';
+
 
 import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
 
@@ -47,7 +49,7 @@ export default function HeroCarousel() {
   });
 
   return (
-    <section id="hero-carousel">
+    <section id="hero">
       <CarouselProvider
         ref={carouselRef}
         className="carousel w-screen relative"
@@ -58,6 +60,9 @@ export default function HeroCarousel() {
         visibleSlides={visibleSlidesCount}
         totalSlides={images.length}
         isPlaying
+        lockOnWindowScroll
+        touchEnabled={false}
+        dragEnabled={false}
       >
         <Slider className="hero-slides">
           {images.map((image, index) =>
@@ -65,24 +70,31 @@ export default function HeroCarousel() {
               key={image.id}
               index={index}
               className={`
-                pt-[50%]
+                pt-[37rem]
                 relative
-                bg-cover bg-center bg-no-repeat
                 overlay-black-30
                 transition-transform duration-[5000ms] ease-in-out
                 ${currentSlide === index ? "scale-125" : "scale-100"}
               `}
-              style={{ backgroundImage: `url('${image.src}')` }}
             >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="top"
+              />
             </Slide>
           )}
         </Slider>
-        <div className="carousel-content w-[inherit] px-6 py-6 absolute right-1/2 bottom-[10%] translate-x-1/2 flex flex-col items-center justify-center gap-7 font-semibold text-white">
-          <div className="carousel-text text-center">
-            <p>Elegance you can Wear</p>
-            <p>Moments you can Cherish</p>
+        <div className="content w-[inherit] px-6 py-6 absolute right-1/2 bottom-[10%] translate-x-1/2 flex flex-col items-center justify-center gap-7 text-white lg:gap-10">
+          <div className="text text-center lg:text-lg 2xl:text-2xl">
+            <p className="leading-loose">
+              Crafted from the Heart, for the Heart.<br/>
+              Premium Contemporary Handcrafted Pure Brass Jewellery for Modern Women.
+            </p>
           </div>
-          <button className="carousel-button px-5 py-2 rounded-full text-xs uppercase bg-primaryButton text-primaryFont">
+          <button className="carousel-button px-5 py-2 rounded-full text-xs uppercase bg-primaryButton text-primaryFont lg:text-sm xl:text-base">
             Explore
           </button>
           <DotGroup className="dot-group absolute bottom-0"/>
