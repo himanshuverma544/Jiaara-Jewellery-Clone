@@ -40,3 +40,6 @@ next-env.d.ts
 
 #conceptual-assets
 /public/assets
+
+#data
+/data/products-list.xlsx
