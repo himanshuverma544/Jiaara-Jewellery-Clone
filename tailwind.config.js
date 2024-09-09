@@ -10,11 +10,12 @@ module.exports = {
     extend: {
       colors: {
         primaryBackground: "#f5eee4",
-        secondaryBackground: "#3a3039",
+        secondaryBackground: "#fedcf4",
+        tertiaryBackground: "#e5bae7",
         primaryFont: "#663c59",
-        primaryButton: '#ffddf4',
+        primaryButton: "#ffddf4",
         primaryOverlay: "#f7d9ee",
-        primaryFlareEffect: "#663c59"
+        primaryGradientOverlay: "#663c59"
       },
     },
   },
