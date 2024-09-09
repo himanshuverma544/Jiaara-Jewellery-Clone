@@ -6,6 +6,8 @@ import "./globals.css";
 import Header from "@/components/pages/layout/Header";
 import Footer from "@/components/pages/layout/Footer";
 
+import ContextProvider from "@/context-API/ContextProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +22,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header/>
-          <main>
-            {children}
-          </main>
-        <Footer/>
+        <ContextProvider>
+          <Header/>
+            <main className="pb-12 bg-primaryBackground">
+              {children}
+            </main>
+          <Footer/>
+        </ContextProvider>
       </body>
     </html>
   );
