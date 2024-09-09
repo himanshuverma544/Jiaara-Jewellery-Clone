@@ -12,12 +12,16 @@ const defaultBreakpoints = {
 
 const useWindowSize = (customBreakpoints = {}) => {
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(0);
   
   const breakpoints = { ...defaultBreakpoints, ...customBreakpoints };
 
   useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
+
+    setScreenWidth(window.innerWidth);
+
+    const handleResize = () =>
+      setScreenWidth(window.innerWidth);
 
     window.addEventListener("resize", handleResize);
 
