@@ -89,17 +89,18 @@ export default function Categories() {
             <Slide
               key={category.id}
               index={index}
-              className="pt-[19%] mx-[2.5vw]"
+              className="mx-[2.5vw]"
               innerClassName="relative"
             >
-              <div className="img-cont size-full">
+              <div className="img-cont relative w-full h-[80vw] sm:h-[40vw] lg:h-[25vw]">
                 <Image
-                  className="static object-cover object-center rounded-3xl"
+                  className="object-cover object-center rounded-3xl"
                   fill
                   src={category.image}
                   alt={category.imageAlt}
                 />
               </div>
+              
               <div className="content absolute bottom-0 w-full flex justify-between uppercase p-5 overlay-black-50 after:rounded-b-3xl text-white">
                 <div className="category flex flex-col gap-2 z-10">
                   <div className="category-text text-sm font-semibold">
