@@ -1,6 +1,9 @@
 import Hero from "@/components/pages/home/Hero";
 import Categories from "@/components/pages/home/Categories";
 import FeaturedProducts from "@/components/pages/home/featured-products/FeaturedProducts";
+import CelebrityStyle from "@/components/pages/home/CelebrityStyle";
+import Collections from "@/components/pages/home/Collections";
+import KeyBenefits from "@/components/pages/home/key-benefits/KeyBenefits";
 
 
 export default function Home() {
@@ -10,6 +13,9 @@ export default function Home() {
       <Hero/>
       <Categories/>
       <FeaturedProducts/>
+      <CelebrityStyle/>
+      <Collections/>
+      <KeyBenefits/>
     </div>
   );
 }
