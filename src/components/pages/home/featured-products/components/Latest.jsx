@@ -91,7 +91,6 @@ export default function Latest() {
         isPlaying
         playDirection="backward"
         interval={autoPlayInterval}
-        lockOnWindowScroll
       >
         <Slider className="products-slide select-none cursor-grab active:cursor-grabbing">
           {products.map((product, index) =>

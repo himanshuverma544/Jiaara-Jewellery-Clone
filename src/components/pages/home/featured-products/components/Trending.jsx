@@ -90,7 +90,6 @@ export default function Trending() {
         totalSlides={products.length}
         isPlaying
         interval={autoPlayInterval}
-        lockOnWindowScroll
       >
         <Slider className="products-slide select-none cursor-grab active:cursor-grabbing">
           {products.map((product, index) =>
