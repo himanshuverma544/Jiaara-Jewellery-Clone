@@ -40,7 +40,7 @@ export default function Header() {
     <header
       id="header"
       className={`
-        w-full flex items-center fixed px-3 py-1 z-10
+        w-full flex items-center fixed px-3 py-1 z-20
         ${isHeroSecVisible ? "bg-transparent" : "bg-secondaryBackground"}
         md:px-5 lg:px-10
       `}
@@ -117,7 +117,6 @@ export default function Header() {
           w-full absolute top-[93%] right-0
           ${isHeroSecVisible ? "border-white" : "border-primaryFont"}
         `}/>
-
       </div>
      
     </header>
