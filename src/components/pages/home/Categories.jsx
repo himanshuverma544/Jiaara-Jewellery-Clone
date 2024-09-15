@@ -81,8 +81,7 @@ export default function Categories() {
         currentSlide={currentSlide}
         visibleSlides={visibleSlidesCount}
         totalSlides={categories.length}
-        isPlaying={false}
-        lockOnWindowScroll
+        isPlaying
       >
         <Slider className="categories-slide select-none cursor-grab active:cursor-grabbing">
           {categories.map((category, index) =>
