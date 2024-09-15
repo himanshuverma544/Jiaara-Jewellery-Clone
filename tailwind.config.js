@@ -12,6 +12,7 @@ module.exports = {
         primaryBackground: "#f5eee4",
         secondaryBackground: "#fedcf4",
         tertiaryBackground: "#e5bae7",
+        quaternaryBackground: "#b783a7",
         primaryFont: "#663c59",
         primaryButton: "#ffddf4",
         primaryOverlay: "#f7d9ee",
