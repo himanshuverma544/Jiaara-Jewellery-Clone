@@ -16,7 +16,11 @@ module.exports = {
         primaryFont: "#663c59",
         primaryButton: "#ffddf4",
         primaryOverlay: "#f7d9ee",
-        primaryGradientOverlay: "#663c59"
+        primaryGradientOverlay: "#663c59",
+        primaryLight: '#F8F4F1',
+        secondaryLight: "#F9F9F9",
+        tertiaryLight: "#DFDFDF",
+        quaternaryLight: "#D7D7D7",
       },
     },
   },
