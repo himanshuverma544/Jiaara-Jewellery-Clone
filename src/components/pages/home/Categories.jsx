@@ -55,11 +55,12 @@ const categories = [
 
 export default function Categories() {
 
+  const autoPlayInterval = 3000;
   const carouselRef = useRef(null);
 
   const [currentSlide, visibleSlidesCount] = useVisibleSlides({
     carouselRef,
-    autoPlayInterval: 5000,
+    autoPlayInterval,
     desktopVisibleSlidesCount: 3,
     tabletVisibleSlidesCount: 2,
     mobileVisibleSlidesCount: 1
@@ -82,6 +83,7 @@ export default function Categories() {
         visibleSlides={visibleSlidesCount}
         totalSlides={categories.length}
         isPlaying
+        interval={autoPlayInterval}
       >
         <Slider className="categories-slide select-none cursor-grab active:cursor-grabbing">
           {categories.map((category, index) =>
