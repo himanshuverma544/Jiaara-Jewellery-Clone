@@ -8,7 +8,7 @@ import {
   Slide,
 } from 'pure-react-carousel';
 
-import SaleProductCard from "./SaleProductCard";
+import SaleProductCard from "./components/SaleProductCard";
 
 import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
 
