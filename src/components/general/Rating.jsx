@@ -17,12 +17,13 @@ export default function Rating({
           {index < Math.floor(given) ? 
             <Icon
               className={iconClassName}
-              icon={ActiveIcon}/>
+              icon={ActiveIcon}
+            />
               :
             <Icon
               className={iconClassName}
               icon={InactiveIcon}
-            /> 
+            />
           }
         </div>
       )}
