@@ -7,50 +7,40 @@ const { screenWidth, breakpoints } = useWindowSize();
 
   const clamp = ({ xs = {}, sm = {}, md = {}, lg = {}, xl = {}, xxl = {} } = {}) => {
 
-    if (
-      screenWidth < breakpoints.sm &&
-      xs.min !== undefined
-    ) {
-      return `min(max(${xs.min}rem, ${xs.current}vw), ${xs.max}rem)`;
+    const settings = [
+      { breakpoint: breakpoints.sm, values: xs },
+      { breakpoint: breakpoints.md, values: sm },
+      { breakpoint: breakpoints.lg, values: md },
+      { breakpoint: breakpoints.xl, values: lg },
+      { breakpoint: breakpoints.xxl, values: xl },
+      { breakpoint: Infinity, values: xxl }
+    ];
+  
+    // Find the correct values for the current screen width, falling back to the closest available if necessary
+    let selectedSetting = xs; // Default to the smallest size
+  
+    for (let i = 0; i < settings.length; i++) {
+
+      const { breakpoint, values } = settings[i];
+
+      if (screenWidth < breakpoint) {
+        // Find the first defined size for the current breakpoint or the closest previous one
+        selectedSetting = values.min !== undefined ? values : selectedSetting;
+        break;
+      }
+      else if (values.min !== undefined) {
+        // If the screenWidth is larger, keep updating with the available defined values
+        selectedSetting = values;
+      }
     }
-    else if (
-      screenWidth >= breakpoints.sm &&
-      screenWidth < breakpoints.md &&
-      sm.min !== undefined
-    ) {
-      return `min(max(${sm.min}rem, ${sm.current}vw), ${sm.max}rem)`;
-    }
-    else if (
-      screenWidth >= breakpoints.md &&
-      screenWidth < breakpoints.lg &&
-      (md.min !== undefined || sm.min !== undefined)
-    ) {
-      const { min, current, max } = md.min !== undefined ? md : sm;
-      return `min(max(${min}rem, ${current}vw), ${max}rem)`;
-    }
-    else if (
-      screenWidth >= breakpoints.lg &&
-      screenWidth < breakpoints.xl &&
-      (lg.min !== undefined || md.min !== undefined || sm.min !== undefined)
-    ) {
-      const { min, current, max } = lg.min !== undefined ? lg : md.min !== undefined ? md : sm;
-      return `min(max(${min}rem, ${current}vw), ${max}rem)`;
-    }
-    else if (
-      screenWidth >= breakpoints.xl &&
-      screenWidth < breakpoints.xxl &&
-      (xl.min !== undefined || lg.min !== undefined || md.min !== undefined || sm.min !== undefined)
-    ) {
-      const { min, current, max } = xl.min !== undefined ? xl : lg.min !== undefined ? lg : md.min !== undefined ? md : sm;
-      return `min(max(${min}rem, ${current}vw), ${max}rem)`;
-    }
-    else if (
-      screenWidth >= breakpoints.xxl &&
-      (xxl.min !== undefined || xl.min !== undefined || lg.min !== undefined || md.min !== undefined || sm.min !== undefined)
-    ) {
-      const { min, current, max } = xxl.min !== undefined ? xxl : xl.min !== undefined ? xl : lg.min !== undefined ? lg : md.min !== undefined ? md : sm;
-      return `min(max(${min}rem, ${current}vw), ${max}rem)`;
-    }
+    // Return the calculated font size string
+    return (
+      `min(max(
+        ${selectedSetting.min}rem,
+        ${selectedSetting.current}vw),
+        ${selectedSetting.max}rem
+      )`
+    );
   };
   
   return ({
