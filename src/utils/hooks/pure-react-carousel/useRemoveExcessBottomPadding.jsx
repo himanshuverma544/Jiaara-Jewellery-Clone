@@ -28,6 +28,7 @@ export default function useRemoveExcessBottomPadding({
     };
   
     const handlePaddingAdjustment = async () => {
+      
       await sleep(sleepTimeMs);
       removeExcessBottomPadding();
     };
