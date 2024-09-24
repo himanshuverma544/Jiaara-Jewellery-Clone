@@ -122,7 +122,7 @@ export default function Testimonials() {
         totalSlides={testimonials.length}
         isPlaying
         interval={autoPlayInterval}
-        step={1}
+        step={screenWidth < lg ? 1 : 2}
         orientation="vertical"
       >
         <Slider
