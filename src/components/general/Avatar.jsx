@@ -1,15 +1,11 @@
 import Image from "next/image";
 
 
-const Avatar = ({ className = "avatar", src, alt, size = 50, onClick}) => {
+const Avatar = ({ className = "avatar", src, alt, onClick}) => {
 
   return (
     <div
       className={`relative ${className}`}
-      style={{
-        width: size,
-        height: size,
-      }}
       onClick={onClick}
     >
       <Image
