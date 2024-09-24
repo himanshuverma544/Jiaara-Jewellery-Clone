@@ -11,7 +11,6 @@ import {
 import Testimonial from "./components/Testimonial";
 
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
-import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
 import useRemoveExcessBottomPadding from "@/utils/hooks/pure-react-carousel/useRemoveExcessBottomPadding";
 import useClamp from "@/utils/hooks/general/useClamp";
 
@@ -92,17 +91,8 @@ export default function Testimonials() {
   const currSecRef = useRef(null);
 
   const autoPlayInterval = 3000;
-  const carouselRef = useRef(null);
 
   const { screenWidth, breakpoints: { lg } } = useWindowSize();
-
-  const [currentSlide, visibleSlidesCount] = useVisibleSlides({
-    carouselRef,
-    autoPlayInterval,
-    desktopVisibleSlidesCount: 3,
-    tabletVisibleSlidesCount: 3,
-    mobileVisibleSlidesCount: 1
-  });
 
   const { clamp } = useClamp();
 
@@ -114,7 +104,7 @@ export default function Testimonials() {
     })
   });
 
-
+  
   return (
     <section
       id="testimonials"
@@ -126,12 +116,9 @@ export default function Testimonials() {
       </h2>
 
       <CarouselProvider
-        ref={carouselRef}
         className="carousel w-screen"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
-        currentSlide={currentSlide}
-        visibleSlides={visibleSlidesCount}
         totalSlides={testimonials.length}
         isPlaying
         interval={autoPlayInterval}
