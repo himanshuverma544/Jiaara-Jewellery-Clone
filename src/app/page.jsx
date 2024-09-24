@@ -5,7 +5,7 @@ import CelebrityStyle from "@/components/pages/home/CelebrityStyle";
 import Collections from "@/components/pages/home/Collections";
 import KeyBenefits from "@/components/pages/home/key-benefits/KeyBenefits";
 import BuildingWithPurpose from "@/components/pages/home/BuildingWithPurpose";
-import Testimonials from "@/components/pages/home/Testimonials";
+import Testimonials from "@/components/pages/home/testimonials/Testimonials";
 import Sale from "@/components/pages/home/sale/Sale";
 
 
@@ -21,6 +21,7 @@ export default function Home() {
       <KeyBenefits/>
       <BuildingWithPurpose/>
       <Sale/>
+      <Testimonials/>
     </div>
   );
 }
