@@ -7,7 +7,7 @@ const useSleep = () => {
   const timeoutRef = useRef(null);
 
 
-  const sleep = useCallback(duration => {
+  const sleep = useCallback((duration = 100) => {
     
     return new Promise(resolve => {
       timeoutRef.current = setTimeout(() => {
