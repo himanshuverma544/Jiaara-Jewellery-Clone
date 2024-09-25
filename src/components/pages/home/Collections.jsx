@@ -5,6 +5,9 @@ import React from "react";
 import Image from "next/image";
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 
+import isEven from "@/utils/functions/isEven";
+
+
 const collections = [
   {
     id: 1,
@@ -33,8 +36,9 @@ const collections = [
   }
 ];
 
+// TODO: Make the below calculation general for any number of collections
 const collectionsNum = 5;
-const counter = collections.length / collectionsNum;
+const counter = Math.ceil(collections.length / collectionsNum);
 const rowsLength = collections.length - (counter * 2);
 
 
@@ -45,8 +49,6 @@ export default function Collections() {
   let pos = 0;
   let rowNum = 1;
 
-  const isEven = value => value % 2 === 0;
-
   return (
     <section id="collections" className="flex flex-col justify-center items-center gap-12">
       <h2 className="heading text-center px-5 text-4xl uppercase text-primaryFont">
@@ -55,9 +57,12 @@ export default function Collections() {
 
       <div className={`w-full grid grid-rows-${rowsLength} gap-2 px-5 mx-auto sm:px-7 md:px-10 lg:px-12 xl:px-15 2xl:px-17`}>
         {Array.from({ length: counter }).map((_, index) =>
+
           <React.Fragment key={index}>
+
             {screenWidth < md &&
               <div className={`row-${rowNum++} collection-${pos + 1} relative`}>
+
                 <div className={`
                   col-1
                   img-cont
@@ -84,10 +89,12 @@ export default function Collections() {
                     View
                   </button>
                 </div>
+
               </div>
             }
 
             <div className={`row-${rowNum++} grid grid-cols-10 gap-2`}>
+
               <div className={`
                 collection-${pos + 1}
                 col-1 col-span-4
@@ -120,6 +127,7 @@ export default function Collections() {
                   </button>
                 </div>
               </div>
+
               <div className={`collection-${pos + 1} col-2 col-span-6 relative`}>
                 <div className={`
                   img-cont
@@ -147,9 +155,11 @@ export default function Collections() {
                   </button>
                 </div>
               </div>
+
             </div>
 
             <div className={`row-${rowNum++} grid grid-cols-12 gap-2 md:grid-cols-11`}>
+              
               <div className={`
                 collection-${pos + 1}
                 col-1 col-span-6
@@ -184,6 +194,7 @@ export default function Collections() {
                   </button>
                 </div>
               </div>
+
               <div className={`collection-${pos + 1} col-2 col-span-6 relative md:col-span-4`}>
                 <div className={`
                   img-cont
