@@ -12,7 +12,7 @@ export default function BuildingWithPurpose() {
 
       <div className="content-cont w-full flex flex-col md:flex-row">
 
-        <div className="img-cont relative w-full h-[20rem] md:w-[40%] md:h-auto">
+        <div className="img-cont relative w-[inherit] h-[20rem] md:w-[40%] md:h-auto">
           <Image
             className="object-cover object-center"
             fill
@@ -24,7 +24,7 @@ export default function BuildingWithPurpose() {
         <div className="text-content relative md:w-[60%]">
           <div className="img-cont absolute inset-0">
             <Image
-              className="object-cover object-center w-full h-full"
+              className="object-cover object-center"
               fill
               src="/assets/pages/homepage/sections/9-HandsBehindCraft/bg-wallpaper.png"
               alt="Hands-Craft Background Image"
