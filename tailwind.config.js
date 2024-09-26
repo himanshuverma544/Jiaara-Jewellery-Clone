@@ -8,6 +8,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '425px',
+        '2xs': '375px'
+      },
+      fontSize: {
+        '2xs': '0.625rem',
+        '3xs': '0.5rem'
+      },
       colors: {
         primaryBackground: "#f5eee4",
         secondaryBackground: "#fedcf4",
