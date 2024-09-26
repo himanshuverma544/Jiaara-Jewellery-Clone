@@ -7,6 +7,8 @@ import KeyBenefits from "@/components/pages/home/key-benefits/KeyBenefits";
 import BuildingWithPurpose from "@/components/pages/home/BuildingWithPurpose";
 import Testimonials from "@/components/pages/home/testimonials/Testimonials";
 import Sale from "@/components/pages/home/sale/Sale";
+import FollowOnInstagram from "@/components/pages/home/follow-on-instagram/FollowOnInstagram";
+import FeaturedDeals from "@/components/pages/home/featured-deals/FeaturedDeals";
 
 
 export default function Home() {
@@ -22,6 +24,8 @@ export default function Home() {
       <BuildingWithPurpose/>
       <Sale/>
       <Testimonials/>
+      {/* <FollowOnInstagram/> */}
+      <FeaturedDeals/>
     </div>
   );
 }
