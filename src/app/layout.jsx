@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ContextProvider>
           <Header/>
-            <main className="pb-12 bg-primaryBackground">
+            <main className="bg-primaryBackground">
               {children}
             </main>
           <Footer/>
