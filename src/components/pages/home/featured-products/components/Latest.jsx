@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 
-import { useRef } from 'react';
-
 import { 
   CarouselProvider,
   Slider,
@@ -61,13 +59,7 @@ const products = [
 
 export default function Latest() {
 
-  const carouselRef = useRef(null);
-
-  const autoPlayInterval = 3000;
-
-  const [currentSlide, visibleSlidesCount] = useVisibleSlides({
-    carouselRef,
-    autoPlayInterval,
+  const { visibleSlidesCount } = useVisibleSlides({
     desktopVisibleSlidesCount: 5,
     tabletVisibleSlidesCount: 4,
     mobileVisibleSlidesCount: 2
@@ -80,17 +72,15 @@ export default function Latest() {
       </h3>
 
       <CarouselProvider
-        ref={carouselRef}
         className="carousel w-screen px-3"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
         isIntrinsicHeight
-        currentSlide={currentSlide}
         visibleSlides={visibleSlidesCount}
         totalSlides={products.length}
         isPlaying
         playDirection="backward"
-        interval={autoPlayInterval}
+        interval={3000}
       >
         <Slider className="products-slide select-none cursor-grab active:cursor-grabbing">
           {products.map((product, index) =>

@@ -17,7 +17,8 @@ import { context } from "../../../context-API/context";
 import { storeData } from "../../../context-API/actions/action.creators";
 
 import useIntersectionObserver from "@/utils/hooks/general/useIntersectionObserver";
-import useVisibleSlides from "@/utils/hooks/pure-react-carousel/useVisibleSlides";
+
+import useCurrentSlide from "@/utils/hooks/pure-react-carousel/useCurrentSlide";
 
 
 const images = [
@@ -50,13 +51,7 @@ export default function HeroCarousel() {
 
   const isHeroSecVisible = useIntersectionObserver({ sectionRef });
   
-  const [currentSlide, visibleSlidesCount] = useVisibleSlides({
-    carouselRef,
-    autoPlayInterval: 5000,
-    desktopVisibleSlidesCount: 1,
-    tabletVisibleSlidesCount: 1,
-    mobileVisibleSlidesCount: 1
-  });
+  const { currentSlide } = useCurrentSlide({ carouselRef, autoPlayInterval: 5000 });
 
 
   useEffect(() => {
@@ -77,8 +72,7 @@ export default function HeroCarousel() {
         naturalSlideWidth={100}
         naturalSlideHeight={125}
         isIntrinsicHeight
-        currentSlide={currentSlide}
-        visibleSlides={visibleSlidesCount}
+        visibleSlides={1}
         totalSlides={images.length}
         isPlaying
         lockOnWindowScroll

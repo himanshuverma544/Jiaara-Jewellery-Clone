@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import { useRef } from "react";
-
 import { CarouselProvider, Slider, Slide } from "pure-react-carousel";
 
 import useVisibleSlides from "@/utils/hooks/pure-react-carousel/useVisibleSlides";
@@ -12,13 +10,10 @@ const photos = [];
 
 export default function Photos() {
 
-  const carouselRef = useRef(null);
-
-  const [_, visibleSlidesCount] = useVisibleSlides({ carouselRef });
+  const { visibleSlidesCount } = useVisibleSlides();
 
   return (
     <CarouselProvider
-      ref={carouselRef}
       className="photos-carousel w-screen px-3"
       naturalSlideWidth={100}
       naturalSlideHeight={125}

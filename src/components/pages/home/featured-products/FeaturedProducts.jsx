@@ -16,7 +16,6 @@ export default function FeaturedProducts() {
         <Latest/>
         <Trending/>
       </div>
-
     </section>
   );
 }

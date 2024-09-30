@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import { useRef } from 'react';
-
 import { 
   CarouselProvider,
   Slider,
@@ -18,13 +16,10 @@ const reels = [
 
 export default function Reels() {
 
-  const carouselRef = useRef(null);
-
-  const [_, visibleSlidesCount] = useVisibleSlides({ carouselRef });
+  const { visibleSlidesCount } = useVisibleSlides();
 
   return (
     <CarouselProvider
-      ref={carouselRef}
       className="reels-carousel w-screen px-3"
       naturalSlideWidth={100}
       naturalSlideHeight={125}

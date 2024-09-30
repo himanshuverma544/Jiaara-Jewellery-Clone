@@ -208,12 +208,7 @@ const saleCategories = {
 
 export default function Sale() {
   
-  const carouselRef = useRef(null);
-  const autoPlayInterval = 1000;
-
-  const [currentSlide, visibleSlidesCount] = useVisibleSlides({
-    carouselRef,
-    autoPlayInterval,
+  const { visibleSlidesCount } = useVisibleSlides({
     desktopVisibleSlidesCount: 3,
     tabletVisibleSlidesCount: 2,
     mobileVisibleSlidesCount: 1
@@ -234,16 +229,14 @@ export default function Sale() {
       </div>
       
       <CarouselProvider
-        ref={carouselRef}
         className="carousel w-screen px-3"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
         isIntrinsicHeight
-        currentSlide={currentSlide}
         visibleSlides={visibleSlidesCount}
         totalSlides={saleProducts.length}
-        isPlaying={false}
-        interval={autoPlayInterval}
+        isPlaying
+        interval={3000}
       >
         <Slider className="sales-products-slider select-none cursor-grab active:cursor-grabbing">
           {saleProducts.map((saleProduct, index) => 

@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 
-import { useRef } from 'react';
-
 import { 
   CarouselProvider,
   Slider,
@@ -55,12 +53,7 @@ const categories = [
 
 export default function Categories() {
 
-  const autoPlayInterval = 3000;
-  const carouselRef = useRef(null);
-
-  const [currentSlide, visibleSlidesCount] = useVisibleSlides({
-    carouselRef,
-    autoPlayInterval,
+  const { visibleSlidesCount } = useVisibleSlides({
     desktopVisibleSlidesCount: 3,
     tabletVisibleSlidesCount: 2,
     mobileVisibleSlidesCount: 1
@@ -74,16 +67,14 @@ export default function Categories() {
       </h2>
 
       <CarouselProvider
-        ref={carouselRef}
         className="carousel w-screen px-3"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
         isIntrinsicHeight
-        currentSlide={currentSlide}
         visibleSlides={visibleSlidesCount}
         totalSlides={categories.length}
         isPlaying
-        interval={autoPlayInterval}
+        interval={3000}
       >
         <Slider className="categories-slide select-none cursor-grab active:cursor-grabbing">
           {categories.map((category, index) =>
