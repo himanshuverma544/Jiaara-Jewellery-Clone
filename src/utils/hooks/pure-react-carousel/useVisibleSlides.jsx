@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import useWindowSize from "../general/useWindowSize";
 
 
-const useVisibleSlides = ({
-  carouselRef,
-  autoPlayInterval = 1000,
+const useVisibleSlidesNew = ({
   desktopBreakpoint = 1024,
   desktopVisibleSlidesCount = 3,
   tabletBreakpoint = 640,
@@ -14,7 +12,6 @@ const useVisibleSlides = ({
   mobileVisibleSlidesCount = 1,
 }) => {
 
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [visibleSlidesCount, setVisibleSlidesCount] = useState(mobileVisibleSlidesCount);
 
   const { screenWidth } = useWindowSize();
@@ -22,51 +19,22 @@ const useVisibleSlides = ({
 
   useEffect(() => {
 
-    const interval = setInterval(() => {
-      if (carouselRef.current) {
-        setCurrentSlide(
-          carouselRef.current.carouselStore.state.currentSlide
-        );
+    function updateVisibleSlidesCount() {
+
+      if (screenWidth >= desktopBreakpoint) {
+        setVisibleSlidesCount(desktopVisibleSlidesCount);
       }
-    }, autoPlayInterval);
-
-    return () => clearInterval(interval);
-
-  }, [carouselRef, autoPlayInterval]);
-
-
-  useEffect(() => {
-
-    const updateCarouselSlide = slidesToBeVisible => {
-      const {
-        currentSlide,
-        totalSlides,
-        visibleSlides
-      } = carouselRef.current.carouselStore.state;
-
-      setVisibleSlidesCount(slidesToBeVisible);
-
-      //this is a fix to reset currentSlide when screen resizes
-      if (
-        currentSlide >= (totalSlides - visibleSlides) ||
-        currentSlide >= (totalSlides - slidesToBeVisible)
-      ) {
-        setCurrentSlide(totalSlides - slidesToBeVisible);
+      else if (screenWidth >= tabletBreakpoint) {
+        setVisibleSlidesCount(tabletVisibleSlidesCount);
       }
-    };
+      else if (screenWidth <  tabletBreakpoint) {
+        setVisibleSlidesCount(mobileVisibleSlidesCount);
+      }
+    }
 
-    if (screenWidth >= desktopBreakpoint) {
-      updateCarouselSlide(desktopVisibleSlidesCount);
-    }
-    else if (screenWidth >= tabletBreakpoint) {
-      updateCarouselSlide(tabletVisibleSlidesCount);
-    }
-    else if (screenWidth <  tabletBreakpoint) {
-      updateCarouselSlide(mobileVisibleSlidesCount);
-    }
+    updateVisibleSlidesCount();
   },
     [
-      carouselRef,
       screenWidth,
       desktopBreakpoint,
       desktopVisibleSlidesCount,
@@ -74,12 +42,13 @@ const useVisibleSlides = ({
       tabletVisibleSlidesCount,
       mobileBreakpoint,
       mobileVisibleSlidesCount,
-      setVisibleSlidesCount,
-      setCurrentSlide
+      setVisibleSlidesCount
     ]
   );
 
-  return [currentSlide, visibleSlidesCount];
+  return {
+    visibleSlidesCount
+  };
 }
 
-export default useVisibleSlides;
+export default useVisibleSlidesNew;
