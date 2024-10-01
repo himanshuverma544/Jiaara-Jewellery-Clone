@@ -1,36 +1,48 @@
 import { useState, useEffect, useCallback } from 'react';
 
 
-export default function useCurrentSlide({ carouselRef, autoPlayInterval = 0 }) {
+export default function useCurrentSlide({ carouselRef = null, onSlideChange = undefined }) {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const getCurrentSlide = useCallback(() =>
+    carouselRef.current.carouselStore.state.currentSlide, [carouselRef]);
 
-  const getCurrentSlide = useCallback(() => {
-    return carouselRef.current.carouselStore.state.currentSlide;
-  }, [carouselRef]);
 
- 
   useEffect(() => {
 
-    if (autoPlayInterval) {
+    const theCarouselRef = carouselRef.current;
 
-      const interval = setInterval(() => {
-        
-        if (carouselRef.current) {
-          setCurrentSlide(
-            carouselRef.current.carouselStore.state.currentSlide
-          );
+    if (theCarouselRef) {
+
+      const initialSlide = getCurrentSlide();
+      setCurrentSlide(initialSlide);
+      
+      function trackSlideChange() {
+
+        const newSlide = getCurrentSlide();
+
+        if (newSlide !== currentSlide) {
+          setCurrentSlide(newSlide);
+
+          if (onSlideChange) {
+            onSlideChange(newSlide);
+          }
         }
-      }, autoPlayInterval);
+        else {
+          onSlideChange(newSlide);
+        }
+      }
+      
+      theCarouselRef.carouselStore.subscribe(trackSlideChange);
 
-      return () => clearInterval(interval);
+      return () =>
+        theCarouselRef.carouselStore.unsubscribe(trackSlideChange);
     }
-  }, [carouselRef, autoPlayInterval]);
+  }, [carouselRef, currentSlide, getCurrentSlide, onSlideChange]);
 
 
   return {
     currentSlide,
-    getCurrentSlide
   };
 }
