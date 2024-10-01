@@ -51,7 +51,7 @@ export default function HeroCarousel() {
 
   const isHeroSecVisible = useIntersectionObserver({ sectionRef });
   
-  const { currentSlide } = useCurrentSlide({ carouselRef, autoPlayInterval: 5000 });
+  const { currentSlide } = useCurrentSlide({ carouselRef });
 
 
   useEffect(() => {
