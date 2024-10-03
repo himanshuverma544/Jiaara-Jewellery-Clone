@@ -6,7 +6,7 @@ export default function useCurrentSlide({ carouselRef = null, onSlideChange = un
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const getCurrentSlide = useCallback(() =>
-    carouselRef.current.carouselStore.state.currentSlide, [carouselRef]);
+    carouselRef.current?.carouselStore?.state?.currentSlide, [carouselRef]);
 
 
   useEffect(() => {
@@ -25,12 +25,10 @@ export default function useCurrentSlide({ carouselRef = null, onSlideChange = un
         if (newSlide !== currentSlide) {
           setCurrentSlide(newSlide);
 
-          if (onSlideChange) {
-            onSlideChange(newSlide);
-          }
+           onSlideChange && onSlideChange(newSlide);
         }
         else {
-          onSlideChange(newSlide);
+          onSlideChange && onSlideChange(newSlide);
         }
       }
       
