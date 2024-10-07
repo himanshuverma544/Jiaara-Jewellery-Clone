@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import useWindowSize from "../general/useWindowSize";
 
 
-const useVisibleSlidesNew = ({
+const useVisibleSlides = ({
   desktopBreakpoint = 1024,
   desktopVisibleSlidesCount = 3,
   tabletBreakpoint = 640,
@@ -51,4 +51,4 @@ const useVisibleSlidesNew = ({
   };
 }
 
-export default useVisibleSlidesNew;
+export default useVisibleSlides;
