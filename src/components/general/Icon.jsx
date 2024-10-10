@@ -26,19 +26,22 @@ function isString(icon) {
   return typeof icon === "string";
 }
 
-const Icon = ({ icon, alt, className, innerClassName, ...props }) => {
+
+const Icon = ({ icon, alt = "", className = "", innerClassName = "", ...props }) => {
 
   if (isReactElement(icon)) {
     return (
       React.cloneElement(icon, { 'className': className, 'aria-label': alt, ...props })
     );
   }
+
   else if (isReactComponent(icon)) {
     const TheIcon = icon;
     return (
       <TheIcon className={className} aria-label={alt} {...props}/>
     );
   }
+
   else if (isImage(icon)) {
     return (
       <div className={className} {...props}>
@@ -51,6 +54,7 @@ const Icon = ({ icon, alt, className, innerClassName, ...props }) => {
       </div>
     );
   }
+
   else if (isString(icon)) {
     return (
       <span className={className} {...props}>
@@ -58,6 +62,7 @@ const Icon = ({ icon, alt, className, innerClassName, ...props }) => {
       </span>
     );
   }
+
   else {
     console.error("Error in the Icon Component:", { icon });
   }
