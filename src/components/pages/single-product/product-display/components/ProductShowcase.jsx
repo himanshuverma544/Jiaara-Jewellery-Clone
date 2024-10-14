@@ -9,16 +9,15 @@ import {
   DotGroup
 } from 'pure-react-carousel';
 
-import { IoMdHeartEmpty } from "react-icons/io";
-
-import Rating from "@/components/general/Rating";
 import Media from "@/components/general/Media";
 
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useGoToSlide from "@/utils/hooks/pure-react-carousel/useGoToSlide";
 import useCurrentSlide from "@/utils/hooks/pure-react-carousel/useCurrentSlide";
+import useRemoveExcessBottomPadding from "@/utils/hooks/pure-react-carousel/useRemoveExcessBottomPadding";
 
 import setStatePromptly from "@/utils/functions/setStatePromptly";
+import ProductUpperOverview from "./general/ProductUpperOverview";
 
 const productsDir = "/assets/pages/homepage/products";
 
@@ -89,13 +88,16 @@ const productMedia = [
   }
 ];
 
+//TODO: Just below tablet screen size, secondary carousel turns into vertical orientation.
 
 export default function ProductShowcase() {
 
   const primaryCarouselRef = useRef(null);
   const secondaryCarouselRef = useRef(null);
+
+  const currContRef = useRef(null);
   
-  const { screenWidth, breakpoints: { lg } } = useWindowSize();
+  const { screenWidth, breakpoints: { md } } = useWindowSize();
 
   const { goToSlide } = useGoToSlide();
 
@@ -103,7 +105,6 @@ export default function ProductShowcase() {
     carouselRef: primaryCarouselRef,
     onSlideChange: onPrimarySlideChange
   });
-  
 
   const [
     secondaryCarouselSelectedSlideIndex,
@@ -112,6 +113,16 @@ export default function ProductShowcase() {
 
   const [preventSecondarySlide, setPreventSecondarySlide] = useState(false);
   
+  const { 
+    sliderTrayWrapClassName,
+    carouselSlidePaddingBottom: secondaryCarouselSlidePaddingBottom
+  }
+   = useRemoveExcessBottomPadding({
+    carouselParentNodeRef: currContRef,
+    sliderTrayWrapClassName: "secondary-display-product-carousel",
+    paddingBottom: screenWidth < md ? "0%" : "470%"
+  });
+
 
   function onPrimarySlideChange(primarySlideIndex) {
 
@@ -139,34 +150,34 @@ export default function ProductShowcase() {
     });
   };
   
+  const applySecondaryCarouselSlideSelection = slideIndex => {
+
+    if (secondaryCarouselSelectedSlideIndex === slideIndex) {
+      return "border-[3px] overlay-black-50 border-quaternaryBackground";
+    }
+  }
+
+  const handleSecondaryCarouselSlidePaddingBottom = () => {
+
+    if (screenWidth >= md) {
+      return { paddingBottom: secondaryCarouselSlidePaddingBottom };
+    }
+    return {};
+  }
   
   return (
-    <div className="product-showcase flex flex-col items-center justify-center gap-2">
-      
-      <div className="wrapper w-full flex justify-between items-start gap-5 px-[2vw]">
-
-        <div className="product-overview-upper">
-          <h2 className="product-name uppercase">
-            {`Jiaara Pure Brass Contemporary Geometric Cuff Bracelet for Women`}
-          </h2>
-
-          <div className="wrapper flex items-center gap-3">
-            <Rating className="product-rating text-lg" given={4.5}/>
-            <div className="reviews-count text-2xs uppercase opacity-50">
-              3 Reviews
-            </div>
-          </div>
-        </div>
-
-        <button className="add-to-wishlist-btn">
-          <IoMdHeartEmpty className="wishlist-icon text-xl"/>
-        </button>
-      </div>
+    <div
+      ref={currContRef}
+      className="product-showcase flex flex-col items-center justify-center gap-2 md:flex-row-reverse md:items-start"
+    >
+      {screenWidth < md &&
+        <ProductUpperOverview className="w-full flex justify-between items-start gap-5 px-[4vw]"/>
+      }
 
       {/* Primary Display Product Carousel */}
       <CarouselProvider
         ref={primaryCarouselRef}
-        className="primary-display-product-carousel w-[95vw] relative"
+        className="primary-display-product-carousel w-[95vw] relative md:w-[40vw] lg:w-[24rem]"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
         isIntrinsicHeight
@@ -180,11 +191,12 @@ export default function ProductShowcase() {
               index={index}
               className="mx-[1.25vw]"
               data-slide-num={index}
+              innerClassName="md:h-[23rem]"
             >
               <Media
-                imgContClassName="img-cont relative w-full h-[80vw]"
-                imgClassName="object-cover object-center rounded-sm"
-                videoClassName="w-full h-[80vw] object-fill rounded-sm"
+                imgContClassName="img-cont relative w-full h-[80vw] md:h-[inherit]"
+                imgClassName="object-cover object-center rounded"
+                videoClassName="w-full h-[80vw] object-fill rounded-sm md:h-[inherit]"
                 src={singleProductMedia.url}
                 alt={singleProductMedia.id}
               />
@@ -200,32 +212,40 @@ export default function ProductShowcase() {
       {/* Secondary Display Product Carousel */}
       <CarouselProvider
         ref={secondaryCarouselRef}
-        className="secondary-display-product-carousel w-[96vw] flex justify-center items-center"
+        className="secondary-display-product-carousel w-[96vw] flex justify-center items-center md:w-auto"
         naturalSlideWidth={100}
         naturalSlideHeight={125}
-        isIntrinsicHeight
+        isIntrinsicHeight={screenWidth < md}
         visibleSlides={4}
         totalSlides={productMedia.length}
+        orientation={screenWidth < md ? "horizontal" : "vertical"}
       >
-        <Slider className="secondary-product-variations-slider">
+        <Slider
+          className="secondary-product-variations-slider"
+          classNameTrayWrap={sliderTrayWrapClassName}
+          classNameTray={`
+            slider-tray
+            ${screenWidth >= md && "flex flex-col items-center justify-center gap-2"}
+          `}
+        >
           {productMedia.map((singleProductMedia, index) =>
             <Slide
               key={singleProductMedia.id}
               index={index}
               className={`
                 mx-[1.8vw]
-                ${secondaryCarouselSelectedSlideIndex === index &&
-                  "border-[3px] overlay-black-50 border-quaternaryBackground"
-                }
+                md:size-[4.9rem]
+                md:mx-0
+                ${applySecondaryCarouselSlideSelection(index)}
               `}
+              style={handleSecondaryCarouselSlidePaddingBottom}
               data-slide-num={index}
-              onMouseOver={() => screenWidth >= lg && handleSecondaryCarouselSlide(index)}
-              onClick={() => screenWidth < lg && handleSecondaryCarouselSlide(index)}
+              onClick={() => handleSecondaryCarouselSlide(index)}
             >
               <Media
-                imgContClassName="img-cont size-[20vw] relative"
+                imgContClassName="img-cont size-[20vw] relative md:size-[4.5rem]"
                 imgClassName="object-cover object-center rounded-sm"
-                videoClassName="size-[20vw] object-cover object-center rounded-sm"
+                videoClassName="size-[20vw] object-cover object-center rounded-sm md:size-[4.5rem]"
                 src={singleProductMedia.url}
                 alt={singleProductMedia.id}
               />
