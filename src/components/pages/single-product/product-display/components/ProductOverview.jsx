@@ -1,12 +1,15 @@
 import { FiMinus, FiPlus } from "react-icons/fi";
 
+import ProductUpperOverview from "./general/ProductUpperOverview";
 import ProductQuantity from "@/components/global/ProductQuantity";
 
 import getDiscountPercentage from "@/utils/functions/getDiscountPercentage";
+import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 
 const product = {
   name: "Jiaara Pure Brass Contemporary Geometric Cuff Bracelet for Women",
+  highlightText: "Jiaara Brass Collection brings a fresh appeal, breaking away from traditional styles. If you're looking to switch up your look this season, consider brass accessories. They offer a unique and bold statement, making your outfits stand out while adding a touch of elegance and sophistication to your style.",
   actualPrice: "1599",
   discountedPrice: "599",
   rating: 4.3,
@@ -16,40 +19,54 @@ const product = {
 
 export default function ProductOverview() {
 
+  const {
+    isExpanded,
+    toggleText,
+    displayText
+  }
+  = useTruncateText({ text: product.highlightText, wordLimit: 17 });
+
   return (
-    <div className="product-overview-lower flex flex-col gap-4 px-[2vw] py-5">
+    <div className="product-overview-lower flex flex-col gap-4 px-[4vw] pt-5 md:h-[23rem] md:px-[3vw] md:pt-0 md:overflow-y-auto">
 
-    <div className="wrapper flex flex-wrap items-center gap-4 xs:justify-around">
+      <ProductUpperOverview className="w-full hidden md:flex md:justify-between md:items-start md:gap-5"/>
 
-      <div className="price flex items-center gap-3">
-        <div className="discounted-price text-xl font-semibold text-primaryFont sm:text-2xl">
-          {`₹ ${product.discountedPrice}`}
+      <div className="wrapper flex flex-wrap items-center gap-4 xs:justify-around md:flex-col md:items-start">
+
+        <div className="price flex items-center gap-3">
+          <div className="discounted-price text-xl font-semibold text-primaryFont sm:text-2xl">
+            {`₹ ${product.discountedPrice}`}
+          </div>
+          <div className="actual-price line-through opacity-50 sm:text-lg">
+            {`₹ ${product.actualPrice}`}
+          </div>
+          <div className="discount-percentage border-2 px-2 py-1 rounded text-xs uppercase font-semibold border-primaryFont text-primaryFont sm:text-sm">
+            {`Save ${getDiscountPercentage({
+              actualPrice: product.actualPrice,
+              discountedPrice: product.discountedPrice
+            })}%`}
+          </div>
         </div>
-        <div className="actual-price line-through opacity-50 sm:text-lg">
-          {`₹ ${product.actualPrice}`}
+
+        <div className={`
+          stock-status text-sm sm:text-base
+          ${product.inStock ? "text-green-600" : "text-red-600"}
+        `}>
+          {product.inStock ? `9 item(s) left in Stock.` : `Currently, Out of Stock.`}
         </div>
-        <div className="discount-percentage border-2 px-2 py-1 rounded text-xs uppercase font-semibold border-primaryFont text-primaryFont sm:text-sm">
-          {`Save ${getDiscountPercentage({
-            actualPrice: product.actualPrice,
-            discountedPrice: product.discountedPrice
-          })}%`}
-        </div>
+        
+      </div>
+      
+      <div className="product-highlight-wrapper px-[1vw] md:px-0">
+        <p className="product-highlight-text py-1 text-xs sm:text-sm">
+          {displayText}
+        </p>
+        <button className="text-xs text-primaryFont" onClick={toggleText}>
+          {isExpanded ? 'See Less' : 'See More'}
+        </button>
       </div>
 
-      <div className={`
-        stock-status text-sm sm:text-base
-        ${product.inStock ? "text-green-600" : "text-red-600"}
-      `}>
-        {product.inStock ? `9 item(s) left in Stock.` : `Currently, Out of Stock.`}
-      </div>
-
-    </div>
-
-    <p className="product-highlight-text text-xs px-[1vw] py-1 sm:text-sm">
-      Jiaara Brass Collection offers a unique appeal with a break from the traditional styles we are used to seeing. If you want to shake things up this season,consider accessorizing with Brass.
-    </p>
-
-      <form className="actions flex justify-between items-center mt-2 xs:justify-around">
+      <form className="actions flex justify-between items-center mt-2 xs:justify-around md:justify-between lg:justify-start lg:gap-[5vw]">
         
         <ProductQuantity
           className="quantity"
@@ -67,6 +84,8 @@ export default function ProductOverview() {
             text-xs uppercase
             bg-primaryFont text-white
             sm:text-base
+            md:px-[3vw]
+            md:text-sm
             ${!product.inStock && "opacity-50"}
           `}
           type="submit"
