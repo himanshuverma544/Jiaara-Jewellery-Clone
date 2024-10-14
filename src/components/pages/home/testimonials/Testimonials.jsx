@@ -96,8 +96,9 @@ export default function Testimonials() {
 
   const { clamp } = useClamp();
 
-  const { nodeClassName } = useRemoveExcessBottomPadding({ 
-    currSecRef,
+  const { sliderTrayWrapClassName, carouselSlidePaddingBottom } = useRemoveExcessBottomPadding({ 
+    carouselParentNodeRef: currSecRef,
+    sliderTrayWrapClassName: "testimonials",
     paddingBottom: clamp({ 
       xs: { min: 22, current: 66, max: 32 },
       lg: { min: 23, current: 0, max: 23 }
@@ -127,7 +128,7 @@ export default function Testimonials() {
       >
         <Slider
           className="testimonials-slider mx-[3vw] select-none cursor-grab active:cursor-grabbing"       
-          classNameTrayWrap={nodeClassName}
+          classNameTrayWrap={sliderTrayWrapClassName}
           classNameTray="flex flex-col items-center justify-center gap-7"
         >
           {screenWidth >= lg &&
@@ -137,7 +138,7 @@ export default function Testimonials() {
                 index={index}
                 className="h-36"
                 innerClassName="flex justify-center items-center gap-7"
-                style={{ paddingBottom: 0 }}
+                style={{ paddingBottom: carouselSlidePaddingBottom }}
               >
                 {testimonialPair.map(testimonial => (
                   <Testimonial
@@ -155,7 +156,7 @@ export default function Testimonials() {
                 index={index}
                 className="h-36"
                 innerClassName="flex justify-center items-center gap-7"
-                style={{ paddingBottom: 0 }}
+                style={{ paddingBottom: carouselSlidePaddingBottom }}
               >
                 <Testimonial
                   key={testimonial.id}
