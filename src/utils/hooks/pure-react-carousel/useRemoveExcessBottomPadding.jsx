@@ -5,12 +5,14 @@ import useSleep from "../general/useSleep";
 
 
 export default function useRemoveExcessBottomPadding({
-  currSecRef = null,
-  nodeClassName = "carousel-tray-wrapper",
+  carouselParentNodeRef = null,
+  sliderTrayWrapClassName = "",
   paddingBottom = 0,
   sleepTimeMs = 100
 }) {
 
+  sliderTrayWrapClassName = `${sliderTrayWrapClassName}-carousel-tray-wrapper`;
+  
   const { screenWidth } = useWindowSize();
 
   const { sleep, clearSleep } = useSleep();
@@ -20,7 +22,7 @@ export default function useRemoveExcessBottomPadding({
 
     const removeExcessBottomPadding = () => {
       
-      const carouselTrayWrapperNode = currSecRef.current?.querySelector(`.${nodeClassName}`);
+      const carouselTrayWrapperNode = carouselParentNodeRef.current?.querySelector(`.${sliderTrayWrapClassName}`);
       
       if (carouselTrayWrapperNode) {
         carouselTrayWrapperNode.style.paddingBottom = paddingBottom;
@@ -37,9 +39,19 @@ export default function useRemoveExcessBottomPadding({
 
     return () => clearSleep();
 
-  }, [currSecRef, nodeClassName, paddingBottom, screenWidth, sleepTimeMs, sleep, clearSleep]);
+  }, [
+      carouselParentNodeRef,
+      sliderTrayWrapClassName,
+      paddingBottom,
+      screenWidth,
+      sleepTimeMs,
+      sleep,
+      clearSleep
+    ]
+  );
 
   return {
-    nodeClassName,
+    sliderTrayWrapClassName,
+    carouselSlidePaddingBottom: 0
   };
 }
