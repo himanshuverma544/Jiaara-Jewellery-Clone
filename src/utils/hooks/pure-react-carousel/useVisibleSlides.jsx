@@ -10,7 +10,7 @@ const useVisibleSlides = ({
   tabletVisibleSlidesCount = 2,
   mobileBreakpoint = 0,
   mobileVisibleSlidesCount = 1,
-}) => {
+} = {}) => {
 
   const [visibleSlidesCount, setVisibleSlidesCount] = useState(mobileVisibleSlidesCount);
 
