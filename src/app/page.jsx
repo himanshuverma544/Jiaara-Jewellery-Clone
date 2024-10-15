@@ -3,7 +3,7 @@ import Categories from "@/components/pages/home/Categories";
 import FeaturedProducts from "@/components/pages/home/featured-products/FeaturedProducts";
 import CelebrityStyle from "@/components/pages/home/CelebrityStyle";
 import Collections from "@/components/pages/home/Collections";
-import KeyBenefits from "@/components/pages/home/key-benefits/KeyBenefits";
+import KeyBenefits from "@/components/global/key-benefits/KeyBenefits";
 import BuildingWithPurpose from "@/components/pages/home/BuildingWithPurpose";
 import Testimonials from "@/components/pages/home/testimonials/Testimonials";
 import Sale from "@/components/pages/home/sale/Sale";
