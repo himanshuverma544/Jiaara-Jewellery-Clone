@@ -1,14 +1,4 @@
-'use client';
-
-import Image from 'next/image';
-
-import { 
-  CarouselProvider,
-  Slider,
-  Slide,
-} from 'pure-react-carousel';
-
-import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
+import ProductsCarousel from '@/components/global/ProductsCarousel';
 
 
 const products = [
@@ -59,57 +49,18 @@ const products = [
 
 export default function Trending() {
 
-  const { visibleSlidesCount } = useVisibleSlides({
-    desktopVisibleSlidesCount: 5,
-    tabletVisibleSlidesCount: 4,
-    mobileVisibleSlidesCount: 2
-  });
-
   return (
-    <div className="trending flex flex-col gap-6">
-      <h3 className="heading text-center text-2xl uppercase text-primaryFont">
-        Trending
-      </h3>
-
-      <CarouselProvider
-        className="carousel w-screen px-3"
-        naturalSlideWidth={100}
-        naturalSlideHeight={125}
-        isIntrinsicHeight
-        visibleSlides={visibleSlidesCount}
-        totalSlides={products.length}
-        isPlaying
-        interval={3000}
-      >
-        <Slider className="products-slide select-none cursor-grab active:cursor-grabbing">
-          {products.map((product, index) =>
-            <Slide
-              key={product.id}
-              index={index}
-              className="mx-[2.5vw]"
-              innerClassName="flex flex-col gap-3"
-            >
-              <div className="img-cont relative w-full h-[40vw] sm:h-[20vw] lg:h-[15vw]">
-                <Image
-                  className="rounded-3xl"
-                  fill
-                  src={product.image}
-                  alt={product.name}
-                />
-              </div>
-              
-              <div className="product-details flex flex-col items-center justify-center gap-1 text-center text-xs text-primaryFont">
-                <div className="name">
-                  {product.name}
-                </div>
-                <div className="price">
-                  {`₹ ${product.price}`}
-                </div>
-              </div>
-            </Slide>
-          )}
-        </Slider>   
-      </CarouselProvider>
-    </div>
+    <ProductsCarousel
+      className="trending"
+      headingClassName="text-center text-2xl uppercase text-primaryFont"
+      heading="Trending"
+      carousel={{ 
+        isPlaying: true,
+        interval: 3000
+      }}
+      slideClassName="mx-[2.5vw]"
+      slideInnerClassName="flex flex-col gap-3"
+      data={{ products }}
+    />
   );
 }
