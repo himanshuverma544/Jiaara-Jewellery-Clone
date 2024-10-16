@@ -48,7 +48,7 @@ export default function Product({
       }
 
       {(btnText || icon) &&
-        <button className={`add-to-cart-btn w-[97%] flex items-center ${btnClassName}`}>
+        <button className={`add-to-cart-btn w-[97%] flex justify-center items-center ${btnClassName}`}>
           {btnText &&
             <span className={`btn-text w-[80%] py-2 ${btnTextClassName}`}>
               {btnText}
