@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { getAllRoutes } from '@/routes';
 
@@ -18,6 +19,8 @@ import { context } from "../../../context-API/context";
 
 
 const routes = getAllRoutes();
+const [HOME] = routes;
+
 
 const headerBtnsIcon = [
   CiSearch,
@@ -46,7 +49,7 @@ export default function Header() {
       `}
     >
 
-      <div className="app-brand img-cont-wrapper">
+      <Link className="app-brand img-cont-wrapper" href={HOME?.pathname}>
         <div className="img-cont size-[100px] relative">
           <Image
             fill
@@ -55,7 +58,7 @@ export default function Header() {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-      </div>
+      </Link>
 
       <div className="wrapper w-full flex relative">
         
