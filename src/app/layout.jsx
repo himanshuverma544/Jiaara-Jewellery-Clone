@@ -4,6 +4,7 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import "./globals.css";
 
 import Header from "@/components/pages/layout/Header";
+import Main from "@/components/pages/layout/Main";
 import Footer from "@/components/pages/layout/Footer";
 
 import ContextProvider from "@/context-API/ContextProvider";
@@ -24,9 +25,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ContextProvider>
           <Header/>
-            <main className="bg-primaryBackground">
-              {children}
-            </main>
+            <Main childComponents={children}/>
           <Footer/>
         </ContextProvider>
       </body>
