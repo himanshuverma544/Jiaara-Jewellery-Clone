@@ -12,6 +12,8 @@ const Accordion = ({
   className = "",
   title = "",
   titleClassName = "",
+  enableDivider = false,
+  dividerClassName = "",
   content = <></>,
   contentClassName = "",
   openIcon = "+",
@@ -29,7 +31,7 @@ const Accordion = ({
 
 
   return (
-    <div className={`accordion ${className} border-b`}>
+    <div className={`accordion ${className} flex flex-col border-b`}>
       <button
         onClick={toggleAccordion}
         className={`
@@ -47,6 +49,10 @@ const Accordion = ({
           {!isOpen ? <Icon icon={openIcon}/> : <Icon icon={closeIcon}/>}
         </span>
       </button>
+
+      {enableDivider &&
+        <hr className={`w-full ${dividerClassName}`}/>
+      }
 
       <CSSTransition
         in={isOpen}
