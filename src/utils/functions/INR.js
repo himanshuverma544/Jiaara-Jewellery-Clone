@@ -5,5 +5,5 @@ export default function formatIndianNumber(number) {
   const otherDigits = numStr.slice(0, -3);
   const formattedOtherDigits = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
 
-  return otherDigits ? '₹. ' + formattedOtherDigits + ',' + lastThreeDigits : lastThreeDigits;
+  return ('₹. ' + (otherDigits ? formattedOtherDigits + ',' + lastThreeDigits : lastThreeDigits));
 }
