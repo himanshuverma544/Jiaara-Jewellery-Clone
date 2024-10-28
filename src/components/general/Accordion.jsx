@@ -12,8 +12,16 @@ const Accordion = ({
   className = "",
   title = "",
   titleClassName = "",
-  enableDivider = false,
-  dividerClassName = "",
+  divider = {
+    upper: {
+      className: "",
+      isEnabled: false
+    },
+    bottom: {
+      className: "",
+      isEnabled: false
+    }
+  },
   content = <></>,
   contentClassName = "",
   openIcon = "+",
@@ -31,7 +39,7 @@ const Accordion = ({
 
 
   return (
-    <div className={`accordion ${className} flex flex-col border-b`}>
+    <div className={`accordion ${className} flex flex-col `}>
       <button
         onClick={toggleAccordion}
         className={`
@@ -50,8 +58,8 @@ const Accordion = ({
         </span>
       </button>
 
-      {enableDivider &&
-        <hr className={`w-full ${dividerClassName}`}/>
+      {divider.upper.isEnabled &&
+        <hr className={`w-full ${divider.upper.className}`}/>
       }
 
       <CSSTransition
@@ -65,6 +73,10 @@ const Accordion = ({
           icon={content}
         />
       </CSSTransition>
+
+      {(isOpen && divider.bottom.isEnabled) &&
+        <hr className={`w-full ${divider.bottom.className}`}/>
+      }
     </div>
   );
 };
