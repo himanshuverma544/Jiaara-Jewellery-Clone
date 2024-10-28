@@ -16,6 +16,10 @@ main:not(:has(div.home-page)) {
 
 @layer utilities {
 
+  input::selection.input-selection-primaryFont {
+    @apply bg-primaryFont text-white
+  }
+
   .text-balance {
     text-wrap: balance;
   }
