@@ -4,8 +4,8 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import Accordion from "@/components/general/Accordion";
-import CheckoutProductsList from "./components/CheckoutProductsList";
-import CouponForm from "@/components/pages/checkout/order-summary/components/CouponForm";
+import UserProductsList from "@/components/global/UserProductsList";
+import CouponForm from "@/components/global/CouponForm";
 
 import OrderCalculation from "./components/OrderCalculation";
 
@@ -31,7 +31,7 @@ export default function OrderSummary({ className = "" }) {
             isEnabled: true
           },
         }}
-        content={<CheckoutProductsList/>}
+        content={<UserProductsList/>}
         iconClassName="text-primaryFont text-xl"
         openIcon={<MdKeyboardArrowDown/>}
         closeIcon={<MdKeyboardArrowUp/>}
