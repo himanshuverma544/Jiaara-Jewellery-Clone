@@ -22,7 +22,8 @@ module.exports = {
         tertiaryBackground: "#e5bae7",
         quaternaryBackground: "#b783a7",
         quinaryBackground: "#f8e9f3",
-        senaryBackground: "#e1d1dc", 
+        senaryBackground: "#e1d1dc",
+        septenaryBackground: "#FAF7F2",
 
         primaryFont: "#663c59",
         primaryButton: "#ffddf4",
