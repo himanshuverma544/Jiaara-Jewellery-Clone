@@ -38,7 +38,7 @@ const indianStates = [
 ];
 
 
-export default function CheckoutForm({ className = ""}) {
+export default function CheckoutForm({ className = "" }) {
 
   const onSubmit = data => {
     console.log(data);
