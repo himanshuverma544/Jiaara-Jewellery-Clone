@@ -9,7 +9,7 @@ const INITIAL_QTY = 1;
 
 
 export default function ProductQuantity({
-  className = "",
+  theClassName = "",
   incrementIcon = "+",
   decrementIcon = "-",
   inputClassName = "",
@@ -66,10 +66,14 @@ export default function ProductQuantity({
   }
 
   return (
-    <div className={`${className} flex items-stretch`}>
+    <div className={`quantity ${theClassName}`}>
       <button
         className={`
-          increment-btn px-3 py-2 rounded-s font-semibold ${buttonClassName}
+          increment-btn
+          flex justify-center items-center
+          rounded-s
+          font-semibold
+          ${buttonClassName}
           ${disableIncrementButton() && "opacity-50"}
         `}
         type="button"
@@ -80,7 +84,8 @@ export default function ProductQuantity({
       </button>
       <input
         className={`
-          quantity-count w-[2.7rem] px-2 py-1 text-center ${inputClassName}
+          quantity-count
+          ${inputClassName}
           ${isOutOfStock() && "opacity-50"}
         `}
         autoComplete="off"
@@ -90,8 +95,12 @@ export default function ProductQuantity({
       />
       <button
         className={`
-          decrement-btn px-3 py-2 rounded-e font-semibold ${buttonClassName}
-          ${disableDecrementButton() && "opacity-50"}  
+          decrement-btn
+          flex justify-center items-center
+          rounded-e
+          font-semibold
+          ${buttonClassName}
+          ${disableDecrementButton() && "opacity-50"}
         `}
         type="button"
         onClick={handleDecrement}
