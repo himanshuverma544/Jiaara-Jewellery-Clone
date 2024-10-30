@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+import { IoCloseOutline } from "react-icons/io5";
+
+import Icon from "@/components/general/Icon";
+
 import INR from "@/utils/functions/INR";
 
 const dirPath = "/assets/pages/homepage/products/only-product";
@@ -31,35 +35,92 @@ const productsList = [
   }
 ];
 
+const Component = Icon;
 
-export default function UsersProductsList({ className = "" }) {
+export default function UserProductsList({
+  theClassName = "",
+  context = {
+    isCart: false,
+    isCheckout: false
+  },
+  rowClassName = "",
+  dividerClassName = "",
+  divider = false,
+  productImageContClassName = "",
+  productImageClassName = "",
+  productDetailsClassName = "",
+  productQuantityComponent = <></>,
+  productRemoveButtonClassName = ""
+}) {
+
+  const TotalPrice = ({ className = "", amount = 0 }) => {
+    return (
+      <div className={className}>
+        {INR(amount)}
+      </div>
+    );
+  };
+
 
   return (
-    <ul className={`checkout-products-list flex flex-col gap-3 p-[5vw] rounded-lg bg-white ${className}`}>
-      {productsList.map(product => 
-        <li key={product.id} className="flex justify-between">
-          <div className="img-cont relative size-[25vw] max-w-[7rem] max-h-[7rem]">
-            <Image
-              fill
-              className="object-cover border rounded border-tertiaryBackground"
-              src={product.image}
-              alt={product.name}
-            />
-          </div>
+    <ul className={`${theClassName} flex flex-col gap-3`}>
 
-          <div className="product-details w-[40%] flex flex-col gap-1 px-1 text-xs 2xs:text-sm">
-            <div className="product-name">
-              {product.name}
+      {productsList.map((product, index) =>
+        <>
+          <li
+            key={product.id}
+            className={`row-${index + 1} ${rowClassName}`}
+          >
+            <div className={`img-cont relative ${productImageContClassName}`}>
+              <Image
+                fill
+                className={`object-cover ${productImageClassName}`}
+                src={product.image}
+                alt={product.name}
+              />
             </div>
-            <div className="quantity">
-              {`Qty: ${product.quantity}`}
-            </div>
-          </div>
 
-          <div className="total-price px-1 text-xs 2xs:text-sm">
-            {INR(product.totalPrice)}
-          </div>
-        </li>  
+            <div className={`product-details ${productDetailsClassName}`}>
+              <div className="product-name font-semibold">
+                {product.name}
+              </div>
+              
+              {context.isCheckout &&
+                <div className="quantity">
+                  {`Qty: ${product.quantity}`}
+                </div>
+              }
+              {context.isCart && 
+                <TotalPrice
+                  className="total-price mt-1"
+                  amount={product.totalPrice}
+                />
+              }
+            </div>
+
+            {context.isCheckout &&
+              <TotalPrice
+                className="total-price px-1 text-xs 2xs:text-sm"
+                amount={product.totalPrice}
+              />
+            }
+
+            {context.isCart &&
+              <Component icon={productQuantityComponent}/>
+            }
+
+            {context.isCart &&
+              <button className={`remove-btn ${productRemoveButtonClassName}`}>
+                <IoCloseOutline className="cross-icon"/>
+              </button>
+            }
+          </li>
+          {divider && productsList.length - 1 !== index &&
+            <li>
+              <hr className={`divider ${dividerClassName}`}/>
+            </li>
+          }
+        </>
       )}
     </ul>
   );
