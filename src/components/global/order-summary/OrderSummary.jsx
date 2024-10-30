@@ -13,7 +13,7 @@ import OrderCalculation from "./components/OrderCalculation";
 export default function OrderSummary({ className = "" }) {
 
   return (
-    <div className="order-summary flex flex-col px-[8vw] py-5">
+    <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
       <div className="heading text-xl text-primaryFont sm:text-2xl">
         Order Summary
       </div>
@@ -31,20 +31,32 @@ export default function OrderSummary({ className = "" }) {
             isEnabled: true
           },
         }}
-        content={<UserProductsList/>}
+        content={
+          <UserProductsList
+            theClassName="checkout-products-list p-[5vw] rounded-lg bg-white"
+            context={{ isCheckout: true }}
+            rowClassName="flex justify-between"
+            divider={true}
+            dividerClassName="my-3 border-black"
+            productImageContClassName="size-[25vw] max-w-[7rem] max-h-[7rem]"
+            productImageClassName="border rounded-lg border-tertiaryBackground"
+            productDetailsClassName="w-[40%] flex flex-col gap-1 px-1 text-xs uppercase 2xs:text-sm"
+            productRemoveButtonClassName="text-base"
+          />
+        }
         iconClassName="text-primaryFont text-xl"
         openIcon={<MdKeyboardArrowDown/>}
         closeIcon={<MdKeyboardArrowUp/>}
       />
 
-      <CouponForm className="pb-5"/>
+      <CouponForm className="mb-5"/>
 
       <hr className="border-primaryFont"/>
 
       <OrderCalculation/>
 
-      <button className="checkout-btn py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white">
-        Checkout
+      <button className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white">
+        Place Order
       </button>
     </div>
   );
