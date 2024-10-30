@@ -69,9 +69,9 @@ export default function ProductOverview() {
       <form className="actions flex justify-between items-center mt-2 xs:justify-around md:justify-between lg:justify-start lg:gap-[5vw]">
         
         <ProductQuantity
-          className="quantity"
-          inputClassName="text-sm bg-septenaryBackground text-primaryFont sm:text-base sm:py-2"
-          buttonsClassName="text-sm bg-white text-primaryFont sm:text-base sm:py-2"
+          theClassName="flex items-stretch"
+          inputClassName="w-[2.7rem] px-2 py-1 text-center text-sm bg-septenaryBackground text-primaryFont sm:text-base sm:py-2"
+          buttonsClassName="px-3 py-2 text-sm bg-white text-primaryFont sm:text-base sm:py-2"
           incrementIcon={FiPlus}
           decrementIcon={FiMinus}
           stockLeft={9}
