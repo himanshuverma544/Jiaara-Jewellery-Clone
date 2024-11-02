@@ -19,7 +19,7 @@ export default function NavItem({
   titleClass = ""
 }) {
 
-  const isActive = useLinkActive({ href });
+  const { isActive } = useLinkActive({ href });
 
   return (
     <li className="nav-item">
