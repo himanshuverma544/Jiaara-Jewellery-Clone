@@ -7,10 +7,10 @@ import { MdPayment } from "react-icons/md";
 import Benefit from "./components/Benefit";
 
 
-export default function KeyBenefits() {
+export default function KeyBenefits({ className = "" }) {
 
   return (
-    <section id="key-benefits" className="w-full flex flex-wrap justify-evenly items-stretch px-[16vw] py-4 bg-quaternaryBackground lg:px-[5vw]">
+    <section id="key-benefits" className={`w-full flex flex-wrap justify-evenly items-stretch px-[16vw] py-4 bg-quaternaryBackground lg:px-[5vw] ${className}`}>
       <Benefit
         className="free-shipping"
         icon={LiaShippingFastSolid}
