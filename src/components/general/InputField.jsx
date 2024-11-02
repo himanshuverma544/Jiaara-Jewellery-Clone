@@ -7,14 +7,20 @@ const Content = Icon;
 
 export default function InputField({
   className = "",
+  onClick = () => {},
 
   input = {
+    ref: null,
     id: "",
     inputName: "",
     type: "text",
     className: "",
     placeholder: "",
     value: "",
+    icon: {
+      className: "",
+      theIcon: <></>
+    },
     options: [{
       inputGroupClassName: "",
       value: "",
@@ -23,6 +29,7 @@ export default function InputField({
         textClassName: "",
         text: "",
       },
+      disabled: false
     }],
     autoComplete: "on",
     autoFocus: false,
@@ -30,7 +37,8 @@ export default function InputField({
     maxLength: undefined,
     min: undefined,
     max: undefined,
-    onChange: () => {}
+    readOnly: false,
+    onChange: () => {},
   },
 
   label = {
@@ -54,59 +62,64 @@ export default function InputField({
   const { register, formState: { errors } } = useForm();
 
   const validationRules = {
-    ...(input.required && {
-      required: validation.messages.required
+    ...(input?.required && {
+      required: validation?.messages?.required
     }),
 
-    ...(input.type === "email" && {
+    ...(input?.type === "email" && {
       pattern: {
         value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-        message: validation.messages.invalidEmail
+        message: validation?.messages?.invalidEmail
       }
     }),
 
-    ...(input.maxLength && {
+    ...(input?.maxLength && {
       maxLength: {
-        value: input.maxLength,
-        message: validation.messages.maxLength
+        value: input?.maxLength,
+        message: validation?.messages?.maxLength
       }
     }),
 
-    ...(input.min !== undefined && {
+    ...(input?.min !== undefined && {
       min: {
-        value: input.min,
-        message: validation.messages.min
+        value: input?.min,
+        message: validation?.messages?.min
       }
     }),
 
-    ...(input.max !== undefined && {
+    ...(input?.max !== undefined && {
       max: {
-        value: input.max,
-        message: validation.messages.max
+        value: input?.max,
+        message: validation?.messages?.max
       }
     })
   };
 
   return (
-    <div className={`input-group flex flex-col gap-2 ${className}`}>
-      {label.text &&
-        <label className={`${label.className}`} htmlFor={input.id}>
-          {label.text}
+    <div
+      className={`input-group flex flex-col gap-2 ${className}`}
+      onClick={onClick}
+    >
+      {label?.text &&
+        <label className={`${label?.className}`} htmlFor={input?.id}>
+          {label?.text}
         </label>
       }
 
-      {input.type === "checkbox" || input.type === "radio" ? (
+      {input?.type === "checkbox" || input?.type === "radio" ? (
 
-        input.options.map(option => 
+        input?.options.map(option => 
           <div key={option?.value} className={`flex items-center ${option.inputGroupClassName}`}>
             <input
+              ref={input?.ref}
               id={option?.value}
-              name={input.inputName}
-              type={input.type}
+              name={input?.inputName}
+              type={input?.type}
               value={option?.value}
-              className={`${input.className}`}
-              {...(validation.isEnabled && register(option?.value, {
-                required: input.required && validation.messages.required
+              className={`${input?.className}`}
+              disabled={option.disabled}
+              {...(validation?.isEnabled && register(option?.value, {
+                required: input?.required && validation?.messages?.required
               }))}
             />
             <label
@@ -120,25 +133,34 @@ export default function InputField({
             </label>
           </div>
         )
-
       ) : (
-        <input
-          id={input.id}
-          name={input.inputName}
-          type={input.type}
-          className={`${input.className} outline-none hover:ring-1 focus:ring-1`}
-          placeholder={input.placeholder}
-          value={input.value}
-          autoComplete={input.autoComplete}
-          autoFocus={input.autoFocus}
-          onChange={input.onChange}
-          {...(validation.isEnabled && register(input.id, validationRules))}
-        />
+        <div className="wrapper w-full relative flex items-center">
+          <input
+            ref={input?.ref}
+            id={input?.id}
+            name={input?.inputName}
+            type={input?.type}
+            className={`${input?.className} outline-none hover:ring-1 focus:ring-1`}
+            placeholder={input?.placeholder}
+            value={input?.value}
+            autoComplete={input?.autoComplete}
+            autoFocus={input?.autoFocus}
+            onChange={input?.onChange}
+            readOnly={input?.readOnly}
+            {...(validation?.isEnabled && register(input?.id, validationRules))}
+          />
+          {input?.icon?.theIcon &&
+            <Icon
+              className={`${input?.icon?.className} absolute right-[0.8rem]`}
+              icon={input?.icon?.theIcon}
+            />
+          }
+        </div>
       )}
 
-      {errors[input.inputName] && (
-        <p className={`error ${validation.className}`}>
-          {errors[input.inputName].message}
+      {errors[input?.inputName] && (
+        <p className={`error ${validation?.className}`}>
+          {errors[input?.inputName].message}
         </p>
       )}
     </div>
