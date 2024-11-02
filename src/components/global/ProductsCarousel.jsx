@@ -44,7 +44,7 @@ export default function ProductsCarousel({
       imgClassName="rounded-3xl"
       productDetailsContClassName="text-xs text-primaryFont"
       productNameClassName="uppercase"
-      btnTextClassName="rounded-s text-xs uppercase bg-primaryFont text-white"
+      btnTextClassName="rounded-s text-2xs uppercase bg-primaryFont text-white xs:text-xs"
       iconContClassName="text-lg p-2 rounded-e bg-white text-black"
     />
   } = {}
