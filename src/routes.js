@@ -54,8 +54,27 @@ export const SALE = {
   activeIcon: IoPricetagsSharp
 }
 
+export const CART = {
+  id: 6,
+  title: "Shopping Cart",
+  pathname: "/cart",
+}
+
+export const CHECKOUT = {
+  id: 7,
+  title: "Checkout",
+  pathname: "/checkout"
+}
+
+export const ORDER_CONFIRMATION = {
+  id: 8,
+  title: "Order Complete",
+  pathname: "/order-confirmation"
+}
+
 
 export function getAllRoutes() {
+
 
   return ([
     HOME,
