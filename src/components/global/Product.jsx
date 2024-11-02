@@ -1,26 +1,32 @@
+'use client';
+
 import Image from "next/image";
 
 import { IoMdHeartEmpty } from "react-icons/io";
 
 import Icon from "@/components/general/Icon";
+import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 
 export default function Product({
-  product,
-  imgContClassName,
-  imgClassName,
-  productDetailsContClassName,
-  productNameClassName,
-  productPriceClassName,
-  btnClassName,
-  btnTextClassName,
+  className = "",
+  product = null,
+  imgContClassName = "",
+  imgClassName = "",
+  productDetailsContClassName = "",
+  productNameClassName = "",
+  productPriceClassName = "",
+  btnClassName = "",
+  btnTextClassName = "",
   btnText = "Add to Cart",
-  iconContClassName,
+  iconContClassName = "",
   icon = <IoMdHeartEmpty/>
 }) {
 
+  const { displayText: truncatedProductName } = useTruncateText({ text: product.name, wordLimit: 4 });
+
   return (
-    <div className="product-cont flex flex-col items-center justify-center gap-3">
+    <div className={`product-cont flex flex-col items-center justify-center gap-3 ${className}`}>
       {product.image &&
         <div className={`img-cont ${imgContClassName}`}>
           <Image
@@ -33,10 +39,15 @@ export default function Product({
       }
       
       {(product.name || product.price) &&
-        <div className={`product-details flex flex-col items-center justify-center gap-1 text-center ${productDetailsContClassName}`}>
+        <div className={`
+          product-details
+          flex flex-col items-center justify-center gap-1
+          text-center
+          ${productDetailsContClassName}
+        `}>
           {product.name &&
-            <div className={`name ${productNameClassName}`}>
-              {product.name}
+            <div className={`name ${productNameClassName} h-[2rem]`}>
+              {truncatedProductName}
             </div>
           }
           {product.price &&
