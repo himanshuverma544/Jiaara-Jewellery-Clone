@@ -1,5 +1,5 @@
 import CheckoutForm from "@/components/pages/checkout/CheckoutForm";
-import OrderSummary from "@/components/pages/checkout/order-summary/OrderSummary";
+import OrderSummary from "@/components/global/order-summary/OrderSummary";
 
 
 export default function Checkout() {
