@@ -59,7 +59,7 @@ export default function CheckoutForm({ className = "" }) {
         <InputField
           input={{
             id: "first-name",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             required: true
           }}
           label={{
@@ -77,7 +77,7 @@ export default function CheckoutForm({ className = "" }) {
         <InputField
           input={{
             id: "last-name",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             required: true
           }}
           label={{
@@ -96,7 +96,7 @@ export default function CheckoutForm({ className = "" }) {
           input={{
             id: "email",
             type: "email",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             required: true
           }}
           label={{
@@ -115,7 +115,7 @@ export default function CheckoutForm({ className = "" }) {
           input={{
             id: "contact-number",
             type: "number",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             min: 0,
             required: true
           }}
@@ -141,7 +141,7 @@ export default function CheckoutForm({ className = "" }) {
         <InputField
           input={{
             id: "address",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             required: true
           }}
           label={{
@@ -159,7 +159,7 @@ export default function CheckoutForm({ className = "" }) {
         <InputField
           input={{
             id: "additional-address",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
           }}
           label={{
             className: "text-sm text-primaryFont",
@@ -170,7 +170,7 @@ export default function CheckoutForm({ className = "" }) {
         <InputField
           input={{
             id: "city",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             required: true
           }}
           label={{
@@ -186,14 +186,26 @@ export default function CheckoutForm({ className = "" }) {
         />
 
         <AutoSelect
-          placeholder="Select State"
+          className="w-full"
+          input={{
+            id: "states-auto-select",
+            className: "w-[inherit] border rounded-md p-3 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+            placeholder: "Select State",
+            autoComplete: "off",
+            required: true,
+          }}
           options={indianStates}
+          dropdownClassName="border rounded overflow-y-auto text-sm border-quaternaryBackground bg-white"
+          optionClassName={{
+            hover: "hover:bg-quinaryBackground",
+            selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
+          }}
         />
 
         <InputField
           input={{
             id: "pin-code",
-            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground focus:ring-primaryFont hover:ring-secondaryBackground",
+            className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
             type: "number",
             min: 0,
             required: true
