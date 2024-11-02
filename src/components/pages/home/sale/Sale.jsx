@@ -1,7 +1,5 @@
 'use client';
 
-import { useRef } from "react";
-
 import { 
   CarouselProvider,
   Slider,
