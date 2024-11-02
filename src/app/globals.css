@@ -13,6 +13,14 @@ main:not(:has(div.homepage)) {
   margin-top: 6.75rem;
 }
 
+/* 404 Page */
+main {
+  & h1.next-error-h1,
+  & > div > div > div > h2 {
+    @apply text-primaryFont;
+  }
+}
+
 
 @layer utilities {
 
