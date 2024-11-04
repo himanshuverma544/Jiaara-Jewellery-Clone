@@ -25,65 +25,43 @@ main {
 @layer utilities {
 
   input::selection.input-selection-primaryFont {
-    @apply bg-primaryFont text-white
+    @apply bg-primaryFont text-white;
+  }
+
+  input::selection.input-selection-black {
+    @apply bg-black text-white;
   }
 
   .text-balance {
     text-wrap: balance;
   }
 
-  .overlay-black-10::after {
+  .overlay {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
-    opacity: 0.1;
+  }
+
+  .overlay-black-10::after {
+    @apply overlay opacity-10 bg-black;
   }
 
   .overlay-black-20::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.2;
+    @apply overlay opacity-20 bg-black;
   }
 
   .overlay-black-30::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.3;
+    @apply overlay opacity-30 bg-black;
   }
 
   .overlay-black-40::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.4;
+    @apply overlay opacity-40 bg-black;
   }
 
   .overlay-black-50::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.5;
+    @apply overlay opacity-50 bg-black ;
   }
 }
