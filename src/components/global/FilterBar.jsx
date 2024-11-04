@@ -1,6 +1,7 @@
 'use client';
 
-import Divider from "../general/Divider";
+import { useContext } from "react";
+import { context } from "@/context-API/context";
 
 import { CiFilter } from "react-icons/ci";
 
@@ -16,12 +17,23 @@ const sortOptions = [
 
 export default function FilterBar({ className = "" }) {
 
+  const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
+
+  const [isOpen, setIsOpen] = triggered ? states?.sidebar : [false, () => {}];
+
+  const toggleSidebar = () =>
+    setIsOpen(!isOpen);
+
+  
   return (
     <div className={`filter-bar flex flex-col ${className}`}>
 
-      <button className="filter-bar flex items-center gap-1 px-[5vw] py-3 text-primaryFont">
-        <CiFilter className="filter-icon text-lg"/>
-        <span className="text-sm uppercase">
+      <button
+        className="filter-bar group flex items-center gap-1 px-[5vw] py-3 text-primaryFont"
+        onClick={toggleSidebar}
+      >
+        <CiFilter className="filter-icon text-lg group-hover:stroke-1"/>
+        <span className="text-sm uppercase group-hover:font-semibold">
           Filter
         </span>
       </button>
