@@ -1,0 +1,3 @@
+main:has(.shop-page .sidebar-cont.filter.active) {
+  margin-top: 0;
+}
