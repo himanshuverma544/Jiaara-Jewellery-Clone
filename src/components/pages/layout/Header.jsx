@@ -1,6 +1,8 @@
 'use client';
 
 import { useContext } from 'react';
+import { context } from "../../../context-API/context";
+
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +17,6 @@ import { IoCartOutline } from "react-icons/io5";
 import Icon from "../../general/Icon";
 import NavItem from '@/components/general/NavItem';
 
-import { context } from "../../../context-API/context";
 
 
 const routes = getAllRoutes();
