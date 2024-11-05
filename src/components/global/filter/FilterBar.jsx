@@ -5,7 +5,7 @@ import { context } from "@/context-API/context";
 
 import { CiFilter } from "react-icons/ci";
 
-import AutoSelect from "../general/AutoSelect";
+import AutoSelect from "@/components/general/AutoSelect";
 
 const sortOptions = [
   "Name",
