@@ -28,6 +28,7 @@ export default function Sidebar({
           sidebar
           h-[inherit]
           flex flex-col gap-8
+          overflow-y-auto
           transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
