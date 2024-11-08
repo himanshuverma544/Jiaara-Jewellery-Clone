@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import "./globals.css";
 
+import QueryProvider from "@/components/pages/layout/QueryProvider";
+
 import Header from "@/components/pages/layout/Header";
 import Main from "@/components/pages/layout/Main";
 import Footer from "@/components/pages/layout/Footer";
@@ -23,11 +25,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ContextProvider>
-          <Header/>
-            <Main childComponents={children}/>
-          <Footer/>
-        </ContextProvider>
+        <QueryProvider>
+          <ContextProvider>
+            <Header/>
+              <Main childComponents={children}/>
+            <Footer/>
+          </ContextProvider>
+        </QueryProvider>
       </body>
     </html>
   );
