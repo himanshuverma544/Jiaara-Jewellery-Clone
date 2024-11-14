@@ -23,6 +23,7 @@ export default function Product({
   icon = <IoMdHeartEmpty/>
 }) {
 
+
   const { displayText: truncatedProductName } = useTruncateText({ text: product.name, wordLimit: 4 });
 
   return (
