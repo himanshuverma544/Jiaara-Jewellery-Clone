@@ -3,7 +3,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import ProductUpperOverview from "./general/ProductUpperOverview";
 import ProductQuantity from "@/components/global/ProductQuantity";
 
-import getDiscountPercentage from "@/utils/functions/getDiscountPercentage";
+import getDiscountPercentage from "@/utils/functions/general/getDiscountPercentage";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 

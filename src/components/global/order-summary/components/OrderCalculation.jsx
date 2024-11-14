@@ -1,4 +1,4 @@
-import INR from "@/utils/functions/INR";
+import INR from "@/utils/functions/general/INR";
 
 
 export default function OrderCalculation({ className = "" }) {

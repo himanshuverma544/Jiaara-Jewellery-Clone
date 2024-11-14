@@ -4,7 +4,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 import Icon from "@/components/general/Icon";
 
-import INR from "@/utils/functions/INR";
+import INR from "@/utils/functions/general/INR";
 
 const dirPath = "/assets/pages/homepage/products/only-product";
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Icon from "../general/Icon";
 
-import isFalsy from "@/utils/functions/isFalsy";
+import isFalsy from "@/utils/functions/general/isFalsy";
 
 
 const INITIAL_QTY = 1;

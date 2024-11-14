@@ -16,7 +16,7 @@ import useGoToSlide from "@/utils/hooks/pure-react-carousel/useGoToSlide";
 import useCurrentSlide from "@/utils/hooks/pure-react-carousel/useCurrentSlide";
 import useRemoveExcessBottomPadding from "@/utils/hooks/pure-react-carousel/useRemoveExcessBottomPadding";
 
-import setStatePromptly from "@/utils/functions/setStatePromptly";
+import setStatePromptly from "@/utils/functions/general/setStatePromptly";
 import ProductUpperOverview from "./general/ProductUpperOverview";
 
 const productsDir = "/assets/pages/homepage/products";

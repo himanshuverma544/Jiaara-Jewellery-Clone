@@ -14,7 +14,7 @@ import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useRemoveExcessBottomPadding from "@/utils/hooks/pure-react-carousel/useRemoveExcessBottomPadding";
 import useClamp from "@/utils/hooks/general/useClamp";
 
-import createPairsArr from "@/utils/functions/createPairsArr";
+import createPairsArr from "@/utils/functions/general/createPairsArr";
 
 
 const secAssetsDirPath = "/assets/pages/homepage/sections/11-Testimonial";

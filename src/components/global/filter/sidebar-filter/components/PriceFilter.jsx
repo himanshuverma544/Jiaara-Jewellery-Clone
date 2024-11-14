@@ -1,6 +1,6 @@
 import InputField from "@/components/general/InputField";
 
-import INR from "@/utils/functions/INR";
+import INR from "@/utils/functions/general/INR";
 
 
 export default function PriceFilter({ className = "" }) {
