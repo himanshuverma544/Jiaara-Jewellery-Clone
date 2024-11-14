@@ -2,6 +2,17 @@
 
 const nextConfig = {
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'jiaarajewellery.com',
+        port: '',
+        pathname: '**'
+      }
+    ]
+  },
+
   webpack: config => {
     config.module.rules.push({
       test: /\.svg$/,
