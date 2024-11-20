@@ -1,0 +1,112 @@
+import Image from "next/image";
+
+import { IoCloseOutline } from "react-icons/io5";
+import { FiPlus, FiMinus } from "react-icons/fi";
+
+import { useDispatch } from "react-redux";
+import { cart } from "@/redux/slices/cart";
+
+import ProductQuantity from "@/components/global/ProductQuantity";
+import TotalPrice from "@/components/global/user-products-list/components/TotalPrice";
+
+import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
+
+
+export default function UserProductsList({
+  theClassName = "",
+  context = {
+    isCart: false,
+    isCheckout: false
+  },
+  rowClassName = "",
+  dividerClassName = "",
+  divider = false,
+  productsList = [],
+  productImageContClassName = "",
+  productImageClassName = "",
+  productDetailsClassName = "",
+  productRemoveButtonClassName = ""
+}) {
+
+  const dispatch = useDispatch();
+
+  const removeCartItem = productId => {
+    dispatch(cart.remove(productId));
+  }
+
+  return (
+    <ul className={`${theClassName} flex flex-col gap-3`}>
+
+      {productsList?.length > 0 &&
+        productsList.map((product, index) =>
+          <>
+            <li
+              key={product?.id || index}
+              className={`row-${index + 1} ${rowClassName}`}
+            >
+              <div className={`img-cont relative ${productImageContClassName}`}>
+                <Image
+                  fill
+                  className={`object-cover ${productImageClassName}`}
+                  src={product?.image}
+                  alt={product?.slug}
+                />
+              </div>
+
+              <div className={`product-details ${productDetailsClassName}`}>
+                <div className="product-name font-semibold">
+                  {product?.name}
+                </div>
+                
+                {context.isCheckout &&
+                  <div className="quantity">
+                    {`Qty: ${product?.cartQtyCount}`}
+                  </div>
+                }
+                {context.isCart && 
+                  <TotalPrice
+                    className="total-price mt-1"
+                    amount={product?.price * product?.cartQtyCount}
+                  />
+                }
+              </div>
+
+              {context.isCheckout &&
+                <TotalPrice
+                  className="total-price px-1 text-xs 2xs:text-sm"
+                  amount={product?.price * product?.cartQtyCount}
+                />
+              }
+
+              {context.isCart &&
+                <ProductQuantity
+                  theClassName="h-[2rem] flex items-stretch ms-1 rounded bg-white xs:ms-0"
+                  inputClassName="w-[1.5rem] px-2 py-1 rounded-sm outline-none text-center text-xs input-selection-primaryFont focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[3rem] xs:text-base sm:px-3 sm:py-2"
+                  buttonsClassName="px-2 py-2 text-xs bg-primaryFont text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
+                  incrementIcon={FiPlus}
+                  decrementIcon={FiMinus}
+                  cartQtyCount={product?.cartQtyCount}
+                  stockLeft={product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE}
+                />
+              }
+
+              {context.isCart &&
+                <button
+                  className={`remove-btn ${productRemoveButtonClassName}`}
+                  onClick={() => removeCartItem(product?.id)}
+                >
+                  <IoCloseOutline className="cross-icon"/>
+                </button>
+              }
+            </li>
+            {divider && productsList.length - 1 !== index &&
+              <li>
+                <hr className={`divider ${dividerClassName}`}/>
+              </li>
+            }
+          </>
+        )
+      }
+    </ul>
+  );
+}
