@@ -1,85 +1,110 @@
-import { GoHome } from "react-icons/go";
-import { GoHomeFill } from "react-icons/go";
+import { GoHome, GoHomeFill } from "react-icons/go";
 
-import { IoDiamondOutline } from "react-icons/io5";
-import { IoDiamond } from "react-icons/io5";
+import { IoDiamondOutline, IoDiamond } from "react-icons/io5";
 
-import { IoInformationOutline } from "react-icons/io5";
-import { IoInformationSharp } from "react-icons/io5";
+import { IoInformationOutline, IoInformationSharp } from "react-icons/io5";
 
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { MdLocalPhone } from "react-icons/md";
+import { MdOutlineLocalPhone, MdLocalPhone } from "react-icons/md";
 
-import { IoPricetagsOutline } from "react-icons/io5";
-import { IoPricetagsSharp } from "react-icons/io5";
+import { IoPricetagsOutline, IoPricetagsSharp } from "react-icons/io5";
+
+import { CiSearch } from "react-icons/ci";
+
+import { RiUserLine, RiUserFill } from "react-icons/ri";
+
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
+
+import { IoCart , IoCartOutline } from "react-icons/io5";
 
 
 export const HOME = {
-  id: 1,
+  id: "home",
   title: "Home",
   pathname: "/",
   inactiveIcon: GoHome,
   activeIcon: GoHomeFill
 }
 
-export const JEWELLERY = {
-  id: 2,
-  title: "Jewellery",
-  pathname: "#",
-  inactiveIcon: IoDiamondOutline,
-  activeIcon: IoDiamond
+export const SHOP = {
+  id: "shop",
+  title: "Shop",
+  pathname: "/shop",
+  inactiveIcon: IoPricetagsOutline,
+  activeIcon: IoPricetagsSharp
 }
 
-export const ABOUT = {
-  id: 3,
-  title: "About",
+export const CATEGORIES = {
+  id: "categories",
+  title: "Categories",
   pathname: "#",
   inactiveIcon: IoInformationOutline,
   activeIcon: IoInformationSharp
 }
 
-export const CONTACT = {
-  id: 4,
-  title: "Contact",
+export const COLLECTIONS = {
+  id: "collections",
+  title: "Collections",
   pathname: "#",
-  inactiveIcon: MdOutlineLocalPhone,
-  activeIcon: MdLocalPhone
+  inactiveIcon: IoDiamondOutline,
+  activeIcon: IoDiamond
 }
 
-export const SALE = {
-  id: 5,
-  title: "Sale",
-  pathname: "#",
-  inactiveIcon: IoPricetagsOutline,
-  activeIcon: IoPricetagsSharp
+export const SIGN_IN = {
+  id: "sign-in",
+  title: "Sign In",
+  pathname: "/sign-in",
+  inactiveIcon: RiUserLine,
+  activeIcon: RiUserFill
+}
+
+export const SEARCH = {
+  id: "search",
+  title: "Search",
+  generalIcon: CiSearch
+} 
+
+export const WISHLIST = {
+  id: "wishlist",
+  title: "Wishlist",
+  pathname: "/wishlist",
+  inactiveIcon: IoMdHeartEmpty,
+  activeIcon: IoMdHeart
 }
 
 export const CART = {
-  id: 6,
+  id: "cart",
   title: "Shopping Cart",
   pathname: "/cart",
+  inactiveIcon: IoCartOutline,
+  activeIcon: IoCart
 }
 
+
 export const CHECKOUT = {
-  id: 7,
+  id: "checkout",
   title: "Checkout",
   pathname: "/checkout"
 }
 
 export const ORDER_CONFIRMATION = {
-  id: 8,
-  title: "Order Complete",
+  id: "order-confirmation",
+  title: "Order Confirmation",
   pathname: "/order-confirmation"
 }
 
 
 export function getAllRoutes() {
 
-
-  return ([
+  return ({
     HOME,
-    JEWELLERY,
-    ABOUT,
-    SALE
-  ]); 
+    SHOP,
+    CATEGORIES,
+    COLLECTIONS,
+    SEARCH,
+    SIGN_IN,
+    WISHLIST,
+    CART,
+    CHECKOUT,
+    ORDER_CONFIRMATION
+  }); 
 }
