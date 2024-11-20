@@ -1,4 +1,6 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
+
 import Image from 'next/image';
 
 
@@ -21,6 +23,10 @@ function isImage(icon) {
   const imageExtensions = /\.(jpg|jpeg|png|gif|svg|webp|bmp|tiff|heic|heif|ico|avif|raw|cr2|nef|arw|dng|jfif|psd|eps|pdf|exr|tga|pcx|xcf)$/i;
   return typeof icon === 'string' && imageExtensions.test(icon);
 };
+
+function isHTML(icon) {
+  return /<[^>]+>/.test(icon);
+}
 
 function isString(icon) {
   return typeof icon === "string";
@@ -52,6 +58,17 @@ const Icon = ({ icon, alt = "", className = "", innerClassName = "", ...props })
           alt={alt}
         />
       </div>
+    );
+  }
+
+  else if (isHTML(icon)) {
+    const sanitizedHTML = DOMPurify.sanitize(icon);
+    return (
+      <div
+        className={className}
+        dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+        {...props}
+      />
     );
   }
 
