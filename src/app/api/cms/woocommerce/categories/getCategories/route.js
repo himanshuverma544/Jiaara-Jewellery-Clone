@@ -1,4 +1,4 @@
-import WooCommerceAPI from "@/app/api/cms/woocommerce/config";
+import { WooCommerceAPI } from "@/app/api/cms/woocommerce/config";
 
 import convertValue from "@/utils/functions/general/convertValue";
 
@@ -31,6 +31,7 @@ export async function GET(req) {
         name: category?.name,
         slug: category?.slug,
         image: category?.image ? category?.image.src : null,
+        count: category?.count
       }));
 
       allCategories.push(...categories);
