@@ -7,7 +7,7 @@ import useLinkActive from "../../utils/hooks/general/useLinkActive";
 
 export default function NavItem({
   title = "",
-  href = "https://www.example.com",
+  href = "#",
   icon = {
     general: <></>,
     active: <></>,
@@ -22,7 +22,7 @@ export default function NavItem({
   const { isActive } = useLinkActive({ href });
 
   return (
-    <li className="nav-item">
+    <li className="nav-item list-none">
       <Link
         className={`${linkClass}`}
         href={href}
