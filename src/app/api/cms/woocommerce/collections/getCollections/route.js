@@ -1,4 +1,4 @@
-import WooCommerceAPI from "@/app/api/cms/woocommerce/config";
+import { WooCommerceAPI } from "@/app/api/cms/woocommerce/config";
 
 import convertValue from "@/utils/functions/general/convertValue";
 
