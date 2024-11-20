@@ -44,3 +44,6 @@ public/assets/img
 
 #data
 /data
+
+#credentials
+credentials.local.md
