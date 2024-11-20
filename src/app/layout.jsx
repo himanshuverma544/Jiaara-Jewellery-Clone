@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import "./globals.css";
+import "@/app/globals.css";
 
 import App from "@/components/pages/layout/App";
 import Header from "@/components/pages/layout/Header";
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={inter.className}
+        className={`${inter.className}`}
         suppressHydrationWarning={process.env.NODE_ENV === "development"}
       >
         <App>
