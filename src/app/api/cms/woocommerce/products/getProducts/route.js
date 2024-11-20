@@ -1,14 +1,15 @@
-import WooCommerceAPI from "@/app/api/cms/woocommerce/config";
+import { WooCommerceAPI } from "@/app/api/cms/woocommerce/config";
 
-import getDiscountPercentage from "@/utils/functions/general/getDiscountPercentage";
+import getProductDetails from "@/utils/functions/general/getProductDetails";
 import convertValue from "@/utils/functions/general/convertValue";
 
 
 export async function GET(req) {
 
   const allProducts = [];
-  const { searchParams: params } = new URL(req.url);
+  const storeInfo = { status: false };
 
+  const { searchParams: params } = new URL(req.url);
   const keys = params.getAll("keys[]");
   const apiParams = {};
 
@@ -17,40 +18,41 @@ export async function GET(req) {
     apiParams[key] = convertValue(value);
   }
 
-  let page = apiParams.page;
+  const id = apiParams?.id ?? "";
+  if (id) { delete apiParams?.id; }
+
+  let page = apiParams.page || 1;
 
   try {
     while (true) {
       
-      const { data } = await WooCommerceAPI.get("/products", {
-        params: apiParams,
+      const { data, headers } = await WooCommerceAPI.get(`/products/${id}`, {
+        params: apiParams
       });
 
-      if (data.length === 0) break;
+      if (data?.length === 0) break;
 
-      const products = data.map(product => ({
-        id: product?.id,
-        name: product?.name,
-        slug: product?.slug,
-        image: product?.images?.length > 0 ? product?.images[0]?.src : null,
-        price: product?.price,
-        regularPrice: product?.on_sale ? product?.regular_price : null,
-        salePrice: product?.on_sale ? product?.sale_price : null,
-        discountPercentage: product?.on_sale ? 
-          getDiscountPercentage({
-            actualPrice: product?.regular_price,
-            discountedPrice: product?.sale_price
-          }) 
-        : 
-          null,
-        rating: product?.average_rating,
-      }));
+      const formattedData = Array.isArray(data) ? data : [data];
+
+      const products = formattedData?.map(product => getProductDetails(product));
 
       allProducts.push(...products);
+      
+      if (!storeInfo.status) {
+        storeInfo.totalProducts = headers['x-wp-total'];
+        storeInfo.totalPages = headers['x-wp-totalpages'];
+        storeInfo.status = true;
+      }
+
+      if (apiParams.paginate || id) break;
+
       apiParams.page = ++page;
     }
 
-    return new Response(JSON.stringify(allProducts), { status: 200 });
+    return new Response(JSON.stringify({
+      products: allProducts,
+      storeInfo
+    }), { status: 200 });
   }
   catch (error) {
     return new Response(
