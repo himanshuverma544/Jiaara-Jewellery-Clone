@@ -2,7 +2,6 @@
 
 import { PiTagThin } from "react-icons/pi";
 
-
 import InputField from "@/components/general/InputField";
 
 
