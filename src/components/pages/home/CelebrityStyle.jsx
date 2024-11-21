@@ -1,39 +1,42 @@
 import Image from "next/image";
 
+const assetsDirPath = "/assets/pages/homepage/celebrities";
+
 const celebrities = [
   {
     id: 1,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/1.jpg"
+    image: `${assetsDirPath}/1.jpg`
   },
   {
     id: 2,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/2.jpg"
+    image: `${assetsDirPath}2.jpg`
   },
   {
     id: 3,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/3.jpg"
+    image: `${assetsDirPath}/3.jpg`
   },
   {
     id: 4,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/4.jpg"
+    image: `${assetsDirPath}/4.jpg`
   },
   {
     id: 5,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/5.jpg"
+    image: `${assetsDirPath}/5.jpg`
   },
   {
     id: 6,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/6.jpg"
+    image: `${assetsDirPath}/6.jpg`
   },
   {
     id: 7,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/7.jpg"
+    image: `${assetsDirPath}/7.jpg`
   },
   {
     id: 8,
-    image: "/assets/pages/homepage/sections/8-CelebrityStyle/8.jpg"
+    image: `${assetsDirPath}/8.jpg`
   }
 ];
+
 
 export default function CelebrityStyle() {
 

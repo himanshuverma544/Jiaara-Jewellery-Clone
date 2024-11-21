@@ -1,6 +1,6 @@
 'use client';
 
-import "../../../styles/pure-react-carousel.css";
+import "@/styles/pure-react-carousel.css";
 
 import Image from "next/image";
 
@@ -13,29 +13,31 @@ import {
   DotGroup
 } from 'pure-react-carousel';
 
-import { context } from "../../../context-API/context";
-import { storeData } from "../../../context-API/actions/action.creators";
+import { context } from "@/context-API/context";
+import { storeData } from "@/context-API/actions/action.creators";
 
 import useIntersectionObserver from "@/utils/hooks/general/useIntersectionObserver";
 
 import useCurrentSlide from "@/utils/hooks/pure-react-carousel/useCurrentSlide";
 
 
+const assetsDir = "/assets/pages/homepage/hero";
+
 const images = [
   {
     id: 1,
-    src: "/assets/pages/homepage/cover-images/beautiful-girl.jpg",
+    src: `${assetsDir}/beautiful-girl.jpg`,
     alt: "Beautiful Girl Wearing Jewellery"
   },
 
   {
     id: 2,
-    src: "/assets/pages/homepage/cover-images/indo-western.jpg",
+    src: `${assetsDir}/indo-western.jpg`,
     alt: "Indo Western"
   },
   {
     id: 3,
-    src: "/assets/pages/homepage/cover-images/polki.jpg",
+    src: `${assetsDir}/polki.jpg`,
     alt: "Polki"
   }
 ];
