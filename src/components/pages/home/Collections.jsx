@@ -6,9 +6,10 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "@/utils/functions/api/cms/woocommerce/collections";
 
+import Validation from "@/components/general/Validation";
+
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import isEven from "@/utils/functions/general/isEven";
-
 
 
 export default function Collections() {
@@ -18,12 +19,21 @@ export default function Collections() {
 
   const { breakpoints: { md }, screenWidth } = useWindowSize();
 
-  const { data: collections, isSuccess } = useQuery({
+  const { data: collections, isLoading, isSuccess } = useQuery({
     queryKey: ['general-collections'],
     queryFn: getCollections
   });
-    
-  const collectionsNum = 5; // per counter
+  
+  if (isLoading) {
+    return (
+      <Validation 
+        className="w-full h-[10rem] text-primaryFont"
+        message="Loading Collections…"
+      />
+    );
+  }
+
+  const collectionsNum = 5; // number of collections per counter
   const counter = isSuccess && Math.ceil(collections.length / collectionsNum);
   const rowsLength = isSuccess && (collections.length - (counter * 2));
 
