@@ -17,7 +17,7 @@ import useClamp from "@/utils/hooks/general/useClamp";
 import createPairsArr from "@/utils/functions/general/createPairsArr";
 
 
-const secAssetsDirPath = "/assets/pages/homepage/Testimonials";
+const secAssetsDirPath = "/assets/pages/homepage/testimonials";
 
 const testimonials = [
   {

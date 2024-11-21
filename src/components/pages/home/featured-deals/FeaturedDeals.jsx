@@ -2,6 +2,7 @@ import Image from "next/image";
 
 const secAssetsDir = "/assets/pages/homepage/deal";
 
+
 export default function FeaturedDeals() {
 
   return (

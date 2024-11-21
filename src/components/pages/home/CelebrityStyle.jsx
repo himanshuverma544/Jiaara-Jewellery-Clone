@@ -9,7 +9,7 @@ const celebrities = [
   },
   {
     id: 2,
-    image: `${assetsDirPath}2.jpg`
+    image: `${assetsDirPath}/2.jpg`
   },
   {
     id: 3,
