@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-import Icon from "../general/Icon";
+import { useDispatch } from "react-redux";
+import { cart } from "@/redux/slices/cart";
+
+import Icon from "@/components/general/Icon";
 
 import isFalsy from "@/utils/functions/general/isFalsy";
 
@@ -9,15 +12,21 @@ const INITIAL_QTY = 1;
 
 
 export default function ProductQuantity({
+  productId = null,
+  cartQtyCount = null,
   theClassName = "",
   incrementIcon = "+",
   decrementIcon = "-",
   inputClassName = "",
   buttonsClassName: buttonClassName = "",
-  stockLeft = 0
+  stockLeft = 0,
+  callback: getQuantity = () => {},
 }) {
+  
+  const [quantity, setQuantity] = useState(cartQtyCount ?? INITIAL_QTY);
 
-  const [quantity, setQuantity] = useState(INITIAL_QTY);
+  const dispatch = useDispatch();
+
 
   const isOutOfStock = () => {
     return (
@@ -25,9 +34,10 @@ export default function ProductQuantity({
     );
   }
 
+
   const disableDecrementButton = () => {
     return (
-      quantity <= INITIAL_QTY || isOutOfStock()
+      quantity <= 0 || isOutOfStock()
     );
   }
 
@@ -36,6 +46,7 @@ export default function ProductQuantity({
       quantity >= stockLeft || isOutOfStock()
     );
   }
+
 
   const handleQtyInput = event => {
 
@@ -50,7 +61,12 @@ export default function ProductQuantity({
     }
   }
 
+
   const handleIncrement = () => {
+
+    dispatch(cart.incrementQty({ productId, cartQtyCount: quantity + 1 }));
+    
+    getQuantity(quantity + 1);
 
     setQuantity(prev => {
 
@@ -62,8 +78,12 @@ export default function ProductQuantity({
   }
 
   const handleDecrement = () => {
+
+    dispatch(cart.decrementQty({ productId, cartQtyCount: quantity - 1 }));
+    getQuantity(quantity - 1);
     setQuantity(prev => prev - 1);
   }
+
 
   return (
     <div className={`quantity ${theClassName}`}>
