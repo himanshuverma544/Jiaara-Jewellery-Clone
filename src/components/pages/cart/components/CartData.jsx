@@ -1,13 +1,13 @@
 'use client';
 
-import UsersProductsList from "@/components/global/user-products-list/UserProductsList";
 import Validation from "@/components/general/Validation";
+
+import UsersProductsList from "@/components/global/user-products-list/UserProductsList";
 
 
 export default function CartData({ className = "", cartItems = [] }) {
 
   if (cartItems?.length <= 0) {
-    
     return (
       <Validation
         className="w-full h-[10rem] text-primaryFont"
