@@ -10,6 +10,8 @@ import {
 
 import { useQuery } from "@tanstack/react-query";
 
+import Validation from "@/components/general/Validation";
+
 import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
 
 import { getCategories } from "@/utils/functions/api/cms/woocommerce/categories";
@@ -19,16 +21,26 @@ import skipMap from "@/utils/functions/general/skipMap";
 
 export default function Categories() {
 
-  const { data: parentCategories, isSuccess } = useQuery({
-    queryKey: ['parent-categories'],
-    queryFn: () => getCategories({ parent: 0 })
-  });
-
   const { visibleSlidesCount } = useVisibleSlides({
     desktopVisibleSlidesCount: 3,
     tabletVisibleSlidesCount: 2,
     mobileVisibleSlidesCount: 1
   });
+  
+  const { data: parentCategories, isLoading, isSuccess } = useQuery({
+    queryKey: ['parent-categories'],
+    queryFn: () => getCategories({ parent: 0 })
+  });
+
+  if (isLoading) {
+    return (
+      <Validation
+        className="w-full h-[10rem] text-primaryFont"
+        message="Loading Categories…"
+      />
+    );
+  }
+
 
   return (
     <section id="shop-by-category" className="flex flex-col items-center justify-center gap-12">
@@ -71,7 +83,7 @@ export default function Categories() {
                       {parentCategory?.name}
                     </div>
                     <div className="total-products text-xs opacity-50">
-                      {`${parentCategory?.totalProducts} Products`}
+                      {`${parentCategory?.count} Products`}
                     </div>
                   </div>
                   <button className="z-10 border px-3 py-1 rounded-xl">
