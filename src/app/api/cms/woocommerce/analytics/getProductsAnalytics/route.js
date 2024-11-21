@@ -70,7 +70,7 @@ export async function GET(req) {
   catch (error) {
     return new Response(
       JSON.stringify({
-        error: "Error fetching Products from the backend",
+        error: "Error fetching Analytics from the backend",
         details: error.message
       }),
       { status: 500 }
