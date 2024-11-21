@@ -1,3 +1,5 @@
+import React from "react";
+
 import Image from "next/image";
 
 import { IoCloseOutline } from "react-icons/io5";
@@ -8,6 +10,8 @@ import { cart } from "@/redux/slices/cart";
 
 import ProductQuantity from "@/components/global/ProductQuantity";
 import TotalPrice from "@/components/global/user-products-list/components/TotalPrice";
+
+import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
@@ -30,6 +34,8 @@ export default function UserProductsList({
 
   const dispatch = useDispatch();
 
+  const { getTruncateText } = useTruncateText();
+
   const removeCartItem = productId => {
     dispatch(cart.remove(productId));
   }
@@ -39,11 +45,10 @@ export default function UserProductsList({
 
       {productsList?.length > 0 &&
         productsList.map((product, index) =>
-          <>
-            <li
-              key={product?.id || index}
-              className={`row-${index + 1} ${rowClassName}`}
-            >
+
+          <React.Fragment key={product?.id || index}>
+            
+            <li className={`row-${index + 1} ${rowClassName}`}>
               <div className={`img-cont relative ${productImageContClassName}`}>
                 <Image
                   fill
@@ -54,8 +59,8 @@ export default function UserProductsList({
               </div>
 
               <div className={`product-details ${productDetailsClassName}`}>
-                <div className="product-name font-semibold">
-                  {product?.name}
+                <div className="product-name text-2xs xs:text-xs md:text-sm font-semibold">
+                  {getTruncateText(product?.name, 3)}
                 </div>
                 
                 {context.isCheckout &&
@@ -96,7 +101,7 @@ export default function UserProductsList({
                   onClick={() => removeCartItem(product?.id)}
                 >
                   <IoCloseOutline className="cross-icon"/>
-                </button>
+                </button> 
               }
             </li>
             {divider && productsList.length - 1 !== index &&
@@ -104,7 +109,7 @@ export default function UserProductsList({
                 <hr className={`divider ${dividerClassName}`}/>
               </li>
             }
-          </>
+          </React.Fragment>
         )
       }
     </ul>
