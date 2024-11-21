@@ -81,8 +81,8 @@ export default function ProductsCarousel({
               <Slide
                 key={product.id || index}
                 index={index}
-                className={slideClassName}
-                innerClassName={slideInnerClassName}
+                className={`${slideClassName}`}
+                innerClassName={`${slideInnerClassName}`}
               >
                 {productComponent &&
                   React.cloneElement(productComponent, { product })
