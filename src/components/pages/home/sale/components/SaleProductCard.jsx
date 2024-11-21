@@ -1,16 +1,48 @@
+import { useState } from "react";
+
 import Image from "next/image";
+
+import { useDispatch } from "react-redux";
+import { cart } from "@/redux/slices/cart";
 
 import { IoCartOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 import Rating from "@/components/general/Rating";
+import ProductQuantity from "@/components/global/ProductQuantity";
 
 import useClamp from "@/utils/hooks/general/useClamp";
+import useTruncateText from "@/utils/hooks/general/useTruncateText";
+
+import INR from "@/utils/functions/general/INR";
 
 
-export default function SaleProductCard({ saleProduct }) {  
+const INITIAL_QTY = 0;
+const STOCK_LEFT_FALLBACK_VALUE = 15;
+
+
+export default function SaleProductCard({ product }) {  
+
+  const dispatch = useDispatch();
 
   const { clamp } = useClamp();
+
+  const { displayText: productName } = useTruncateText({ text: product?.name, wordLimit: 4 });
+
+
+  const [quantity, setQuantity] = useState(INITIAL_QTY);
+
+  const getQuantity = currentQuantity => {
+    setQuantity(currentQuantity);
+  }
+
+  const addToCart = () => {
+
+    dispatch(cart.add(product));
+    setQuantity(INITIAL_QTY + 1);
+  }
+
 
   return (
     <div className="sale-product-card rounded-xl bg-white ">
@@ -19,13 +51,13 @@ export default function SaleProductCard({ saleProduct }) {
 
         <div className="img-cont relative w-1/2 h-[inherit] max-h-[inherit]">
           <Image
-            className="object-fill object-center rounded-tl-xl rounded-bl-xl"
+            className="object-fill object-center rounded-tl-xl"
             fill
-            src={saleProduct.image}
-            alt={saleProduct.name}
+            src={product?.image}
+            alt={product?.slug}
           />
           <span className="discount-percent absolute top-0 left-0 px-2 py-1 rounded-tl-xl text-xs bg-red-500 text-white">
-            {saleProduct.discountPercentage}
+            {product?.discountPercentage}
           </span>
         </div>
 
@@ -40,7 +72,7 @@ export default function SaleProductCard({ saleProduct }) {
             })
           }}
         >
-          {saleProduct.name}
+          {productName}
         </div>
 
           <div className="price flex flex-col gap-1">
@@ -54,7 +86,7 @@ export default function SaleProductCard({ saleProduct }) {
                 })
               }}
             >
-              {`₹. ${saleProduct.discountedPrice}`}
+              {INR(product?.salePrice)}
             </div>
             <div
               className="actual-price line-through opacity-50"
@@ -66,12 +98,12 @@ export default function SaleProductCard({ saleProduct }) {
                 })
               }}
             >
-              {`₹. ${saleProduct.actualPrice}`}
+              {INR(product?.regularPrice)}
             </div>
           </div>
           <div className="rating-bar flex items-center gap-3">
             <Rating
-              given={4}
+              given={product?.rating}
               style={{ fontSize:
                 clamp({
                   xs: { min: 0.875, current: 4.5, max: 1.1 },
@@ -90,7 +122,7 @@ export default function SaleProductCard({ saleProduct }) {
                 })
               }}
             >
-              {saleProduct.rating}
+              {product?.rating}
             </span>
           </div>
         </div>
@@ -98,22 +130,40 @@ export default function SaleProductCard({ saleProduct }) {
       </div>
 
       <div className="actions flex justify-evenly items-center px-[1vw] py-5">
-        <button className="add-to-cart flex items-center gap-1 px-2 py-2 rounded bg-primaryLight">
-          <IoCartOutline className="text-lg"/>
-          <span
-            className="uppercase"
-            style={{ fontSize: 
-              clamp({
-                xs: { min: 0.65, current: 2.5, max: 0.85 },
-                sm: { min: 0.3, current: 1.5, max: 0.85 },
-                lg: { min: 0.3, current: 1, max: 0.8 }
-              })
-            }}
+        {quantity <= INITIAL_QTY ?
+          <button
+            className="add-to-cart flex items-center gap-1 px-2 py-2 rounded bg-primaryFont text-white"
+            onClick={addToCart}
           >
-            Add to Cart
-          </span>
-        </button>
-        <button className="wishlist flex items-center gap-1 px-2 py-2 rounded bg-primaryLight">
+            <IoCartOutline className="text-lg"/>
+            <span
+              className="uppercase"
+              style={{ fontSize:
+                clamp({
+                  xs: { min: 0.65, current: 2.5, max: 0.85 },
+                  sm: { min: 0.3, current: 1.5, max: 0.85 },
+                  lg: { min: 0.3, current: 1, max: 0.8 }
+                })
+              }}
+            >
+              Add to Cart
+            </span>
+          </button>
+          :
+          <ProductQuantity
+            productId={product?.id}
+            callback={getQuantity}
+            theClassName="h-[2rem] flex items-stretch ms-1 rounded bg-primaryFont xs:ms-0"
+            inputClassName="w-[1.5rem] px-2 py-1 rounded-sm outline-none text-center text-xs input-selection-primaryFont focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[3rem] xs:text-base sm:px-3 sm:py-2"
+            buttonsClassName="px-2 py-2 text-xs text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
+            incrementIcon={FiPlus}
+            decrementIcon={FiMinus}
+            stockLeft={
+              product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE
+            }
+          />
+        }
+        <button className="wishlist flex items-center gap-1 px-2 py-2 rounded bg-primaryFont text-white">
           <IoMdHeartEmpty className="text-lg"/>
           <span
             className="text-xs uppercase"
