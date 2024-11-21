@@ -2,31 +2,36 @@ import Axios from "axios";
 
 
 export async function getProducts({
-  page = 1,
-  perPage = 100,
+  id = null,
+  page = null,
+  perPage = null,
   categoryId = null,
   onSale = null,
-  status = null
+  status = null,
+  paginate = false,
+  orderby = null,
+  order = null,
 } = {}) {
 
-  const apiParams = {
-    page: page,
+  const params = {
+    id,
+    page,
     per_page: perPage,
+    category: categoryId,
+    on_sale: onSale,
+    status,
+    paginate,
+    orderby,
+    order
   };
 
-  if (categoryId !== null) {
-    apiParams.category = categoryId;
-  }
+  const apiParams = {};
 
-  if (onSale !== null) {
-    apiParams.on_sale = onSale;
+  for (const key in params) {
+    if (params[key] !== null) {
+      apiParams[key] = params[key];
+    }
   }
-
-  if (status !== null) {
-    apiParams.status = status;
-  }
-
-  console.log({apiParams});
 
   apiParams.keys = Object.keys(apiParams);
 
@@ -42,3 +47,29 @@ export async function getProducts({
     return [];
   }
 };
+
+
+
+export async function getProductsByIds({ ids = [] }) {
+  
+  try {
+    if (!Array.isArray(ids) || ids.length === 0) {
+      throw new Error("No product IDs provided.");
+    }
+
+    const { data } = await Axios.get(`/api/cms/woocommerce/products/getProductsByIds`, {
+      params: {
+        'ids[]': ids
+      }
+    });
+
+    return data;
+  }
+  catch (error) {
+    console.error("Error fetching Products from the Frontend:", error.message);
+    return {
+      products: [],
+      error: error.message
+    };
+  }
+}
