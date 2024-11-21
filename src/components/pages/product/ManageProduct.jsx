@@ -14,6 +14,11 @@ export default function ManageProduct({ params }) {
 
   const { id } = params;
 
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: [`product-${id}`],
+    queryFn: () => getProductsByIds({ ids: [id] })
+  });
+
   if (isNaN(id)) {
     return (
       <Validation
@@ -22,11 +27,6 @@ export default function ManageProduct({ params }) {
       />
     );
   }
-
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [`product-${id}`],
-    queryFn: () => getProductsByIds({ ids: [id] })
-  });
 
   if (isLoading) {
     return (
