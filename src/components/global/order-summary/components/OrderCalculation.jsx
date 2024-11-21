@@ -1,7 +1,9 @@
 import INR from "@/utils/functions/general/INR";
 
 
-export default function OrderCalculation({ className = "" }) {
+export default function OrderCalculation({ className = "", cartItems = [] }) {
+
+  
 
   return (
     <div className={`order-calculation flex flex-col gap-2 py-5 text-sm text-primaryFont ${className}`}>

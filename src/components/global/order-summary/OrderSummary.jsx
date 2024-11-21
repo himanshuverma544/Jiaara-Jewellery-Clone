@@ -1,16 +1,20 @@
 'use client';
 
+import { useSelector } from "react-redux";
+
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import Accordion from "@/components/general/Accordion";
-import UserProductsList from "@/components/global/UserProductsList";
+import UserProductsList from "@/components/global/user-products-list/UserProductsList";
 import CouponForm from "@/components/global/CouponForm";
 
 import OrderCalculation from "./components/OrderCalculation";
 
 
 export default function OrderSummary({ className = "" }) {
+
+  const cartItems = useSelector(state => state?.cartReducer);
 
   return (
     <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
@@ -34,6 +38,7 @@ export default function OrderSummary({ className = "" }) {
         content={
           <UserProductsList
             theClassName="checkout-products-list p-[5vw] rounded-lg bg-white"
+            productsList={cartItems}
             context={{ isCheckout: true }}
             rowClassName="flex justify-between"
             divider={true}
