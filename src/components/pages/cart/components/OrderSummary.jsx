@@ -1,8 +1,12 @@
+import Link from 'next/link';
+
 import CouponForm from "@/components/global/CouponForm";
 import OrderCalculation from "@/components/global/order-summary/components/OrderCalculation";
 
+import { CHECKOUT } from "@/routes";
 
-export default function OrderSummary({ className = "" }) {
+
+export default function OrderSummary({ className = "", cartItems = [] }) {
 
   return (
     <div className={`cart-order-summary flex flex-col py-5 ${className}`}>
@@ -16,11 +20,14 @@ export default function OrderSummary({ className = "" }) {
 
       <hr className="border-primaryFont"/>
 
-      <OrderCalculation/>
+      <OrderCalculation cartItems={cartItems}/>
 
-      <button className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white">
-        Proceed to Checkout
-      </button>
+      <Link
+        className="checkout-btn px-5 py-2 mt-3 rounded-lg text-center uppercase bg-primaryFont text-white"
+        href={CHECKOUT?.pathname}
+      >
+          Proceed to Checkout
+      </Link>
     </div>
   );
 }
