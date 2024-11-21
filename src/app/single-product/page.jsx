@@ -1,6 +1,7 @@
-import ProductDisplay from "@/components/pages/single-product/product-display/ProductDisplay";
+import ProductDisplay from "@/components/pages/product/components/product-display/ProductDisplay";
 import KeyBenefits from "@/components/global/key-benefits/KeyBenefits";
-import RelatedProducts from "@/components/pages/single-product/RelatedProducts";
+import RelatedProducts from "@/components/pages/product/components/RelatedProducts";
+
 
 export default function SingleProduct() {
 
