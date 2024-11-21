@@ -19,7 +19,8 @@ export default function FilterBar({ className = "" }) {
 
   const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
 
-  const [isOpen, setIsOpen] = triggered ? states?.sidebar : [false, () => {}];
+  const [isOpen, setIsOpen]
+    = triggered && Array.isArray(states?.sidebar) ? states?.sidebar : [false, () => {}];
 
   const toggleSidebar = () =>
     setIsOpen(!isOpen);
