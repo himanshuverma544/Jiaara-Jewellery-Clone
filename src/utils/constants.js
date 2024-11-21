@@ -1,0 +1,1 @@
+export const STOCK_LEFT_FALLBACK_VALUE = 15;
