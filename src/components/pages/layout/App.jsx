@@ -1,9 +1,13 @@
 'use client';
 
-import useHideWarnings from "@/utils/hooks/general/useHideWarnings";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
+
 import QueryProvider from "@/components/pages/layout/QueryProvider";
 
 import ContextProvider from "@/context-API/ContextProvider";
+
+import useHideWarnings from "@/utils/hooks/general/useHideWarnings";
 
 
 export default function App({ children }) {
@@ -12,11 +16,13 @@ export default function App({ children }) {
 
   return (
     <>
-      <QueryProvider>
-        <ContextProvider>
-          {children}
-        </ContextProvider>
-      </QueryProvider>
+      <Provider store={store}>
+        <QueryProvider>
+          <ContextProvider>
+            {children}
+          </ContextProvider>
+        </QueryProvider>
+      </Provider>
     </>
   );
 }
