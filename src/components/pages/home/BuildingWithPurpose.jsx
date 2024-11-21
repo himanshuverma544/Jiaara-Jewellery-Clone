@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+const dirAssets = "/assets/pages/homepage/purpose";
+
 
 export default function BuildingWithPurpose() {
 
@@ -16,7 +18,7 @@ export default function BuildingWithPurpose() {
           <Image
             className="object-cover object-center"
             fill
-            src="/assets/pages/homepage/sections/9-HandsBehindCraft/preview-image.jpg"
+            src={`${dirAssets}/preview-image.jpg`}
             alt="Hands-Craft Preview Image"
           />
         </div>
@@ -26,7 +28,7 @@ export default function BuildingWithPurpose() {
             <Image
               className="object-cover object-center"
               fill
-              src="/assets/pages/homepage/sections/9-HandsBehindCraft/bg-wallpaper.png"
+              src={`${dirAssets}/bg-wallpaper.png`}
               alt="Hands-Craft Background Image"
             />
           </div>
