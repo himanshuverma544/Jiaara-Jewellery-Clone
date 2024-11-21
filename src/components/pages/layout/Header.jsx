@@ -1,44 +1,33 @@
 'use client';
 
 import { useContext } from 'react';
-import { context } from "../../../context-API/context";
-
+import { context } from "@/context-API/context";
 
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { getAllRoutes } from '@/routes';
 
-import { CiSearch } from "react-icons/ci";
-import { AiOutlineUser } from "react-icons/ai";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { IoCartOutline } from "react-icons/io5";
-
-import Icon from "../../general/Icon";
 import NavItem from '@/components/general/NavItem';
 
+import useLinkActive from '@/utils/hooks/general/useLinkActive';
 
 
-const routes = getAllRoutes();
-const [HOME] = routes;
-
-
-const headerBtnsIcon = [
-  CiSearch,
-  IoMdHeartEmpty,
-  IoCartOutline,
-  AiOutlineUser
-];
+const { HOME, SHOP, CART } = getAllRoutes();
 
 const brandLogo = {
   white: "/assets/logos/jiaara-white.png",
   black: "/assets/logos/jiaara-black.png"
 };
 
+
 export default function Header() {
 
-  const { data: { triggered }, data: { states } } = useContext(context);
-  const isHeroSecVisible = triggered && states?.isHeroSecVisible;
+  const { isActive: isHomepage } = useLinkActive({ href: HOME?.pathname });
+
+  const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
+
+  const isHeroSecVisible = isHomepage && (triggered && states?.isHeroSecVisible);
 
   return (
     <header
@@ -70,7 +59,7 @@ export default function Header() {
             bg-secondaryBackground
             lg:justify-evenly lg:px-0 lg:py-5 lg:uppercase lg:bg-transparent
           `}>
-            {routes.map(route => 
+            {[HOME, SHOP].map(route => 
               <NavItem
                 key={route?.id}
                 title={route?.title}
@@ -108,21 +97,23 @@ export default function Header() {
             text-lg
             ${isHeroSecVisible ? "text-white" : "text-primaryFont"}
           `}>
-            {headerBtnsIcon.map((icon, index) => (
-              <button key={index}>
-                <Icon icon={icon}/>
-              </button>
-            ))}
+            <NavItem
+              href={CART?.pathname}
+              icon={{
+                active: CART?.activeIcon,
+                inactive: CART?.inactiveIcon
+              }}
+            />
           </div>
-        </div>
 
-        <hr className={`
-          design-line
-          w-full absolute top-[93%] right-0
-          ${isHeroSecVisible ? "border-white" : "border-primaryFont"}
-        `}/>
+          <hr className={`
+            design-line
+            w-full absolute top-[93%] right-0
+            ${isHeroSecVisible ? "border-white" : "border-primaryFont"}
+          `}/>
+        </div>
+        
       </div>
-     
     </header>
   );
 }
