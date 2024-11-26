@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/wp-cms/:path*",
+      "destination": "https://132.148.179.36/wp-cms/:path*"
+    }
+  ]
+}
