@@ -79,7 +79,7 @@ export default function ProductsCarousel({
           {products.length > 0 &&
             products.map((product, index) =>
               <Slide
-                key={product.id || index}
+                key={product?.id || index}
                 index={index}
                 className={`${slideClassName}`}
                 innerClassName={`${slideInnerClassName}`}
