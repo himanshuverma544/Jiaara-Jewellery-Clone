@@ -14,6 +14,8 @@ import { getProducts } from '@/utils/functions/api/cms/woocommerce/products';
 
 import splitInHalf from "@/utils/functions/general/splitInHalf";
 
+const CategoriesTabs = UserProductsStatus;
+
 
 export default function Sale() {
 
@@ -38,6 +40,7 @@ export default function Sale() {
 
   const {
     data,
+    isLoading: isSaleProductsLoading,
     isSuccess: isSaleProductsFetched,
     refetch: fetchSalesProducts
   }
@@ -73,8 +76,6 @@ export default function Sale() {
     = isSaleProductsFetched && splitInHalf(data?.products) || [];
   
 
-
-
   return (
     <section id="sale" className="flex flex-col items-center justify-center gap-10">
       <h2 className="heading text-4xl uppercase text-primaryFont">
@@ -82,7 +83,7 @@ export default function Sale() {
       </h2>
       
       {isParentCategoriesFetched &&
-        <UserProductsStatus
+        <CategoriesTabs
           className={`
             px-[8vw] gap-[6vw]
             text-xs
@@ -99,45 +100,63 @@ export default function Sale() {
         />
       }
 
-      <ProductsCarousel
-        className="upper-sale-products"
-        headingClassName="text-center text-2xl uppercase text-primaryFont"
-        carousel={{ 
-          interval: 3000
-        }}
-        sliderClassName="sales-products-slider select-none cursor-grab active:cursor-grabbing"
-        slideClassName="mx-[3vw]"
-        slideInnerClassName="flex flex-col gap-10"
-        data={{ 
-          products: upperSaleProductsArr,
-          productComponent: <SaleProductCard/>
-        }}
-        visibleSlides={{
-          desktop: 3,
-          tablet: 2,
-          mobile: 1
-        }}
-      />
+      {isSaleProductsLoading ?
+        <Validation
+          className="w-full h-[20rem] text-primaryFont"
+          message="Loading Products…"
+        />
+          :
+        <>
+          {upperSaleProductsArr?.length > 0 ?
+            <ProductsCarousel
+              className="upper-sale-products"
+              headingClassName="text-center text-2xl uppercase text-primaryFont"
+              carousel={{ 
+                interval: 3000
+              }}
+              sliderClassName="sales-products-slider select-none cursor-grab active:cursor-grabbing"
+              slideClassName="mx-[3vw]"
+              slideInnerClassName="flex flex-col gap-10"
+              data={{ 
+                products: upperSaleProductsArr,
+                productComponent: <SaleProductCard/>
+              }}
+              visibleSlides={{
+                desktop: 3,
+                tablet: 2,
+                mobile: 1
+              }}
+            />
+            :
+            <Validation 
+              className="w-full h-[15rem] text-primaryFont"
+              message="Currently, no products."
+            />
+          }
 
-      <ProductsCarousel
-        className="lower-sale-products"
-        headingClassName="text-center text-2xl uppercase text-primaryFont"
-        carousel={{ 
-          interval: 3000
-        }}
-        sliderClassName="sales-products-slider select-none cursor-grab active:cursor-grabbing"
-        slideClassName="mx-[3vw]"
-        slideInnerClassName="flex flex-col gap-10"
-        data={{ 
-          products: lowerSaleProductsArr,
-          productComponent: <SaleProductCard/>
-        }}
-        visibleSlides={{
-          desktop: 3,
-          tablet: 2,
-          mobile: 1
-        }}
-      />
+          {lowerSaleProductsArr?.length > 0 &&
+            <ProductsCarousel
+              className="lower-sale-products"
+              headingClassName="text-center text-2xl uppercase text-primaryFont"
+              carousel={{ 
+                interval: 3000
+              }}
+              sliderClassName="sales-products-slider select-none cursor-grab active:cursor-grabbing"
+              slideClassName="mx-[3vw]"
+              slideInnerClassName="flex flex-col gap-10"
+              data={{ 
+                products: lowerSaleProductsArr,
+                productComponent: <SaleProductCard/>
+              }}
+              visibleSlides={{
+                desktop: 3,
+                tablet: 2,
+                mobile: 1
+              }}
+            />
+          }
+        </>
+      }
     </section>
   );
 }
