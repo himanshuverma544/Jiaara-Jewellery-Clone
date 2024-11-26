@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/wp-cms/:path*",
-      "destination": "https://jiaarajewellery.com/wp-cms/:path*"
-    }
-  ]
-}
