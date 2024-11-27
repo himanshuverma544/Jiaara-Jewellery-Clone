@@ -65,7 +65,7 @@ export default function Categories() {
               <Slide
                 key={parentCategory?.id}
                 index={index}
-                className="mx-[2.5vw]"
+                className="border-x-8 border-x-primaryBackground"
                 innerClassName="relative"
               >
                 <div className="img-cont relative w-full h-[80vw] sm:h-[40vw] lg:h-[25vw]">
