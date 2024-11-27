@@ -31,6 +31,7 @@ export async function GET(req) {
         name: collection?.name,
         slug: collection?.slug,
         image: collection?.image ? collection?.image.src : null,
+        count: collection?.count
       }));
 
       allCollections.push(...collections);
