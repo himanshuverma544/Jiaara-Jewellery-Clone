@@ -7,13 +7,6 @@ import { CiFilter } from "react-icons/ci";
 
 import AutoSelect from "@/components/general/AutoSelect";
 
-const sortOptions = [
-  "Name",
-  "Best Seller",
-  "Latest",
-  "Trending",
-  "Rating"
-];
 
 export default function FilterBar({ className = "" }) {
 
@@ -57,7 +50,7 @@ export default function FilterBar({ className = "" }) {
             hover: "hover:bg-quinaryBackground",
             selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
           }}
-          options={sortOptions}
+          options={["Name", "Best Seller", "Latest", "Trending", "Rating"]}
         />
 
         <hr className="vertical-divider w-[5rem] rotate-90 border-quaternaryBackground"/>
