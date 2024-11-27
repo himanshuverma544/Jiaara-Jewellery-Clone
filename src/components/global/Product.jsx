@@ -48,7 +48,7 @@ export default function Product({
 
 
   const { displayText: truncatedProductName }
-    = useTruncateText({ text: product.name, wordLimit: 2 });
+    = useTruncateText({ text: product?.name, wordLimit: 2 });
 
 
   const addToCart = () => {
@@ -64,7 +64,7 @@ export default function Product({
 
   return (
     <div className={`product-cont flex flex-col items-center justify-center gap-3 ${className}`}>
-      {product.image &&
+      {product?.image &&
         <Link
           className={`img-cont ${imgContClassName}`}
           href={`/product/${product.id}`}
@@ -78,19 +78,19 @@ export default function Product({
         </Link>
       }
       
-      {(product.name || product.price) &&
+      {(product?.name || product?.price) &&
         <div className={`
           product-details
           flex flex-col items-center justify-center gap-1
           text-center
           ${productDetailsContClassName}
         `}>
-          {product.name &&
+          {product?.name &&
             <div className={`name ${productNameClassName} h-[2rem]`}>
               {truncatedProductName}
             </div>
           }
-          {product.price &&
+          {product?.price &&
             <div className={`price ${productPriceClassName}`}>
               {INR(product.price)}
             </div>
