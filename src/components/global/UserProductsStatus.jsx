@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-import useLinkActive from "@/utils/hooks/general/useLinkActive";
+import useRouteActive from "@/utils/hooks/general/useRouteActive";
 
 import { CART, CHECKOUT, ORDER_CONFIRMATION } from "@/routes";
 
@@ -21,7 +21,7 @@ function UserProductsStatus({
   callback = () => {}
 }) {
 
-  const { isLinkActive } = useLinkActive();
+  const { isRouteActive } = useRouteActive();
   
   const [currentActiveTab, setCurrentActiveTab] = useState(FIRST_TAB_INDEX);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -63,7 +63,7 @@ function UserProductsStatus({
   const getActiveClassName = (index, titleUrl = null) => {
     if (
       (forTab && isCurrentTabActive(index)) || 
-      (!forTab && titleUrl && isLinkActive(titleUrl))
+      (!forTab && titleUrl && isRouteActive(titleUrl))
     ) {
       return "font-semibold underline underline-offset-[15px] decoration-2";
     }
