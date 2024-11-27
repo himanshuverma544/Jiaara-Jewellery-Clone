@@ -2,14 +2,14 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 
 
-const useLinkActive = ({ href = "" } = {}) => {
+const useRouteActive = ({ href = "" } = {}) => {
   
   const [isActive, setIsActive] = useState(false);
 
   const pathname = usePathname();
 
 
-  const isLinkActive = useCallback((href = "") => {
+  const isRouteActive = useCallback((href = "") => {
 
     return (pathname === href);
   }, [pathname]);
@@ -17,19 +17,19 @@ const useLinkActive = ({ href = "" } = {}) => {
 
   useEffect(() => {
 
-    if(isLinkActive(href)) {
+    if(isRouteActive(href)) {
       setIsActive(true);
     }
     else {
       setIsActive(false);
     }
-  }, [href, isLinkActive]);
+  }, [href, isRouteActive]);
 
 
   return {
     isActive,
-    isLinkActive
+    isRouteActive
   };
 }
 
-export default useLinkActive;
+export default useRouteActive;
