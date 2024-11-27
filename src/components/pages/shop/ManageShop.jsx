@@ -19,7 +19,7 @@ export default function ManageShop({ className = "" }) {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [`products-page${page}`],
-    queryFn: () => getProducts({ page, perPage: 10, paginate: true, status: "publish" })
+    queryFn: () => getProducts({ page, perPage: 20, paginate: true, status: "publish" })
   });
 
   if (isLoading) {
