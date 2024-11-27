@@ -4,8 +4,6 @@ import { IoDiamondOutline, IoDiamond } from "react-icons/io5";
 
 import { IoInformationOutline, IoInformationSharp } from "react-icons/io5";
 
-import { MdOutlineLocalPhone, MdLocalPhone } from "react-icons/md";
-
 import { IoPricetagsOutline, IoPricetagsSharp } from "react-icons/io5";
 
 import { CiSearch } from "react-icons/ci";
@@ -73,7 +71,7 @@ export const WISHLIST = {
 
 export const CART = {
   id: "cart",
-  title: "Shopping Cart",
+  title: "Cart",
   pathname: "/cart",
   inactiveIcon: IoCartOutline,
   activeIcon: IoCart
