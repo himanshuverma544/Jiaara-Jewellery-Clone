@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import Icon from "./Icon";
 
-import useLinkActive from "../../utils/hooks/general/useLinkActive";
+import useRouteActive from "../../utils/hooks/general/useRouteActive";
 
 
 export default function NavItem({
@@ -16,30 +16,33 @@ export default function NavItem({
   target = "_self",
   linkClass = "",
   iconClass = "",
-  titleClass = ""
+  titleClass = "",
+  enabled = true
 }) {
 
-  const { isActive } = useLinkActive({ href });
+  const { isActive } = useRouteActive({ href });
 
   return (
-    <li className="nav-item list-none">
-      <Link
-        className={`${linkClass}`}
-        href={href}
-        target={target}
-      >
-        {(icon.general || icon.active || icon.inactive) &&
-          <Icon
-            className={`${iconClass}`}
-            icon={isActive ? icon?.active : icon?.inactive ?? icon?.general}
-          />
-        }
-        {title &&
-          <div className={`${titleClass}`}>
-            {title}
-          </div>
-        }
-      </Link>
-    </li>  
+    (enabled &&
+      <li className="nav-item list-none">
+        <Link
+          className={`${linkClass}`}
+          href={href}
+          target={target}
+        >
+          {(icon.general || icon.active || icon.inactive) &&
+            <Icon
+              className={`${iconClass}`}
+              icon={isActive ? icon?.active : icon?.inactive ?? icon?.general}
+            />
+          }
+          {title &&
+            <div className={`${titleClass}`}>
+              {title}
+            </div>
+          }
+        </Link>
+      </li>
+    )
   );
 }
