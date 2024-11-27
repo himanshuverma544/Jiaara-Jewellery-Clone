@@ -3,6 +3,7 @@
 import "@/styles/pure-react-carousel.css";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { useEffect, useRef, useContext } from 'react';
 
@@ -20,6 +21,7 @@ import useIntersectionObserver from "@/utils/hooks/general/useIntersectionObserv
 
 import useCurrentSlide from "@/utils/hooks/pure-react-carousel/useCurrentSlide";
 
+import { SHOP } from "@/routes";
 
 const assetsDir = "/assets/pages/homepage/hero";
 
@@ -119,18 +121,21 @@ export default function HeroCarousel() {
               Premium Contemporary Handcrafted Pure Brass Jewellery for Modern Women.
             </p>
           </div>
-          <button className={`
-            carousel-button
-            px-5 py-2
-            rounded-xl
-            text-xs uppercase
-            bg-primaryButton
-            text-primaryFont
-            lg:text-sm
-            xl:text-base
-          `}>
+          <Link
+            className={`
+              carousel-button
+              px-5 py-2
+              rounded-xl
+              text-xs uppercase
+              bg-primaryButton
+              text-primaryFont
+              lg:text-sm
+              xl:text-base
+            `}
+            href={SHOP?.pathname}
+          >
             Explore
-          </button>
+          </Link>
           <DotGroup className="dot-group absolute bottom-0"/>
         </div>
       </CarouselProvider>
