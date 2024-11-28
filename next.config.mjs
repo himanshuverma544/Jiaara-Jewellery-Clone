@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'jiaarajewellery.com',
+        hostname: 'cms.jiaarajewellery.com',
         port: '',
         pathname: '**'
       }
