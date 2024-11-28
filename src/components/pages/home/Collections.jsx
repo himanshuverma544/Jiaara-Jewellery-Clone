@@ -1,7 +1,9 @@
 'use client';
 
-import React from "react";
+import Link from "next/link"
 import Image from "next/image";
+
+import React from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "@/utils/functions/api/cms/woocommerce/collections";
@@ -13,9 +15,6 @@ import isEven from "@/utils/functions/general/isEven";
 
 
 export default function Collections() {
-
-  let pos = 0;
-  let rowNum = 1;
 
   const { breakpoints: { md }, screenWidth } = useWindowSize();
 
@@ -32,6 +31,11 @@ export default function Collections() {
       />
     );
   }
+
+  let pos = 0;
+  let rowNum = 1;
+
+  const url = "/collection"
 
   const collectionsNum = 5; // number of collections per counter
   const counter = isSuccess && Math.ceil(collections.length / collectionsNum);
@@ -60,13 +64,31 @@ export default function Collections() {
                       alt={collections[pos]?.slug}
                     />
                   </div>
-                  <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                    <div className="name ms-0.5 z-10 uppercase">
-                      {collections[pos++]?.name}
+                  <div
+                    className={`
+                      w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                      absolute left-0 bottom-0
+                      after:rounded-b-xl
+                      text-xs font-semibold
+                      overlay-black-50 text-white
+                      sm:text-sm
+                      md:text-base
+                    `}
+                  >
+                    <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                      <div className="name">
+                        {collections[pos]?.name}
+                      </div>
+                      <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                        {`${collections[pos]?.count} Products`}
+                      </div>
                     </div>
-                    <button className="border px-2 py-1 z-10 rounded-lg">
+                    <Link
+                      className="url border px-2 py-1 z-10 rounded-lg"
+                      href={`${url}/${collections[pos++]?.id}`}
+                    >
                       View
-                    </button>
+                    </Link>
                   </div>
                 </div>
               )}
@@ -74,7 +96,12 @@ export default function Collections() {
               <div className={`row-${rowNum++} grid grid-cols-10 gap-2`}>
 
                 {pos < collections.length && (
-                  <div className={`collection-${pos + 1} col-1 col-span-4 ${isEven(index) ? "order-last" : "order-first"} relative`}>
+                  <div
+                    className={`
+                      collection-${pos + 1} col-1 col-span-4
+                      ${isEven(index) ? "order-last" : "order-first"} relative
+                    `}
+                  >
                     <div className="img-cont relative w-full h-[50vw] sm:h-[40vw] md:h-[35vw] lg:h-[30vw] xl:h-[25vw] 2xl:h-[20vw]">
                       <Image
                         className="object-cover object-center rounded-xl"
@@ -83,13 +110,31 @@ export default function Collections() {
                         alt={collections[pos]?.slug}
                       />
                     </div>
-                    <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                      <div className="name ms-0.5 z-10 uppercase">
-                        {collections[pos++]?.name}
+                    <div
+                      className={`
+                        w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                        absolute left-0 bottom-0
+                        after:rounded-b-xl
+                        text-xs font-semibold
+                        overlay-black-50 text-white
+                        sm:text-sm
+                        md:text-base
+                      `}
+                    >
+                      <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                        <div className="name">
+                          {collections[pos]?.name}
+                        </div>
+                        <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                          {`${collections[pos]?.count} Products`}
+                        </div>
                       </div>
-                      <button className="border px-2 py-1 z-10 rounded-lg">
+                      <Link
+                        className="url border px-2 py-1 z-10 rounded-lg"
+                        href={`${url}/${collections[pos++]?.id}`}
+                      >
                         View
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -104,13 +149,31 @@ export default function Collections() {
                         alt={collections[pos]?.slug}
                       />
                     </div>
-                    <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                      <div className="name ms-0.5 z-10 uppercase">
-                        {collections[pos++]?.name}
+                    <div
+                      className={`
+                        w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                        absolute left-0 bottom-0
+                        after:rounded-b-xl
+                        text-xs font-semibold
+                        overlay-black-50 text-white
+                        sm:text-sm
+                        md:text-base
+                      `}
+                    >
+                      <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                        <div className="name">
+                          {collections[pos]?.name}
+                        </div>
+                        <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                          {`${collections[pos]?.count} Products`}
+                        </div>
                       </div>
-                      <button className="border px-2 py-1 z-10 rounded-lg">
+                      <Link
+                        className="url border px-2 py-1 z-10 rounded-lg"
+                        href={`${url}/${collections[pos++]?.id}`}
+                      >
                         View
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -129,13 +192,31 @@ export default function Collections() {
                         alt={collections[pos]?.slug}
                       />
                     </div>
-                    <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                      <div className="name ms-0.5 z-10 uppercase">
-                        {collections[pos++]?.name}
+                    <div
+                      className={`
+                        w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                        absolute left-0 bottom-0
+                        after:rounded-b-xl
+                        text-xs font-semibold
+                        overlay-black-50 text-white
+                        sm:text-sm
+                        md:text-base
+                      `}
+                    >
+                      <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                        <div className="name">
+                          {collections[pos]?.name}
+                        </div>
+                        <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                          {`${collections[pos]?.count} Products`}
+                        </div>
                       </div>
-                      <button className="border px-2 py-1 z-10 rounded-lg">
+                      <Link
+                        className="url border px-2 py-1 z-10 rounded-lg"
+                        href={`${url}/${collections[pos++]?.id}`}
+                      >
                         View
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -150,13 +231,31 @@ export default function Collections() {
                         alt={collections[pos]?.slug}
                       />
                     </div>
-                    <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                      <div className="name ms-0.5 z-10 uppercase">
-                        {collections[pos++]?.name}
+                    <div
+                      className={`
+                        w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                        absolute left-0 bottom-0
+                        after:rounded-b-xl
+                        text-xs font-semibold
+                        overlay-black-50 text-white
+                        sm:text-sm
+                        md:text-base
+                      `}
+                    >
+                      <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                        <div className="name">
+                          {collections[pos]?.name}
+                        </div>
+                        <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                          {`${collections[pos]?.count} Products`}
+                        </div>
                       </div>
-                      <button className="border px-2 py-1 z-10 rounded-lg">
+                      <Link
+                        className="url border px-2 py-1 z-10 rounded-lg"
+                        href={`${url}/${collections[pos++]?.id}`}
+                      >
                         View
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -171,13 +270,31 @@ export default function Collections() {
                         alt={collections[pos]?.slug}
                       />
                     </div>
-                    <div className="absolute left-0 bottom-0 w-full flex flex-wrap flex-col items-start justify-center gap-1 px-3 py-3 text-xs font-semibold overlay-black-50 after:rounded-b-xl text-white sm:flex-row sm:justify-between sm:items-center sm:text-sm md:text-base">
-                      <div className="name ms-0.5 z-10 uppercase">
-                        {collections[pos++]?.name}
+                    <div
+                      className={`
+                        w-full flex flex-wrap justify-between items-center gap-2 px-3 py-3
+                        absolute left-0 bottom-0
+                        after:rounded-b-xl
+                        text-xs font-semibold
+                        overlay-black-50 text-white
+                        sm:text-sm
+                        md:text-base
+                      `}
+                    >
+                      <div className="wrapper flex flex-col gap-1 z-10 uppercase">
+                        <div className="name">
+                          {collections[pos]?.name}
+                        </div>
+                        <div className="products-count text-2xs font-normal text-white text-opacity-50 sm:text-xs md:text-sm">
+                          {`${collections[pos]?.count} Products`}
+                        </div>
                       </div>
-                      <button className="border px-2 py-1 z-10 rounded-lg">
+                      <Link
+                        className="url border px-2 py-1 z-10 rounded-lg"
+                        href={`${url}/${collections[pos++]?.id}`}
+                      >
                         View
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
