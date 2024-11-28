@@ -13,13 +13,19 @@ import Validation from "@/components/general/Validation";
 import { getProducts } from "@/utils/functions/api/cms/woocommerce/products";
 
 
-export default function ManageShop({ className = "" }) {
+export default function ManageShop({ className = "", params }) {
 
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [`products-page${page}`],
-    queryFn: () => getProducts({ page, perPage: 20, paginate: true, status: "publish" })
+    queryKey: [`shop-products-${params?.id ? params?.id : ""}-${page}`],
+    queryFn: () => getProducts({
+      categoryId: params?.id || null,
+      page,
+      perPage: 20,
+      paginate: true,
+      status: "publish"
+    })
   });
 
   if (isLoading) {
