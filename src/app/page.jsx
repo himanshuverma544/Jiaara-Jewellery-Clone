@@ -17,15 +17,15 @@ export default function Home() {
     <div className="homepage flex flex-col gap-12">
       <Hero/>
       <Categories/>
-      <FeaturedProducts/>
-      <CelebrityStyle/>
       <Collections/>
-      <KeyBenefits/>
-      <BuildingWithPurpose/>
+      <FeaturedProducts/>
       <Sale/>
-      <Testimonials/>
-      {/* <FollowOnInstagram/> */}
       <FeaturedDeals/>
+      <CelebrityStyle/>
+      <KeyBenefits/>
+      <Testimonials/>
+      <BuildingWithPurpose/>
+      {/* <FollowOnInstagram/> */}
     </div>
   );
 }
