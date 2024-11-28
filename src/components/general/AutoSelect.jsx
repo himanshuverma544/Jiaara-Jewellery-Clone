@@ -158,7 +158,7 @@ const AutoSelect = ({
       />
 
       {isDropdownVisible && filteredOptions.length > 0 && (
-        <ul className={`w-full absolute top-[97.9%] inset-x-0 mt-0.5 z-10 select-none ${dropdownClassName}`}>
+        <ul className={`${dropdownClassName} absolute top-[97.9%] inset-x-0 mt-0.5 z-10 select-none`}>
           {filteredOptions.map((option, index) =>
             <li
               key={option.id || index}
