@@ -38,7 +38,7 @@ export default function InputField({
     min: undefined,
     max: undefined,
     readOnly: false,
-    onChange: () => {},
+    onChange: () => {}
   },
 
   label = {
@@ -105,7 +105,8 @@ export default function InputField({
           {label?.text}
         </label>
       }
-
+      
+      {/* Checkbox and Radio */}
       {input?.type === "checkbox" || input?.type === "radio" ? (
 
         input?.options.map(option => 
