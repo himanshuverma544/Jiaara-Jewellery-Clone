@@ -57,7 +57,7 @@ export default function Categories() {
           isIntrinsicHeight
           visibleSlides={visibleSlidesCount}
           totalSlides={parentCategories.length}
-          isPlaying
+          isPlaying={false}
           interval={3000}
         >
           <Slider className="categories-slide select-none cursor-grab active:cursor-grabbing">
