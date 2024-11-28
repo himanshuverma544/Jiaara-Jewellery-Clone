@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+
 import { useEffect, useContext } from "react";
 import { context } from "@/context-API/context";
 import { storeData } from "@/context-API/actions/action.creators";
@@ -60,17 +62,26 @@ export default function LayoutSidebar() {
   });
 
 
+  const closeSidebar = () => setIsOpen(false);
+
+
   const Categories = ({ parentCategories, isSuccess }) => (
     isSuccess && (
       <ul className="categories flex flex-col gap-5 ps-5 py-5">
         {skipMap(parentCategories, [{ name: "General" }], (parentCategory, index) => (
-          <li key={parentCategory?.id || index} className="flex justify-between items-center">
-            <div className="category-name">
-              {parentCategory?.name}
-            </div>
-            <div className="products-count">
-              {`(${parentCategory?.count})`}
-            </div>
+          <li key={parentCategory?.id || index} className="category-item">
+            <Link
+              className="flex justify-between items-center"
+              href={`/category/${parentCategory?.id}`}
+              onClick={closeSidebar}
+            >
+              <div className="category-name">
+                {parentCategory?.name}
+              </div>
+              <div className="products-count">
+                {`(${parentCategory?.count})`}
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
@@ -81,13 +92,19 @@ export default function LayoutSidebar() {
     isSuccess && (
       <ul className="collections flex flex-col gap-5 ps-5 py-5">
         {collections.map((collection, index) => (
-          <li key={collection?.id || index} className="flex justify-between items-center">
-            <div className="collection-name">
-              {collection?.name}
-            </div>
-            <div className="products-count">
-              {`(${collection?.count})`}
-            </div>
+          <li key={collection?.id || index} className="collection-item">
+            <Link
+              className="flex justify-between items-center"
+              href={`/collection/${collection?.id}`}
+              onClick={closeSidebar}
+            >
+              <div className="collection-name">
+                {collection?.name}
+              </div>
+              <div className="products-count">
+                {`(${collection?.count})`}
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
@@ -106,6 +123,7 @@ export default function LayoutSidebar() {
           <Accordion
             className="border-primaryFont text-sm"
             title={CATEGORIES?.title}
+            defaultState={true}
             content={
               <Categories
                 parentCategories={parentCategories}
@@ -130,6 +148,7 @@ export default function LayoutSidebar() {
           <Accordion
             className="border-primaryFont text-sm"
             title={COLLECTIONS?.title}
+            defaultState={true}
             contentClassName="content text-xs"
             content={
               <Collections
