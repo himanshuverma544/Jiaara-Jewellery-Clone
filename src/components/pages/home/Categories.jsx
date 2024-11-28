@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import Image from "next/image";
 
 import { 
@@ -86,9 +87,12 @@ export default function Categories() {
                       {`${parentCategory?.count} Products`}
                     </div>
                   </div>
-                  <button className="z-10 border px-3 py-1 rounded-xl">
+                  <Link
+                    className="flex justify-center items-center z-10 border px-3 py-1 rounded-xl"
+                    href={`/category/${parentCategory?.id}`}
+                  >
                     View All
-                  </button>
+                  </Link>
                 </div>
               </Slide>
             )}
