@@ -4,6 +4,6 @@ import ManageProduct from "@/components/pages/product/ManageProduct";
 export default function Product({ params }) {
   
   return (
-    <ManageProduct params={params}/>
+    <ManageProduct className="product-page" params={params}/>
   );
 }

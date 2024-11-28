@@ -10,7 +10,7 @@ import Validation from "@/components/general/Validation";
 import { getProductsByIds } from "@/utils/functions/api/cms/woocommerce/products";
 
 
-export default function ManageProduct({ params }) {
+export default function ManageProduct({ className = "", params }) {
 
   const { id } = params;
 
@@ -52,7 +52,7 @@ export default function ManageProduct({ params }) {
   
   return (
     (isSuccess &&
-      <div className={`product-page-${id} flex flex-col gap-12`}>
+      <div className={`${className}-${id} flex flex-col gap-12`}>
         <ProductDisplay product={product}/>
         <KeyBenefits/>
         <RelatedProducts
