@@ -12,6 +12,7 @@ const Accordion = ({
   className = "",
   title = "",
   titleClassName = "",
+  defaultState = false,
   divider = {
     upper: {
       className: "",
@@ -31,7 +32,7 @@ const Accordion = ({
 }) => {
 
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultState);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
