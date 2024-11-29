@@ -177,7 +177,7 @@ export default function Header() {
               />
             )}
 
-            {screenWidth > lg &&
+            {screenWidth >= lg &&
               <li className="categories-nav-item nav-item list-none">
                 <NavItemDropdown
                   className="categories-dropdown text-sm"
