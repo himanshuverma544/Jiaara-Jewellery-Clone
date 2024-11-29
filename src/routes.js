@@ -1,17 +1,8 @@
 import { GoHome, GoHomeFill } from "react-icons/go";
-
-import { IoDiamondOutline, IoDiamond } from "react-icons/io5";
-
-import { IoInformationOutline, IoInformationSharp } from "react-icons/io5";
-
 import { IoPricetagsOutline, IoPricetagsSharp } from "react-icons/io5";
-
 import { CiSearch } from "react-icons/ci";
-
 import { RiUserLine, RiUserFill } from "react-icons/ri";
-
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
-
 import { IoCart , IoCartOutline } from "react-icons/io5";
 
 
@@ -31,20 +22,22 @@ export const SHOP = {
   activeIcon: IoPricetagsSharp
 }
 
+export const PRODUCT = {
+  id: "product",
+  title: "Product",
+  getPathname: value => `/product/${value}`
+}
+
 export const CATEGORIES = {
   id: "categories",
   title: "Categories",
-  pathname: "#",
-  inactiveIcon: IoInformationOutline,
-  activeIcon: IoInformationSharp
+  getPathname: value => `/category/${value}`
 }
 
 export const COLLECTIONS = {
   id: "collections",
   title: "Collections",
-  pathname: "#",
-  inactiveIcon: IoDiamondOutline,
-  activeIcon: IoDiamond
+  getPathname: value => `/collection/${value}`
 }
 
 export const SIGN_IN = {
@@ -77,7 +70,6 @@ export const CART = {
   activeIcon: IoCart
 }
 
-
 export const CHECKOUT = {
   id: "checkout",
   title: "Checkout",
@@ -90,12 +82,43 @@ export const ORDER_CONFIRMATION = {
   pathname: "/order-confirmation"
 }
 
+export const CONTACT_US = {
+  id: "contact-us",
+  title: "Contact Us",
+  pathname: "/contact-us"
+}
+
+export const PRIVACY_POLICY = {
+  id: "privacy-policy",
+  title: "Privacy Policy",
+  pathname: "/privacy-policy"
+}
+
+export const SHIPPING_POLICY = {
+  id: "shipping-policy",
+  title: "Shipping Policy",
+  pathname: "/shipping-policy"
+}
+
+export const TERMS_AND_CONDITIONS = {
+  id: "terms-and-conditions",
+  title: "Terms and Conditions",
+  pathname: "/terms-and-conditions"
+}
+
+export const RETURN_REFUND_CANCELLATION_POLICY = {
+  id: "return-refund-cancellation-policy",
+  title: "Return, Refund & Cancellation Policy",
+  pathname: "/return-refund-cancellation-policy"
+}
+
 
 export function getAllRoutes() {
 
   return ({
     HOME,
     SHOP,
+    PRODUCT,
     CATEGORIES,
     COLLECTIONS,
     SEARCH,
@@ -103,6 +126,11 @@ export function getAllRoutes() {
     WISHLIST,
     CART,
     CHECKOUT,
-    ORDER_CONFIRMATION
+    ORDER_CONFIRMATION,
+    CONTACT_US,
+    PRIVACY_POLICY,
+    SHIPPING_POLICY,
+    TERMS_AND_CONDITIONS,
+    RETURN_REFUND_CANCELLATION_POLICY
   }); 
 }
