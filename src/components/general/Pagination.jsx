@@ -32,11 +32,11 @@ export default function Pagination({
 
 
   return (
-    <div className="pagination flex flex-wrap justify-center items-center px-5 mb-14">
+    <div className="pagination flex flex-wrap justify-center items-center gap-0.5 px-5 mb-14">
       <button
         className={`
-          px-2 py-2 border 
-          bg-primaryFont border-white text-white
+          px-2 py-2 border
+          border-primaryFont bg-transparent text-primaryFont
           ${isFirstPage(currentPage) && "opacity-50"}
           xs:px-3 xs:py-2
         `}
@@ -54,9 +54,10 @@ export default function Pagination({
             className={`
               px-2 py-1 border
               ${isSelectedPage(page) ?
-                "bg-white text-primaryFont" :
-                "bg-primaryFont text-white"
+                "bg-primaryFont text-white" :
+                "bg-transparent text-primaryFont"
               }
+              border-primaryFont
               xs:px-3 xs:py-1
             `}
             onClick={() => setCurrentPage(page)}
@@ -70,7 +71,7 @@ export default function Pagination({
       <button
         className={`
           px-2 py-2 border 
-          bg-primaryFont border-white text-white
+          border-primaryFont bg-transparent text-primaryFont
           ${isLastPage(currentPage) && "opacity-50"}
           xs:px-3 xs:py-2
         `}

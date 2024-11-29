@@ -10,11 +10,10 @@ export default function ProductGrid({ className = "", products = [] }) {
           className="w-[35vw] max-w-[9rem]"
           product={product}
           imgContClassName="relative w-[inherit] h-[35vw] max-w-[9rem] max-h-[9rem]"
-          imgClassName="rounded-3xl"
           productDetailsContClassName="text-xs text-primaryFont"
           productNameClassName="uppercase"
-          btnTextClassName="rounded-s text-2xs uppercase bg-primaryFont text-white xs:text-xs"
-          iconContClassName="text-lg p-2 rounded-e bg-white text-black"
+          btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
+          iconContClassName="text-lg p-2 bg-white text-black"
         />
       )}
     </div>
