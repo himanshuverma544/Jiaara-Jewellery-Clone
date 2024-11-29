@@ -1,8 +1,7 @@
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GiReceiveMoney } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
-import { MdPayment } from "react-icons/md";
-
+import { RiSecurePaymentLine } from "react-icons/ri";
 
 import Benefit from "./components/Benefit";
 
@@ -15,13 +14,13 @@ export default function KeyBenefits({ className = "" }) {
         className="free-shipping"
         icon={LiaShippingFastSolid}
         heading="Free Shipping"
-        text="Free Shipping for orders over ₹ 599"
+        text="Free Shipping for orders over ₹. 599"
       />
       <Benefit
         className="money-guarantee"
         icon={GiReceiveMoney}
         heading="Money Guarantee"
-        text="Within 30 days for an exchange"
+        text="Within 7 days for an exchange and refund"
       />
       <Benefit
         className="online-support"
@@ -30,10 +29,10 @@ export default function KeyBenefits({ className = "" }) {
         text="24 hours a day, 7 days a week"
       />
       <Benefit
-        className="flexible-payment"
-        icon={MdPayment}
-        heading="Flexible Payment"
-        text="Pay with multiple modes"
+        className="secured-payment"
+        icon={RiSecurePaymentLine}
+        heading="Secured Payment"
+        text="Confidence in Every Transaction"
       />
     </section>
   );
