@@ -71,7 +71,7 @@ export default function LayoutSidebar() {
         {skipMap(parentCategories, [{ name: "General" }], (parentCategory, index) => (
           <li key={parentCategory?.id || index} className="category-item">
             <Link
-              className="flex justify-between items-center"
+              className="flex justify-between items-center uppercase"
               href={`/category/${parentCategory?.id}`}
               onClick={closeSidebar}
             >
@@ -94,7 +94,7 @@ export default function LayoutSidebar() {
         {collections.map((collection, index) => (
           <li key={collection?.id || index} className="collection-item">
             <Link
-              className="flex justify-between items-center"
+              className="flex justify-between items-center uppercase"
               href={`/collection/${collection?.id}`}
               onClick={closeSidebar}
             >
@@ -122,6 +122,7 @@ export default function LayoutSidebar() {
         <li className="categories-item">
           <Accordion
             className="border-primaryFont text-sm"
+            titleClassName="uppercase"
             title={CATEGORIES?.title}
             defaultState={true}
             content={
@@ -147,6 +148,7 @@ export default function LayoutSidebar() {
         <li className="collections-item">
           <Accordion
             className="border-primaryFont text-sm"
+            titleClassName="uppercase"
             title={COLLECTIONS?.title}
             defaultState={true}
             contentClassName="content text-xs"
