@@ -48,7 +48,7 @@ export default function CheckoutForm({ className = "" }) {
 
   return (
     <form
-      className={`contact-form flex flex-col gap-10 px-[8vw] ${className}`}
+      className={`checkout-form flex flex-col gap-10 px-[8vw] ${className}`}
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="form-group flex flex-col gap-5">
