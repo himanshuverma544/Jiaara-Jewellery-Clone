@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
 
-import Icon from "./Icon";
-
-const Content = Icon;
+import Content from "@/components/general/Icon";
+const Icon = Content;
 
 
 export default function InputField({
@@ -38,6 +37,7 @@ export default function InputField({
     min: undefined,
     max: undefined,
     readOnly: false,
+    rows: 4,
     onChange: () => {}
   },
 
@@ -108,7 +108,6 @@ export default function InputField({
       
       {/* Checkbox and Radio */}
       {input?.type === "checkbox" || input?.type === "radio" ? (
-
         input?.options.map(option => 
           <div key={option?.value} className={`flex items-center ${option.inputGroupClassName}`}>
             <input
@@ -134,6 +133,21 @@ export default function InputField({
             </label>
           </div>
         )
+      ) : (input?.type === "textarea") ? (
+        <textarea
+          ref={input?.ref}
+          id={input?.id}
+          name={input?.inputName}
+          className={`${input?.className} outline-none hover:ring-1 focus:ring-1`}
+          placeholder={input?.placeholder}
+          rows={input?.rows}
+          value={input?.value}
+          autoComplete={input?.autoComplete}
+          autoFocus={input?.autoFocus}
+          onChange={input?.onChange}
+          readOnly={input?.readOnly}
+          {...(validation?.isEnabled && register(input?.id, validationRules))}
+        />
       ) : (
         <div className="wrapper w-full relative flex items-center">
           <input
