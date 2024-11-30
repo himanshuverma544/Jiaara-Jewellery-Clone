@@ -1,7 +1,7 @@
 export default function PrivacyPolicy() {
 
   return (
-    <div className="privacy-policy-page policy-page px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
+    <div className="privacy-policy-page policy-page no-pb px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
 
       {/* Header */}
       <h1 className="text-3xl font-bold text-center mb-8">

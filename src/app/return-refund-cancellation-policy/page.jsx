@@ -1,7 +1,7 @@
 export default function ReturnRefundCancellationPolicy() {
 
   return (
-    <div className="return-policy-page policy-page px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
+    <div className="return-policy-page policy-page no-pb px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
       <h1 className="text-3xl font-bold text-center mb-8">Return, Refund & Cancellation Policy</h1>
       <p className="text-base mb-4">
         We appreciate your trust and aim to provide a seamless shopping experience. For your reference, our detailed policy regarding returns, refunds, and cancellations is below.

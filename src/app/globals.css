@@ -14,7 +14,7 @@ main {
     margin-top: 6.75rem;
   }
 
-  &:not(:has(div.policy-page)) {
+  &:not(:has(div.no-pb)) {
     padding-bottom: 4rem;
   }
 }
@@ -39,6 +39,14 @@ main {
   }
 
   input::selection.input-selection-black {
+    @apply bg-black text-white;
+  }
+
+  textarea::selection.input-selection-primaryFont {
+    @apply bg-primaryFont text-white;
+  }
+
+  textarea::selection.input-selection-black{
     @apply bg-black text-white;
   }
 

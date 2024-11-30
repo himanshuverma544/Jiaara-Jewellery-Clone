@@ -1,7 +1,7 @@
 export default function ShippingPolicy() {
 
   return (
-    <div className="shipping-policy-page policy-page px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
+    <div className="shipping-policy-page policy-page no-pb px-10 py-16 md:px-[10vw] bg-gray-50 text-gray-900">
       <h1 className="text-3xl font-bold mb-8 text-center">Shipping Policy</h1>
       <p className="mb-6">
         At Jiaara Jewellery, we strive to ensure a smooth and reliable delivery
