@@ -49,7 +49,7 @@ export default function CelebrityStyle() {
       <div className="celebrities flex flex-wrap justify-center items-center px-5">
         {celebrities.map(celebrity => 
           <div
-            key={celebrity.id}
+            key={celebrity?.id}
             className={`
               img-cont
               relative
@@ -62,8 +62,8 @@ export default function CelebrityStyle() {
             <Image
               className="object-cover object-center"
               fill
-              src={celebrity.image}
-              alt={celebrity.id}
+              src={celebrity?.image}
+              alt={celebrity?.id}
             />
          </div>
         )}
