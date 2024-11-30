@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+import ContentOnBackground from "@/components/general/ContentOnBackground";
+
+
 const dirAssets = "/assets/pages/homepage/purpose";
 
 
@@ -13,7 +16,6 @@ export default function BuildingWithPurpose() {
       </h2>
 
       <div className="content-cont w-full flex flex-col md:flex-row">
-
         <div className="img-cont relative w-[inherit] h-[20rem] md:w-[40%] md:h-auto">
           <Image
             className="object-cover object-center"
@@ -22,31 +24,28 @@ export default function BuildingWithPurpose() {
             alt="Hands-Craft Preview Image"
           />
         </div>
-
-        <div className="text-content relative md:w-[60%]">
-          <div className="img-cont absolute inset-0">
-            <Image
-              className="object-cover object-center"
-              fill
-              src={`${dirAssets}/bg-wallpaper.png`}
-              alt="Hands-Craft Background Image"
-            />
-          </div>
-          <div className="wrapper w-full text-center relative flex flex-col items-center justify-center gap-5 p-10 sm:gap-7 sm:p-15 text-primaryFont">
-            <h3 className="heading text-2xl italic">
-              The Hands Behind the Craft
-            </h3>
-            <p className="text text-sm">
-              At the heart of our jewellery lies the skill and dedication of our artisans, the true artists behind each piece.
-              <br/><br/>
-              With years of experience and a deep respect for traditional techniques, they meticulously craft every detail by hand, infusing their passion and expertise into every creation.
-              <br/><br/>
-              Our artisans are more than just makers; they are custodians of age-old craftsmanship, preserving the heritage of jewelry-making while bringing their unique touch to each design.
-              <br/><br/>
-              Their unwavering commitment to excellence ensures that every piece of jewelry is not only a beautiful adornment but a timeless work of art, rich with history and meaning.
-            </p>
-          </div>
-        </div>
+        <ContentOnBackground
+          className="text-content relative md:w-[60%]"
+          image={{
+            className: "w-[inherit] md:w-[40%]",
+            src: `${dirAssets}/bg-wallpaper.png`,
+            alt: "Hands-Craft Background Image"
+          }}
+          innerClassName="wrapper w-full text-center flex flex-col items-center justify-center gap-5 p-10 text-primaryFont sm:gap-7 sm:p-15"
+        >
+          <h3 className="heading text-2xl italic">
+            The Hands Behind the Craft
+          </h3>
+          <p className="text text-sm">
+            At the heart of our jewellery lies the skill and dedication of our artisans, the true artists behind each piece.
+            <br/><br/>
+            With years of experience and a deep respect for traditional techniques, they meticulously craft every detail by hand, infusing their passion and expertise into every creation.
+            <br/><br/>
+            Our artisans are more than just makers; they are custodians of age-old craftsmanship, preserving the heritage of jewelry-making while bringing their unique touch to each design.
+            <br/><br/>
+            Their unwavering commitment to excellence ensures that every piece of jewelry is not only a beautiful adornment but a timeless work of art, rich with history and meaning.
+          </p>
+        </ContentOnBackground>
       </div>
     </section>
   );
