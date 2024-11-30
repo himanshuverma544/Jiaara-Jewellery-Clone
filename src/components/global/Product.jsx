@@ -13,6 +13,8 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 
 import ProductQuantity from "@/components/global/ProductQuantity";
 import Icon from "@/components/general/Icon";
+
+import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 import INR from "@/utils/functions/general/INR";
@@ -39,6 +41,39 @@ export default function Product({
 
   const dispatch = useDispatch();
 
+  const { screenWidth, breakpoints: { xxs, xs, sm, md, lg, xl, xxl } } = useWindowSize();
+
+  const getWordLimit = () => {
+
+    if (screenWidth < xxs) {
+      return 9;
+    }
+    else if (screenWidth >= xxs && screenWidth < xs) {
+      return 3;
+    }
+    else if (screenWidth >= xs && screenWidth < sm) {
+      return 4;
+    }
+    else if (screenWidth >= sm && screenWidth < md) {
+      return 5;
+    }
+    else if (screenWidth >= md && screenWidth < lg) {
+      return 3;
+    }
+    else if (screenWidth >= lg && screenWidth < xl) {
+      return 5;
+    }
+    else if (screenWidth >= xl && screenWidth < xxl) {
+      return 5;
+    }
+    else if (screenWidth >= xxl) {
+      return 4;
+    }
+  }
+
+  const { displayText: truncatedProductName }
+  = useTruncateText({ text: product?.name, wordLimit: getWordLimit() });
+
 
   const [quantity, setQuantity] = useState(INITIAL_QTY);
 
@@ -47,15 +82,12 @@ export default function Product({
   }
 
 
-  const { displayText: truncatedProductName }
-    = useTruncateText({ text: product?.name, wordLimit: 2 });
-
-
   const addToCart = () => {
 
     dispatch(cart.add(product));
     setQuantity(prev => prev + 1);
   }
+
 
   const addToWishList = () => {
     
@@ -103,7 +135,7 @@ export default function Product({
           {btnText && 
             (quantity <= INITIAL_QTY ?
               <button
-                className={`add-to-cart-btn w-[80%] py-2 ${btnTextClassName}`}
+                className={`add-to-cart-btn w-full py-2 ${btnTextClassName}`}
                 onClick={addToCart}
               >
                 {btnText}

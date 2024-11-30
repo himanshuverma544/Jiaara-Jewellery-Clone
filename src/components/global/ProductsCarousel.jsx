@@ -41,11 +41,10 @@ export default function ProductsCarousel({
     <Product
       product={null}
       imgContClassName="relative w-full h-[40vw] sm:h-[20vw] lg:h-[15vw]"
-      imgClassName="rounded-3xl"
       productDetailsContClassName="text-xs text-primaryFont"
       productNameClassName="uppercase"
-      btnTextClassName="rounded-s text-2xs uppercase bg-primaryFont text-white xs:text-xs"
-      iconContClassName="text-lg p-2 rounded-e bg-white text-black"
+      btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
+      iconContClassName="text-lg p-2 bg-white text-black"
     />
   } = {}
 }) {

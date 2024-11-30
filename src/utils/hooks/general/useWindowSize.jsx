@@ -6,7 +6,9 @@ const defaultBreakpoints = {
   xl: 1280,
   lg: 1024,
   md: 768,
-  sm: 640
+  sm: 640,
+  xs: 425,
+  xxs: 375
 };
 
 

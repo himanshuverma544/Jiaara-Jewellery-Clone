@@ -45,7 +45,7 @@ export default function SaleProductCard({ product }) {
 
 
   return (
-    <div className="sale-product-card rounded-xl bg-white ">
+    <div className="sale-product-card rounded-sm bg-white ">
 
       <div className="wrapper h-[50vw] max-h-[15rem] flex justify-center items-center">
 
@@ -56,7 +56,7 @@ export default function SaleProductCard({ product }) {
             src={product?.image}
             alt={product?.slug}
           />
-          <span className="discount-percent absolute top-0 left-0 px-2 py-1 rounded-tl-xl text-xs bg-red-500 text-white">
+          <span className="discount-percent absolute top-0 left-0 px-2 py-1 text-xs rounded-tl-sm bg-red-500 text-white">
             {product?.discountPercentage}
           </span>
         </div>
@@ -132,7 +132,7 @@ export default function SaleProductCard({ product }) {
       <div className="actions flex justify-evenly items-center px-[1vw] py-5">
         {quantity <= INITIAL_QTY ?
           <button
-            className="add-to-cart flex items-center gap-1 px-2 py-2 rounded bg-primaryFont text-white"
+            className="add-to-cart flex items-center gap-1 px-2 py-2 bg-primaryFont text-white"
             onClick={addToCart}
           >
             <IoCartOutline className="text-lg"/>
@@ -163,7 +163,7 @@ export default function SaleProductCard({ product }) {
             }
           />
         }
-        <button className="wishlist flex items-center gap-1 px-2 py-2 rounded bg-primaryFont text-white">
+        <button className="wishlist flex items-center gap-1 px-2 py-2 bg-primaryFont text-white">
           <IoMdHeartEmpty className="text-lg"/>
           <span
             className="text-xs uppercase"
