@@ -115,7 +115,7 @@ export default function HeroCarousel() {
           text-white
           lg:gap-10
         `}>
-          <div className="text text-center lg:text-lg 2xl:text-2xl">
+          <div className="text text-center sm:text-xl lg:text-2xl 2xl:text-3xl">
             <p className="leading-loose">
               Crafted from the Heart, for the Heart.<br/>
               Premium Contemporary Handcrafted Pure Brass Jewellery for Modern Women.
