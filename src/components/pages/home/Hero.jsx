@@ -124,13 +124,12 @@ export default function HeroCarousel() {
           <Link
             className={`
               carousel-button
-              px-5 py-2
+              px-[3vw] py-2
               rounded-xl
-              text-xs uppercase
+              uppercase
               bg-primaryButton
               text-primaryFont
-              lg:text-sm
-              xl:text-base
+              sm:text-lg lg:text-xl 2xl:text-3xl
             `}
             href={SHOP?.pathname}
           >
