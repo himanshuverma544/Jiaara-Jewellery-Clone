@@ -19,9 +19,9 @@ export default function ContactForm({ className = "" }) {
       className={`flex flex-col gap-5 ${className}`}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="form-heading text-2xl font-semibold sm:text-2xl">
+      <h2 className="form-heading mb-3 text-3xl font-semibold">
         Have an enquiry?
-      </div>
+      </h2>
 
       <InputField
         input={{
