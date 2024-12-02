@@ -58,7 +58,7 @@ export default function OrderSummary({ className = "" }) {
 
       <hr className="border-primaryFont"/>
 
-      <OrderCalculation/>
+      <OrderCalculation cartItems={cartItems}/>
 
       <button className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white">
         Place Order
