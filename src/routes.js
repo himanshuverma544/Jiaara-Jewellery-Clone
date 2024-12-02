@@ -25,19 +25,19 @@ export const SHOP = {
 export const PRODUCT = {
   id: "product",
   title: "Product",
-  getPathname: value => `/product/${value}`
+  getPathname: (value = "") => `/product/${value}`
 }
 
 export const CATEGORIES = {
   id: "categories",
   title: "Categories",
-  getPathname: value => `/category/${value}`
+  getPathname: (value = "") => `/category/${value}`
 }
 
 export const COLLECTIONS = {
   id: "collections",
   title: "Collections",
-  getPathname: value => `/collection/${value}`
+  getPathname: (value = "") => `/collection/${value}`
 }
 
 export const SIGN_IN = {
