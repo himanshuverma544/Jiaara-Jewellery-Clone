@@ -33,7 +33,7 @@ function isString(icon) {
 }
 
 
-const Icon = ({ icon, alt = "", className = "", innerClassName = "", ...props }) => {
+const Icon = ({ icon = null, alt = "", className = "", innerClassName = "", ...props }) => {
 
   if (isReactElement(icon)) {
     return (
@@ -81,7 +81,7 @@ const Icon = ({ icon, alt = "", className = "", innerClassName = "", ...props })
   }
 
   else {
-    console.error("Error in the Icon Component:", { icon });
+    return null;
   }
 };
 

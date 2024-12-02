@@ -14,7 +14,7 @@ export default function ProductGrid({ className = "", products = [] }) {
     >
       {products.map(product =>
         <Product
-          key={product.id}
+          key={product?.id}
           className={`
             w-[87vw]
             2xs:w-[42vw] 

@@ -1,11 +1,11 @@
 import INR from "@/utils/functions/general/INR";
 
 
-const TotalPrice = ({ className = "", amount = 0 }) => {
+const TotalPrice = ({ className = "", text="", amount = 0 }) => {
 
   return (
     <div className={className}>
-      {INR(amount)}
+      {`${text}${INR(amount)}`}
     </div>
   );
 };

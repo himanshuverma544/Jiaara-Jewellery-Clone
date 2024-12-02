@@ -58,7 +58,7 @@ export default function Pagination({
                 "bg-transparent text-primaryFont"
               }
               border-primaryFont
-              xs:px-3 xs:py-1
+              xs:px-4 xs:py-1
             `}
             onClick={() => setCurrentPage(page)}
             disabled={isSelectedPage(page)}

@@ -31,7 +31,7 @@ export default function ManageShop({ className = "", params }) {
   if (isLoading) {
     return (
       <Validation
-        className="w-screen h-screen text-primaryFont"
+        className="w-screen h-[20rem] text-primaryFont"
         message="Loading Products…"
       />
     );
