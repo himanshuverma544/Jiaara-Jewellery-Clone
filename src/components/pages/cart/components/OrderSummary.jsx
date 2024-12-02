@@ -26,7 +26,7 @@ export default function OrderSummary({ className = "", cartItems = [] }) {
         className="checkout-btn px-5 py-2 mt-3 rounded-lg text-center uppercase bg-primaryFont text-white"
         href={CHECKOUT?.pathname}
       >
-          Proceed to Checkout
+        Proceed to Checkout
       </Link>
     </div>
   );
