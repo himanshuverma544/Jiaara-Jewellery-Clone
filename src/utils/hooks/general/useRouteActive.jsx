@@ -27,6 +27,7 @@ const useRouteActive = ({ href = "" } = {}) => {
 
 
   return {
+    activeRoute: pathname,
     isActive,
     isRouteActive
   };
