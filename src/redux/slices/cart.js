@@ -10,14 +10,7 @@ const cartSlice = createSlice({
     add(state, action) {
 
       const product = action.payload;
-      const existingProduct = state.find(item => item.id == product.id);
-
-      if (existingProduct) {
-        existingProduct.cartQtyCount += 1;
-      }
-      else {
         state.push({ ...product, cartQtyCount: 1 });
-      }
     },
 
     incrementQty(state, action) {
@@ -38,7 +31,7 @@ const cartSlice = createSlice({
       if (productIndex >= 0) {
         const existingProduct = state[productIndex];
 
-        if (existingProduct.cartQtyCount > 2) {
+        if (existingProduct.cartQtyCount > 1) {
           existingProduct.cartQtyCount = cartQtyCount;
         }
         else {
@@ -55,7 +48,7 @@ const cartSlice = createSlice({
       return products;
     },
 
-    clear(state, action) {
+    clear() {
       
       return [];
     }

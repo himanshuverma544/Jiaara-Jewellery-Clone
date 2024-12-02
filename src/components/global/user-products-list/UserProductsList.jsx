@@ -13,6 +13,8 @@ import TotalPrice from "@/components/global/user-products-list/components/TotalP
 
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
+import INR from "@/utils/functions/general/INR";
+
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
 
@@ -44,10 +46,9 @@ export default function UserProductsList({
     <ul className={`${theClassName} flex flex-col gap-3`}>
 
       {productsList?.length > 0 &&
-        productsList.map((product, index) =>
+        productsList?.map((product, index) =>
 
           <React.Fragment key={product?.id || index}>
-            
             <li className={`row-${index + 1} ${rowClassName}`}>
               <div className={`img-cont relative ${productImageContClassName}`}>
                 <Image
@@ -70,7 +71,8 @@ export default function UserProductsList({
                 }
                 {context.isCart && 
                   <TotalPrice
-                    className="total-price mt-1"
+                    className="total-price mt-1 text-xs 2xs:text-sm"
+                    text={`${INR(product?.price)} x ${product?.cartQtyCount} = `}
                     amount={product?.price * product?.cartQtyCount}
                   />
                 }
@@ -79,6 +81,7 @@ export default function UserProductsList({
               {context.isCheckout &&
                 <TotalPrice
                   className="total-price px-1 text-xs 2xs:text-sm"
+                  text={`${INR(product?.price)} x ${product?.cartQtyCount} = `}
                   amount={product?.price * product?.cartQtyCount}
                 />
               }
@@ -86,10 +89,17 @@ export default function UserProductsList({
               {context.isCart &&
                 <ProductQuantity
                   theClassName="h-[2rem] flex items-stretch ms-1 rounded bg-white xs:ms-0"
-                  inputClassName="w-[1.5rem] px-2 py-1 rounded-sm outline-none text-center text-xs input-selection-primaryFont focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[3rem] xs:text-base sm:px-3 sm:py-2"
+                  inputClassName={`
+                    w-[1.5rem] px-2 py-1 rounded-sm outline-none
+                    text-center text-xs
+                    input-selection-primaryFont
+                    focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[2rem] xs:text-base
+                    sm:px-3 sm:py-2
+                  `}
                   buttonsClassName="px-2 py-2 text-xs bg-primaryFont text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
                   incrementIcon={FiPlus}
                   decrementIcon={FiMinus}
+                  productId={product?.id}
                   cartQtyCount={product?.cartQtyCount}
                   stockLeft={product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE}
                 />
@@ -105,7 +115,7 @@ export default function UserProductsList({
               }
             </li>
             {divider && productsList.length - 1 !== index &&
-              <li>
+              <li className="divider-cont">
                 <hr className={`divider ${dividerClassName}`}/>
               </li>
             }

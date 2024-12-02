@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useDispatch } from "react-redux";
 import { cart } from "@/redux/slices/cart";
@@ -6,9 +6,6 @@ import { cart } from "@/redux/slices/cart";
 import Icon from "@/components/general/Icon";
 
 import isFalsy from "@/utils/functions/general/isFalsy";
-
-
-const INITIAL_QTY = 1;
 
 
 export default function ProductQuantity({
@@ -23,9 +20,15 @@ export default function ProductQuantity({
   callback: getQuantity = () => {},
 }) {
   
-  const [quantity, setQuantity] = useState(cartQtyCount ?? INITIAL_QTY);
+  const [quantity, setQuantity] = useState(cartQtyCount);
 
   const dispatch = useDispatch();
+
+
+  useEffect(()=> {
+
+    setQuantity(cartQtyCount);
+  }, [cartQtyCount]);
 
 
   const isOutOfStock = () => {
@@ -91,7 +94,7 @@ export default function ProductQuantity({
         className={`
           increment-btn
           flex justify-center items-center
-          rounded-s
+          rounded-s-sm
           font-semibold
           ${buttonClassName}
           ${disableIncrementButton() && "opacity-50"}
@@ -117,7 +120,7 @@ export default function ProductQuantity({
         className={`
           decrement-btn
           flex justify-center items-center
-          rounded-e
+          rounded-e-sm
           font-semibold
           ${buttonClassName}
           ${disableDecrementButton() && "opacity-50"}

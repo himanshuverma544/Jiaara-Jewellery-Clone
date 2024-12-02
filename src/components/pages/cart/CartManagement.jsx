@@ -39,9 +39,13 @@ export default function CartManagement() {
         />
         <CartHead className="px-[8vw] mt-5" cartItemsCount={cartItems?.length}/>
         <CartData className="px-[8vw] py-5 mt-5" cartItems={cartItems}/>
-        <OrderSummary className="px-[8vw] mt-5" cartItems={cartItems}/>
+        {cartItems?.length > 0 &&
+          <OrderSummary className="px-[8vw] mt-5" cartItems={cartItems}/>
+        }
         <KeyBenefits className="mt-10"/>
-        <RelatedProducts className="mt-5 mb-10" cartItems={cartItems}/>
+        {cartItems?.length > 0 &&
+          <RelatedProducts className="mt-5 mb-10" cartItems={cartItems}/>
+        }
       </div>
     )
   );
