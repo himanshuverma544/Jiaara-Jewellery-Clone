@@ -4,7 +4,7 @@ import { cart } from "@/redux/slices/cart";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 
-export default function CartHead({ className = "", cartItemsCount = null }) {
+export default function CartHead({ className = "", cartItemsCount = 0 }) {
 
   const dispatch = useDispatch();
 
@@ -18,11 +18,9 @@ export default function CartHead({ className = "", cartItemsCount = null }) {
         <span className="heading-text">
           Your Cart
         </span>
-        {cartItemsCount &&
-          <span className="total-cart-items capitalize">
-            {cartItemsCount <= 1 ? `(${cartItemsCount} item)` : `(${cartItemsCount} items)`}
-          </span>
-        }
+        <span className="total-cart-items capitalize">
+          {cartItemsCount <= 1 ? `(${cartItemsCount} item)` : `(${cartItemsCount} items)`}
+        </span>
       </div>
       <div className="actions flex items-center gap-5 text-lg text-primaryFont md:text-xl">
         <button className="icon-cont" onClick={clearCart}>
