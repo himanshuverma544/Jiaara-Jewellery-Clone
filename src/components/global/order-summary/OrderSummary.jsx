@@ -1,5 +1,8 @@
 'use client';
 
+import { useContext } from 'react';
+import { context } from "@/context-API/context";
+
 import { useSelector } from "react-redux";
 
 import { MdKeyboardArrowUp } from "react-icons/md";
@@ -15,6 +18,19 @@ import OrderCalculation from "./components/OrderCalculation";
 export default function OrderSummary({ className = "" }) {
 
   const cartItems = useSelector(state => state?.cartReducer);
+
+  const { data: { triggered } = {}, data: { functions } = {} } = useContext(context) || {};
+
+  const handlePlaceOrder = () => {
+
+    if (triggered && functions?.onSubmitCheckoutForm) {
+      functions.onSubmitCheckoutForm();
+    }
+    else {
+      console.error("Checkout form submission function is unavailable.");
+    }
+  };
+
 
   return (
     <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
@@ -60,7 +76,10 @@ export default function OrderSummary({ className = "" }) {
 
       <OrderCalculation cartItems={cartItems}/>
 
-      <button className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white">
+      <button
+        className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white"
+        onClick={handlePlaceOrder}
+      >
         Place Order
       </button>
     </div>
