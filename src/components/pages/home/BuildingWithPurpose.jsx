@@ -27,7 +27,6 @@ export default function BuildingWithPurpose() {
         <ContentOnBackground
           className="text-content relative md:w-[60%]"
           image={{
-            className: "w-[inherit] md:w-[40%]",
             src: `${dirAssets}/bg-wallpaper.png`,
             alt: "Hands-Craft Background Image"
           }}
