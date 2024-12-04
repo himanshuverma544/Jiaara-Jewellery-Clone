@@ -5,7 +5,7 @@ const storeData = (data, typeOfData) => {
 
   let actionType = INVALID_TYPE_OF_DATA;
 
-  const dataAllowed = ["states", "nodes", "objects", "arrays", "refVars", "vars"];
+  const dataAllowed = ["states", "nodes", "objects", "arrays", "functions", "refVars", "vars"];
 
   if (typeof data === "object" && typeof typeOfData === "string") {
     for (let allowedData of dataAllowed) {

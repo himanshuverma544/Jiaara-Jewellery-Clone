@@ -73,7 +73,7 @@ export default function Header() {
         name: category?.name,
         slug: category?.slug,
         count: category?.count,
-        url: `/category/${category?.id}`
+        url: CATEGORIES?.getPathname(category?.id)
       })
     );
   }
@@ -86,7 +86,7 @@ export default function Header() {
         name: collection?.name,
         slug: collection?.slug,
         count: collection?.count,
-        url: `/collection/${collection?.id}`
+        url: COLLECTIONS?.getPathname(collection?.id)
       })
     );
   }
@@ -180,11 +180,12 @@ export default function Header() {
             {screenWidth >= lg &&
               <li className="categories-nav-item nav-item list-none">
                 <NavItemDropdown
-                  className="categories-dropdown text-sm"
+                  className="categories-dropdown text-sm "
                   inputGroupClassName="cursor-default"
                   isLinkMode={true}
                   input={{
                     id: "categories-dropdown",
+                    inputName: "categoriesDropdown",
                     className: `
                       w-[8rem] pt-1 pb-2 uppercase bg-transparent
                       hover:ring-transparent focus:ring-transparent cursor-default 
@@ -232,6 +233,7 @@ export default function Header() {
                   isLinkMode={true}
                   input={{
                     id: "collections-dropdown",
+                    inputName: "collectionsDropdown",
                     className: `
                       w-[9rem] pt-1 pb-2 uppercase bg-transparent
                       hover:ring-transparent focus:ring-transparent cursor-default 

@@ -26,7 +26,7 @@ const cartSlice = createSlice({
     decrementQty(state, action) {
 
       const { productId, cartQtyCount } = action.payload;
-      const productIndex = state.findIndex(item => item.id == productId);
+      const productIndex = state.findIndex(item => item?.id == productId);
 
       if (productIndex >= 0) {
         const existingProduct = state[productIndex];
