@@ -32,7 +32,7 @@ export default function KeyBenefits({ className = "" }) {
         className="secured-payment"
         icon={RiSecurePaymentLine}
         heading="Secured Payment"
-        text="Confidence in Every Transaction"
+        text="Confidence in every transaction"
       />
     </section>
   );
