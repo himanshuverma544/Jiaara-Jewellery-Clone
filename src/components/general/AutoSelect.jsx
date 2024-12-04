@@ -1,6 +1,10 @@
+'use client';
+
 import Link from "next/link";
 
 import { useState, useRef, useEffect } from "react";
+
+import { useFormContext } from "react-hook-form";
 
 import InputField from "./InputField";
 import Icon from "./Icon";
@@ -42,12 +46,13 @@ const AutoSelect = ({
     </svg>
 }) => {
 
+  const methods = useFormContext();
+  const inputValue = methods?.watch(input?.inputName) ?? input?.defaultValue;
 
-  const [inputValue, setInputValue] = useState(input?.defaultValue || defaultOption);
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const inputRef = useRef(null);  
   const dropdownRef = useRef(null);
@@ -64,19 +69,21 @@ const AutoSelect = ({
   }, [options]);
 
 
-  const handleInputChange = event => {
+  useEffect(() => {
 
-    if (isLinkMode) return; 
+    if (isLinkMode) return;
 
-    const value = event.target.value;
-    setInputValue(value);
+    function handleInputValue() {
 
-    const filtered = options.filter(option =>
-      option.toLowerCase().includes(value.toLowerCase())
-    );
+      const filtered = options.filter(option =>
+        option.toLowerCase().includes(inputValue?.toLowerCase())
+      );
+      setFilteredOptions(filtered);
+    }
 
-    setFilteredOptions(filtered);
-  };
+    handleInputValue();
+
+  }, [isLinkMode, inputValue, options]);
 
 
   const handleSelect = option => {
@@ -85,7 +92,7 @@ const AutoSelect = ({
 
     if (isLinkMode) return; 
 
-    setInputValue(option);
+    methods?.setValue(input?.inputName, option);
     setSelectedOption(option);
     setFilteredOptions(options);
   };
@@ -132,7 +139,6 @@ const AutoSelect = ({
       onMouseOver={() => isLinkMode && toggleDropdown(true)}
       onMouseLeave={() => isLinkMode && toggleDropdown(false)}
     >
-
       <InputField
         className={`${inputGroupClassName}`}
         onClick={toggleDropdown}
@@ -141,10 +147,10 @@ const AutoSelect = ({
           ref: inputRef,
           icon: {
             className: `${isDropdownVisible ? 'rotate-180' : ''} ${input?.icon?.className}`,
-            theIcon: <Icon icon={input?.icon?.theIcon}/> || <Icon icon={<ArrowDropdown/>}/>
+            theIcon: input?.icon?.theIcon ?
+            <Icon icon={input?.icon?.theIcon}/> : <Icon icon={<ArrowDropdown/>}/>
           },
           value: inputValue,
-          onChange: handleInputChange,
           ...input
         }}
         
@@ -161,13 +167,13 @@ const AutoSelect = ({
         <ul className={`${dropdownClassName} absolute top-[97.9%] inset-x-0 mt-0.5 z-10 select-none`}>
           {filteredOptions.map((option, index) =>
             <li
-              key={option.id || index}
+              key={option?.id || index}
               ref={selectedOption === option ? scrollRef : null}
               className={`
                 cursor-pointer px-3 py-2
                 ${optionClassName?.default ? optionClassName?.default : ""}
-                ${optionClassName?.hover ? optionClassName?.hover : ""}
                 ${selectedOption === option ? optionClassName?.selection : ""}
+                ${selectedOption !== option ? optionClassName?.hover : ""}
               `}
               onClick={() => handleSelect(option)}
             >
@@ -185,7 +191,7 @@ const AutoSelect = ({
                   }
                 </Link>
                 ) : (
-                {option}
+                option
               )}
             </li>
           )}
