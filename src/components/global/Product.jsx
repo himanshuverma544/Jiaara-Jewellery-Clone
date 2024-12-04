@@ -5,8 +5,8 @@ import Image from "next/image";
 
 import { useDispatch, useSelector } from "react-redux";
 import { cart } from "@/redux/slices/cart";
+import { wishlist } from "@/redux/slices/wishlist";
 
-import { IoMdHeartEmpty } from "react-icons/io";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 import ProductQuantity from "@/components/global/ProductQuantity";
@@ -22,6 +22,8 @@ import INR from "@/utils/functions/general/INR";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
+import { WISHLIST } from '@/routes';
+
 
 export default function Product({
   className = "",
@@ -35,7 +37,12 @@ export default function Product({
   btnTextClassName = "",
   btnText = "Add to Cart",
   iconContClassName = "",
-  icon = <IoMdHeartEmpty/>
+  icon = {
+    className: "text-primaryFont",
+    active: WISHLIST?.activeIcon,
+    inactive: WISHLIST?.inactiveIcon,
+    general: <></>
+  }
 }) {
 
   const dispatch = useDispatch();
@@ -85,18 +92,26 @@ export default function Product({
 
 
   const cartItems = useSelector(state => state?.cartReducer ?? []);
-
   const cartItem = product && cartItems.find(cartItem => cartItem?.id == product?.id);
 
+  const wishlistItems = useSelector(state => state?.wishlistReducer ?? []);
+  const wishlistItem = product && wishlistItems.find(wishlistItem => wishlistItem?.id == product?.id);
+  
   
   const addToCart = () => {
-
+    
     dispatch(cart.add(product));
   }
 
 
-  const addToWishList = () => {
-    
+  const handleWishlist = () => {
+
+    if (!wishlistItem?.isWishlist) {
+      dispatch(wishlist.add(product));
+    }
+    else {
+      dispatch(wishlist.remove(wishlistItem?.id))
+    }
   }
 
 
@@ -164,9 +179,14 @@ export default function Product({
           {icon &&
             <button
               className={`wishlist-icon-btn ${iconContClassName}`}
-              onClick={addToWishList}
+              onClick={handleWishlist}
             >
-              <Icon className="wishlist-icon" icon={icon}/>
+              {(icon?.general || icon?.active || icon?.inactive) &&
+                <Icon
+                  className={`${icon?.className}`}
+                  icon={wishlistItem?.isWishlist ? icon?.active : icon?.inactive ?? icon?.general}
+                />
+              }
             </button>
           }
         </div>

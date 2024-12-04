@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import cartReducer from "@/redux/slices/cart";
+import wishlistReducer from "@/redux/slices/wishlist";
 
 
 const PERSISTENCE_KEY = 'redux_state';
@@ -21,7 +22,8 @@ const loadPersistedState = () => {
 
 const store = configureStore({
   reducer: {
-    cartReducer
+    cartReducer,
+    wishlistReducer
   },
   preloadedState: loadPersistedState()
 });
