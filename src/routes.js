@@ -76,9 +76,9 @@ export const CHECKOUT = {
   pathname: "/checkout"
 }
 
-export const ORDER_CONFIRMATION = {
-  id: "order-confirmation",
-  title: "Order Confirmation",
+export const ORDER = {
+  id: "order",
+  title: "Order",
   getPathname: (value = "") => `/order/${value}`
 }
 
@@ -126,7 +126,6 @@ export function getAllRoutes() {
     WISHLIST,
     CART,
     CHECKOUT,
-    ORDER_CONFIRMATION,
     CONTACT_US,
     PRIVACY_POLICY,
     SHIPPING_POLICY,
