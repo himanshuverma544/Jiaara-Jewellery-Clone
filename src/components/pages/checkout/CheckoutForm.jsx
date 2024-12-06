@@ -74,7 +74,7 @@ export default function CheckoutForm({ className = "" }) {
 
     const orderData = {
       payment_method: 'cod',
-      payment_method_title: 'Cash on Delivery',
+      payment_method_title: 'Cash on delivery',
       set_paid: false,
       billing: formData,
       shipping: formData,
@@ -92,7 +92,9 @@ export default function CheckoutForm({ className = "" }) {
       ];
     }
 
-    await createOrder(orderData);
+    const { data: { orderId } } = await createOrder(orderData);
+
+    console.log(orderId);
 
   }, [triggered, objects, cartItems]);
 
@@ -190,6 +192,7 @@ export default function CheckoutForm({ className = "" }) {
               className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
               min: 0,
               required: true,
+              minLength: 10,
               maxLength: 13
             }}
             label={{
@@ -200,6 +203,7 @@ export default function CheckoutForm({ className = "" }) {
               isEnabled: true,
               messages: {
                 required: "Contact Number is required.",
+                minLength: "Below minimum length",
                 maxLength: "Exceeds maximum length",
                 min: "Value is too low."
               }
