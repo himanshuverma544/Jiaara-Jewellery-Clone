@@ -54,7 +54,6 @@ export default function Product({
   const getWordLimit = () => {
 
     if (screenWidth < xxs) {
-
       if (
         isRouteActive(SHOP?.pathname) ||
         activeRoute.includes(CATEGORIES.getPathname()) ||
@@ -71,7 +70,7 @@ export default function Product({
       return 4;
     }
     else if (screenWidth >= sm && screenWidth < md) {
-      return 5;
+      return 4;
     }
     else if (screenWidth >= md && screenWidth < lg) {
       return 2;
