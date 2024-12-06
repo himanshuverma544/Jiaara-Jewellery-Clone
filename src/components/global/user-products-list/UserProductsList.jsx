@@ -55,7 +55,7 @@ export default function UserProductsList({
                   fill
                   className={`object-cover ${productImageClassName}`}
                   src={product?.image}
-                  alt={product?.slug}
+                  alt={product?.slug || product?.name}
                 />
               </div>
 
@@ -114,7 +114,7 @@ export default function UserProductsList({
                 </button> 
               }
             </li>
-            {divider && productsList.length - 1 !== index &&
+            {divider && productsList?.length - 1 !== index &&
               <li className="divider-cont">
                 <hr className={`divider ${dividerClassName}`}/>
               </li>
