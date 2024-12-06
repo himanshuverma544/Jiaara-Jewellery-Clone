@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useEffect, useContext, useCallback } from 'react';
 
 import { useSelector } from "react-redux";
@@ -13,6 +15,8 @@ import AutoSelect from '@/components/general/AutoSelect';
 import InputField from '@/components/general/InputField';
 
 import { createOrder } from "@/utils/functions/api/cms/woocommerce/orders";
+
+import { ORDER } from '@/routes';
 
 
 const indianStates = [
@@ -48,6 +52,8 @@ const indianStates = [
 
 
 export default function CheckoutForm({ className = "" }) {
+
+  const router = useRouter();
 
   const methods = useForm({ mode: "onChange" });
 
@@ -92,11 +98,15 @@ export default function CheckoutForm({ className = "" }) {
       ];
     }
 
-    const { data: { orderId } } = await createOrder(orderData);
+    try {
+      const { data: { orderId } } = await createOrder(orderData);
+      router.push(ORDER?.getPathname(orderId));
+    }
+    catch(error) {
+      console.error("Error receiving the order.", error);
+    }
 
-    console.log(orderId);
-
-  }, [triggered, objects, cartItems]);
+  }, [router, triggered, objects, cartItems]);
 
   
   useEffect(() => {

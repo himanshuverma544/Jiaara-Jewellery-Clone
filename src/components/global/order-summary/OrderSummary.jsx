@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { context } from "@/context-API/context";
 
 import { useSelector } from "react-redux";
@@ -19,15 +19,15 @@ export default function OrderSummary({ className = "" }) {
 
   const cartItems = useSelector(state => state?.cartReducer);
 
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const { data: { triggered } = {}, data: { functions } = {} } = useContext(context) || {};
 
   const handlePlaceOrder = () => {
 
     if (triggered && functions?.onSubmitCheckoutForm) {
       functions.onSubmitCheckoutForm();
-    }
-    else {
-      console.error("Checkout form submission function is unavailable.");
+      setIsDisabled(true);
     }
   };
 
@@ -77,8 +77,15 @@ export default function OrderSummary({ className = "" }) {
       <OrderCalculation cartItems={cartItems}/>
 
       <button
-        className="checkout-btn px-5 py-2 mt-3 rounded-lg uppercase bg-primaryFont text-white"
+        className={`
+          checkout-btn
+          px-5 py-2 mt-3 rounded-lg
+          uppercase
+          bg-primaryFont text-white
+          ${isDisabled ? "opacity-50" : ""}  
+        `}
         onClick={handlePlaceOrder}
+        disabled={isDisabled}
       >
         Place Order
       </button>
