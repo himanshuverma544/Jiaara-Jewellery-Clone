@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 
 import useRouteActive from "@/utils/hooks/general/useRouteActive";
 
-import { CART, CHECKOUT, ORDER_CONFIRMATION } from "@/routes";
+import { CART, CHECKOUT, ORDER} from "@/routes";
 
 const FIRST_TAB_INDEX = 0;
 
@@ -13,9 +13,9 @@ function UserProductsStatus({
   className = "",
   titleClassName = "",
   titles = [
-    { name: CART.title, url: CART.pathname },
-    { name: CHECKOUT.title, url: CHECKOUT.pathname },
-    { name: ORDER_CONFIRMATION.title, url: ORDER_CONFIRMATION.pathname }
+    { name: CART?.title, url: CART?.pathname },
+    { name: CHECKOUT?.title, url: CHECKOUT?.pathname },
+    { name: ORDER?.title, url: "" }
   ],
   forTab = false,
   callback = () => {}
