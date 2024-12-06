@@ -17,6 +17,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import useSidebarUtils from "@/utils/hooks/sidebar/useSidebarUtils";
 
 import { CATEGORIES, COLLECTIONS } from "@/routes";
+
 import { getCategories } from "@/utils/functions/api/cms/woocommerce/categories";
 import { getCollections } from "@/utils/functions/api/cms/woocommerce/collections";
 
