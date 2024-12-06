@@ -38,6 +38,7 @@ export default function InputField({
     autoComplete: "on",
     autoFocus: false,
     required: false,
+    minLength: undefined,
     maxLength: undefined,
     min: undefined,
     max: undefined,
@@ -75,6 +76,12 @@ export default function InputField({
       pattern: {
         value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
         message: validation?.messages?.invalidEmail,
+      },
+    }),
+    ...(input?.minLength && {
+      minLength: {
+        value: input?.minLength,
+        message: validation?.messages?.minLength,
       },
     }),
     ...(input?.maxLength && {
