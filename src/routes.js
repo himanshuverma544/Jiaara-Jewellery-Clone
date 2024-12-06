@@ -79,7 +79,7 @@ export const CHECKOUT = {
 export const ORDER_CONFIRMATION = {
   id: "order-confirmation",
   title: "Order Confirmation",
-  pathname: "/order-confirmation"
+  getPathname: (value = "") => `/order/${value}`
 }
 
 export const CONTACT_US = {

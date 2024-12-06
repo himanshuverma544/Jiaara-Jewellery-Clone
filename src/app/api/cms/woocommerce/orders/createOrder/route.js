@@ -10,18 +10,18 @@ export async function POST(req) {
 
     return new Response(
       JSON.stringify({
+        orderId: data?.id,
         message: 'Order created successfully',
-        order_id: data?.id,
       }),
       { status: 200 }
     );
   }
   catch (error) {
-    console.error('Error creating order:', error?.response?.data || error?.message);
+    console.error('Error creating order from backend:', error || error?.message);
     return new Response(
       JSON.stringify({
-        message: 'Error creating order',
-        details: error?.response?.data || error?.message,
+        message: 'Error creating order from backend.',
+        details: error || error?.message,
       }),
       { status: 500 }
     );
