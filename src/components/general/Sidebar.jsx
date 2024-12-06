@@ -31,7 +31,7 @@ export default function Sidebar({
           sidebar
           h-[inherit]
           relative z-20 
-          flex flex-col gap-8
+          flex flex-col
           overflow-y-auto
           shadow-lg
           transition-transform duration-300
