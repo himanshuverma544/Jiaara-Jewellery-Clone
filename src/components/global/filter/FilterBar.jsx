@@ -3,6 +3,8 @@
 import { useContext } from "react";
 import { context } from "@/context-API/context";
 
+import { useForm, FormProvider } from 'react-hook-form';
+
 import { CiFilter } from "react-icons/ci";
 
 import AutoSelect from "@/components/general/AutoSelect";
@@ -18,7 +20,8 @@ export default function FilterBar({ className = "" }) {
   const toggleSidebar = () =>
     setIsOpen(!isOpen);
 
-  
+  const methods = useForm({ mode: "onChange" });  
+
   return (
     <div className={`filter-bar flex flex-col ${className}`}>
 
@@ -34,45 +37,49 @@ export default function FilterBar({ className = "" }) {
 
       <hr className="divider border-quaternaryBackground"/>
 
-      <div className="wrapper w-full flex justify-center items-center px-[5vw] mt-5">
-        <AutoSelect
-          className="w-full"
-          input={{
-            id: "sort-select",
-            className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
-            placeholder: "Select Sort",
-            autoComplete: "off",
-            required: true,
-            readOnly: true
-          }}
-          dropdownClassName="border rounded overflow-y-auto text-sm border-quaternaryBackground bg-white"
-          optionClassName={{
-            hover: "hover:bg-quinaryBackground",
-            selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
-          }}
-          options={["Name", "Best Seller", "Latest", "Trending", "Rating"]}
-        />
+      <FormProvider { ...methods}>
+        <form className="wrapper w-full flex justify-center items-center px-[5vw] mt-5">
+          <AutoSelect
+            className="w-full"
+            input={{
+              id: "sort-method-select",
+              inputName: "sortMethod",
+              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+              placeholder: "Select Sort",
+              autoComplete: "off",
+              required: true,
+              readOnly: true
+            }}
+            dropdownClassName="border rounded overflow-y-auto text-sm border-quaternaryBackground bg-white"
+            optionClassName={{
+              hover: "hover:bg-quinaryBackground",
+              selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
+            }}
+            options={["Best Seller", "Latest", "Trending", "Rating"]}
+          />
 
-        <hr className="vertical-divider w-[5rem] rotate-90 border-quaternaryBackground"/>
+          <hr className="vertical-divider w-[5rem] rotate-90 border-quaternaryBackground"/>
 
-        <AutoSelect
-          className="w-full"
-          input={{
-            id: "sort-select",
-            className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
-            placeholder: "Sort Order",
-            autoComplete: "off",
-            required: true,
-            readOnly: true
-          }}
-          dropdownClassName="border rounded overflow-y-auto text-sm border-quaternaryBackground bg-white"
-          optionClassName={{
-            hover: "hover:bg-quinaryBackground",
-            selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
-          }}
-          options={["Ascending", "Descending"]}
-        />
-      </div>
+          <AutoSelect
+            className="w-full"
+            input={{
+              id: "order-select",
+              inputName: "orderMethod",
+              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+              placeholder: "Sort Order",
+              autoComplete: "off",
+              required: true,
+              readOnly: true
+            }}
+            dropdownClassName="border rounded overflow-y-auto text-sm border-quaternaryBackground bg-white"
+            optionClassName={{
+              hover: "hover:bg-quinaryBackground",
+              selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
+            }}
+            options={["Ascending", "Descending"]}
+          />
+        </form>
+      </FormProvider>
     </div>
   );
 }
