@@ -1,7 +1,65 @@
-import Product from "./Product";
+'use client';
 
-export default function ProductGrid({ className = "", products = [] }) {
+import { useState, useEffect, memo } from "react";
 
+import Product from "@/components/global/Product";
+
+
+const ProductGrid = ({
+  className = "",
+  products = null,
+  currentId = undefined,
+  lastRemoveId = undefined,
+  length = 0,
+  setCurrentId = () => {},
+  setLastRemovedId = () => {}
+}) => {
+
+  const [productsMap, setProductsMap] = useState(new Map());
+
+  
+  useEffect(() => {
+    
+    console.log({currentId, lastRemoveId});
+
+    if (length >= 0 && currentId !== undefined) {
+      
+      setProductsMap(prevMap => {
+
+        const updatedMap = new Map(prevMap);
+
+        if (updatedMap.has(null)) {
+          updatedMap.delete(null);
+        }
+
+        updatedMap.set(currentId, products);
+        return updatedMap;
+      });
+
+      setCurrentId(undefined);
+    }
+
+    else if (lastRemoveId) {
+
+      console.log({lastRemoveId})
+
+      setProductsMap(prevMap => {
+        const updatedMap = new Map(prevMap);
+        updatedMap.delete(lastRemoveId);
+        return updatedMap;
+      });
+
+      setLastRemovedId(undefined);
+
+      if (length <= 0) {
+        setCurrentId(null);
+      } 
+    }
+  }, [products, lastRemoveId, setProductsMap, setCurrentId, setLastRemovedId]);
+
+  let finalProductsArr = Array.from(productsMap.values()).flat() || [];
+  finalProductsArr = length <= 0 ? finalProductsArr : finalProductsArr.reverse();
+  
   return (
     <div
       className={`
@@ -12,7 +70,8 @@ export default function ProductGrid({ className = "", products = [] }) {
         ${className}
       `}
     >
-      {products.map(product =>
+      {console.log(Array.from(productsMap.values()).flat())}
+      {finalProductsArr?.map(product =>
         <Product
           key={product?.id}
           className={`
@@ -42,3 +101,6 @@ export default function ProductGrid({ className = "", products = [] }) {
     </div>
   );
 }
+
+
+export default memo(ProductGrid);
