@@ -28,7 +28,8 @@ const Accordion = ({
   openIcon = "+",
   closeIcon = "-",
   iconClassName = "",
-  timeout = 300
+  timeout = 300,
+  unmountOnExit = true
 }) => {
 
 
@@ -67,10 +68,13 @@ const Accordion = ({
         in={isOpen}
         timeout={timeout}
         classNames="accordion"
-        unmountOnExit
+        unmountOnExit={unmountOnExit}
       >
         <Content
-          className={contentClassName}
+          className={`
+            ${contentClassName}
+            ${(!unmountOnExit && isOpen) ? "block" : "hidden"}
+          `}
           icon={content}
         />
       </CSSTransition>
