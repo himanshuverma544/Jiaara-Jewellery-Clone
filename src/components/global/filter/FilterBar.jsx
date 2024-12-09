@@ -1,7 +1,8 @@
 'use client';
 
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import { context } from "@/context-API/context";
+import { storeData } from "@/context-API/actions/action.creators";
 
 import { useForm, FormProvider } from 'react-hook-form';
 
@@ -12,7 +13,11 @@ import AutoSelect from "@/components/general/AutoSelect";
 
 export default function FilterBar({ className = "" }) {
 
-  const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
+  const {
+    data: { triggered } = {},
+    data: { states, objects } = {},
+    dispatch
+  } = useContext(context) || {};
 
   const [isOpen, setIsOpen]
     = triggered && Array.isArray(states?.sidebar) ? states?.sidebar : [false, () => {}];
@@ -20,7 +25,30 @@ export default function FilterBar({ className = "" }) {
   const toggleSidebar = () =>
     setIsOpen(!isOpen);
 
-  const methods = useForm({ mode: "onChange" });  
+
+  const methods = useForm({ mode: "onChange" });
+
+  const currSortMethod = methods?.watch("sortMethod");
+
+  useEffect(() => {
+
+    function storeComponentData() {
+
+      const previousFilter = objects?.filter || {};
+
+      const newFilter = {
+        ...previousFilter,
+        currSortMethod
+      };
+
+      if (JSON.stringify(previousFilter) !== JSON.stringify(newFilter)) {
+        dispatch(storeData({ filter: newFilter }, "objects"));
+      }
+    }
+
+    storeComponentData();
+  }, [currSortMethod, objects?.filter, dispatch]);
+  
 
   return (
     <div className={`filter-bar flex flex-col ${className}`}>
@@ -44,7 +72,7 @@ export default function FilterBar({ className = "" }) {
             input={{
               id: "sort-method-select",
               inputName: "sortMethod",
-              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont cursor-default",
               placeholder: "Select Sort",
               autoComplete: "off",
               required: true,
@@ -55,7 +83,8 @@ export default function FilterBar({ className = "" }) {
               hover: "hover:bg-quinaryBackground",
               selection: "bg-primaryFont text-white hover:bg-primaryFont hover:text-white"
             }}
-            options={["Best Seller", "Latest", "Trending", "Rating"]}
+            defaultOption="Default"
+            options={["Default", "Best Seller", "Latest", "Trending", "Rating"]}
           />
 
           <hr className="vertical-divider w-[5rem] rotate-90 border-quaternaryBackground"/>
@@ -65,7 +94,7 @@ export default function FilterBar({ className = "" }) {
             input={{
               id: "order-select",
               inputName: "orderMethod",
-              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+              className: "w-[inherit] border rounded-md px-3 py-2 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont cursor-default",
               placeholder: "Sort Order",
               autoComplete: "off",
               required: true,
