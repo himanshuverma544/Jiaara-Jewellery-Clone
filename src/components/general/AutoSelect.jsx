@@ -52,7 +52,11 @@ const AutoSelect = ({
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
+  
+  const [selectedOption, setSelectedOption] = useState(() => {
+    methods?.setValue(input?.inputName, defaultOption);
+    return defaultOption;
+  });
 
   const inputRef = useRef(null);  
   const dropdownRef = useRef(null);
@@ -63,9 +67,14 @@ const AutoSelect = ({
 
   useEffect(() => {
 
-    if (options && options?.length > 0) {
-      setFilteredOptions(options);
+    function initializeFilteredOptions() {
+
+      if (options && options?.length > 0) {
+        setFilteredOptions(options);
+      }
     }
+
+    initializeFilteredOptions();
   }, [options]);
 
 
