@@ -92,13 +92,14 @@ export default function SidebarFilter({ className = "" }) {
             defaultState={true}
             contentClassName="py-3"
             content={<PriceFilter className="px-5"/>}
-            iconClassName={false ? "animate-spin" : "text-xl"}
-            openIcon={false ? AiOutlineLoading3Quarters : MdOutlineKeyboardArrowDown}
-            closeIcon={false ? AiOutlineLoading3Quarters : MdOutlineKeyboardArrowUp}
+            iconClassName="text-xl"
+            openIcon={MdOutlineKeyboardArrowDown}
+            closeIcon={MdOutlineKeyboardArrowUp}
             divider={{
               upper: { isEnabled: true },
               bottom: { isEnabled: true },
             }}
+            unmountOnExit={false}
           />
         </li>
         <li className="categories-filter">
@@ -121,6 +122,7 @@ export default function SidebarFilter({ className = "" }) {
               upper: { isEnabled: true },
               bottom: { isEnabled: true }
             }}
+            unmountOnExit={false}
           />
         </li>
         <li className="collections-filter">
@@ -143,6 +145,7 @@ export default function SidebarFilter({ className = "" }) {
               upper: { isEnabled: true },
               bottom: { isEnabled: true }
             }}
+            unmountOnExit={false}
           />
         </li>
       </ul>
