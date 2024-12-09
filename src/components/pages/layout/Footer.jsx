@@ -99,8 +99,13 @@ export default function Footer() {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className="brand-name text-center text-xs font-semibold">
-          Jiaara Creations Private Limited
+        <div className="brand-name flex flex-col items-center justify-center text-center text-xs font-semibold">
+          <div className="name">
+            Jiaara Creations
+          </div>
+          <div className="ownership">
+            Pvt. Ltd.
+          </div>
         </div>
       </Link>
     </footer>
