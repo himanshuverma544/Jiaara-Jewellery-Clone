@@ -135,11 +135,21 @@ export default function InputField({
                     <input
                       {...field}
                       id={option?.value}
-                      name={input?.inputName}
+                      name={`${input?.inputName}[]`}
                       type={input?.type}
                       value={option?.value}
                       className={`${input?.className}`}
-                      disabled={option.disabled}
+                      disabled={option.disabled} 
+                      onChange={event => {
+                        const currentValue = event.target.value;
+                        const isChecked = event.target.checked;
+
+                        const newValue = isChecked
+                          ? [...(field.value || []), currentValue]
+                          : (field.value || []).filter(value => value !== currentValue);
+
+                        field.onChange(newValue);
+                      }}
                     />
                     <label
                       htmlFor={option?.value}
