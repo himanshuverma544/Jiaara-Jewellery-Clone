@@ -73,7 +73,7 @@ export default function LayoutSidebar() {
           <li key={parentCategory?.id || index} className="category-item">
             <Link
               className="flex justify-between items-center uppercase"
-              href={`/category/${parentCategory?.id}`}
+              href={CATEGORIES?.getPathname(parentCategory?.id)}
               onClick={closeSidebar}
             >
               <div className="category-name">
@@ -96,7 +96,7 @@ export default function LayoutSidebar() {
           <li key={collection?.id || index} className="collection-item">
             <Link
               className="flex justify-between items-center uppercase"
-              href={`/collection/${collection?.id}`}
+              href={COLLECTIONS?.getPathname(collection?.id)}
               onClick={closeSidebar}
             >
               <div className="collection-name">
