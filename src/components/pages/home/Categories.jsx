@@ -1,103 +1,52 @@
 'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-
-import { 
-  CarouselProvider,
-  Slider,
-  Slide,
-} from 'pure-react-carousel';
-
 import { useQuery } from "@tanstack/react-query";
 
+import BeautifulLayout from "@/components/global/beautiful-layout/BeautifulLayout";
 import Validation from "@/components/general/Validation";
-
-import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides';
 
 import { getCategories } from "@/utils/functions/api/cms/woocommerce/categories";
 
-import skipMap from "@/utils/functions/general/skipMap";
+import { CATEGORIES } from "@/routes";
 
 
-export default function Categories() {
-
-  const { visibleSlidesCount } = useVisibleSlides({
-    desktopVisibleSlidesCount: 3,
-    tabletVisibleSlidesCount: 2,
-    mobileVisibleSlidesCount: 1
-  });
+export default function Categories({ className = "" }) {
   
   const { data: parentCategories, isLoading, isSuccess } = useQuery({
     queryKey: ['parent-categories'],
     queryFn: () => getCategories({ parent: 0 })
   });
 
-  if (isLoading) {
-    return (
-      <Validation
-        className="w-full h-[10rem] text-primaryFont"
-        message="Loading Categories…"
-      />
-    );
-  }
+  const requiredCategories = isSuccess ?
+    parentCategories?.filter(category => category?.name !== "General") : [];
+
+  const parentCategoriesUrl = isSuccess ?
+    parentCategories.map(category => CATEGORIES?.getPathname(category?.id)) : [];
 
 
   return (
-    <section id="shop-by-category" className="flex flex-col items-center justify-center gap-12">
+    <section
+      id="shop-by-categories"
+      className={`grid items-center gap-y-12 ${className}`}
+    >
 
       <h2 className="heading text-center text-4xl uppercase text-primaryFont">
-        Shop by Category
+        {`Shop by ${CATEGORIES?.title}`}
       </h2>
-    
-      {(isSuccess && parentCategories.length > 0) &&
-        <CarouselProvider
-          className="carousel w-screen px-3"
-          naturalSlideWidth={100}
-          naturalSlideHeight={125}
-          isIntrinsicHeight
-          visibleSlides={visibleSlidesCount}
-          totalSlides={parentCategories.length}
-          isPlaying={false}
-          interval={3000}
-        >
-          <Slider className="categories-slide select-none cursor-grab active:cursor-grabbing">
-            {skipMap(parentCategories, [{ name: "General" }], (parentCategory, index) =>
-              <Slide
-                key={parentCategory?.id}
-                index={index}
-                className="border-x-8 border-x-primaryBackground"
-                innerClassName="relative"
-              >
-                <div className="img-cont relative w-full h-[80vw] sm:h-[40vw] lg:h-[25vw]">
-                  <Image
-                    className="object-cover object-center rounded-3xl"
-                    fill
-                    src={parentCategory?.image}
-                    alt={parentCategory?.slug}
-                  />
-                </div>
-                
-                <div className="content absolute bottom-0 w-full flex justify-between uppercase p-5 overlay-black-50 after:rounded-b-3xl text-white">
-                  <div className="category flex flex-col gap-2 z-10">
-                    <div className="category-text text-sm font-semibold">
-                      {parentCategory?.name}
-                    </div>
-                    <div className="total-products text-xs opacity-50">
-                      {`${parentCategory?.count} Products`}
-                    </div>
-                  </div>
-                  <Link
-                    className="flex justify-center items-center z-10 border px-3 py-1 rounded-xl"
-                    href={`/category/${parentCategory?.id}`}
-                  >
-                    View All
-                  </Link>
-                </div>
-              </Slide>
-            )}
-          </Slider>   
-        </CarouselProvider>
+
+      {isLoading ?
+        <Validation
+          className="w-full h-[10rem] text-primaryFont"
+          message="Loading Categories…"
+        />
+      :
+        <BeautifulLayout
+          className="categories"
+          items = {{
+            itemsArr: requiredCategories || [],
+            urlsArr: parentCategoriesUrl || []
+          }}
+        />
       }
     </section>
   );
