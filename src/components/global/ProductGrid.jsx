@@ -10,17 +10,14 @@ const ProductGrid = ({
   products = null,
   currentId = undefined,
   lastRemoveId = undefined,
-  length = 0,
-  setCurrentId = () => {},
-  setLastRemovedId = () => {}
+  length = 0
 }) => {
 
   const [productsMap, setProductsMap] = useState(new Map());
 
+  console.log(currentId, products);
   
   useEffect(() => {
-    
-    console.log({currentId, lastRemoveId});
 
     if (length >= 0 && currentId !== undefined) {
       
@@ -32,16 +29,13 @@ const ProductGrid = ({
           updatedMap.delete(null);
         }
 
-        updatedMap.set(currentId, products);
+        updatedMap.set(currentId, {currentId, products});
         return updatedMap;
       });
 
-      setCurrentId(undefined);
     }
 
     else if (lastRemoveId) {
-
-      console.log({lastRemoveId})
 
       setProductsMap(prevMap => {
         const updatedMap = new Map(prevMap);
@@ -49,16 +43,17 @@ const ProductGrid = ({
         return updatedMap;
       });
 
-      setLastRemovedId(undefined);
 
       if (length <= 0) {
-        setCurrentId(null);
+
       } 
     }
-  }, [products, lastRemoveId, setProductsMap, setCurrentId, setLastRemovedId]);
+  }, [products, currentId, lastRemoveId, length]);
+
 
   let finalProductsArr = Array.from(productsMap.values()).flat() || [];
   finalProductsArr = length <= 0 ? finalProductsArr : finalProductsArr.reverse();
+  
   
   return (
     <div
@@ -70,10 +65,10 @@ const ProductGrid = ({
         ${className}
       `}
     >
-      {console.log(Array.from(productsMap.values()).flat())}
-      {finalProductsArr?.map(product =>
+      {/* {console.log(Array.from(productsMap.values()))} */}
+      {finalProductsArr?.map((product, index) =>
         <Product
-          key={product?.id}
+          key={index}
           className={`
             w-[87vw]
             2xs:w-[42vw] 
