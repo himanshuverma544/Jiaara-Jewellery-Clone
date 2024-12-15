@@ -61,21 +61,6 @@ export default function PriceFilter({ className = "" }) {
           control={control}
         />
       </form>
-
-      <div className="price-range w-full flex justify-between items-center gap-2 text-sm">
-        <span className="w-[40%] uppercase">
-          Price Range:
-        </span>
-        <span className="w-[60%] flex justify-around items-center">
-          <span className="min-price-value">
-            {INR(minPriceValue)}
-          </span>
-          <span>–</span>
-          <span className="max-price-value">
-            {INR(maxPriceValue)}
-          </span>
-        </span>
-      </div>
     </div>
   );
 }
