@@ -15,11 +15,7 @@ export default function ProductDetailsAccordionGroup({ product }) {
     {
       title: "Specifications",
       content: <Specification product={product}/>
-    },
-    // {
-    //   title: "Reviews",
-    //   content: <p>{`I'm the Reviews Content.`}</p>
-    // }
+    }
   ];
   
   
@@ -34,9 +30,20 @@ export default function ProductDetailsAccordionGroup({ product }) {
             titleClassName="text-sm sm:text-base xl:text-lg"
             contentClassName="content"
             content={accordionData.content}
+            divider={{
+              upper: {
+                className: "border-1 py-2 border-primaryFont",
+                isEnabled: true
+              },
+              bottom: {
+                className: "border-1 py-2 border-primaryFont",
+                isEnabled: true
+              }
+            }}
             iconClassName="md:text-lg"
             openIcon={FiPlus}
             closeIcon={FiMinus}
+            unmountOnExit={true}
           />
         )}
       </div>

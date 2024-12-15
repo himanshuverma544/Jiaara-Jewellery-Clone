@@ -12,7 +12,7 @@ export default function WishlistManagement({ className = "" }) {
   const wishlistItems = useSelector(state => state?.wishlistReducer ?? []);
 
   return (
-    <div className="wishlist-management">
+    <div className={`wishlist-management ${className}`}>
       <WishlistHead
         wishlistItemsCount={wishlistItems?.length}
       />

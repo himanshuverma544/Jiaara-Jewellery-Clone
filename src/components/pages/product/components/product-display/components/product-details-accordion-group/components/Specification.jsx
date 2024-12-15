@@ -6,7 +6,7 @@ export default function Specification({ className = "", product = null }) {
   const [leftSpecs, rightSpecs] = splitInHalf(product?.specifications);
 
   return (
-    <div className={`specification pb-3 overflow-x-auto text-xs xl:text-sm ${className}`}>
+    <div className={`specification pt-3 pb-3 overflow-x-auto text-xs xl:text-sm ${className}`}>
       <table className="min-w-full table-auto border-collapse">
         <tbody className="md:grid md:grid-cols-2 md:gap-x-10"> 
 

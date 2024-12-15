@@ -1,6 +1,5 @@
-import Icon from "@/components/general/Icon";
+import Content from "@/components/general/Icon";
 
-const Content = Icon;
 
 export default function ProductDescription({ className = "", product = null }) {
 
