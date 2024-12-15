@@ -3,10 +3,6 @@
 import Link from 'next/link';
 import Image from "next/image";
 
-import { useDispatch, useSelector } from "react-redux";
-import { cart } from "@/redux/slices/cart";
-import { wishlist } from "@/redux/slices/wishlist";
-
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 import ProductQuantity from "@/components/global/ProductQuantity";
@@ -16,13 +12,13 @@ import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 import useRouteActive from "@/utils/hooks/general/useRouteActive";
 
-import { SHOP, CATEGORIES, COLLECTIONS, PRODUCT } from "@/routes";
+import useProductUtils from '@/utils/hooks/global/useProductUtils';
 
 import INR from "@/utils/functions/general/INR";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
-import { WISHLIST } from '@/routes';
+import { SHOP, CATEGORIES, COLLECTIONS, PRODUCT, WISHLIST } from "@/routes";
 
 
 export default function Product({
@@ -45,7 +41,6 @@ export default function Product({
   }
 }) {
 
-  const dispatch = useDispatch();
 
   const { activeRoute, isRouteActive } = useRouteActive();
 
@@ -70,13 +65,13 @@ export default function Product({
       return 4;
     }
     else if (screenWidth >= sm && screenWidth < md) {
-      return 4;
+      return 2;
     }
     else if (screenWidth >= md && screenWidth < lg) {
       return 2;
     }
     else if (screenWidth >= lg && screenWidth < xl) {
-      return 4;
+      return 3;
     }
     else if (screenWidth >= xl && screenWidth < xxl) {
       return 4;
@@ -89,29 +84,11 @@ export default function Product({
   const { displayText: truncatedProductName }
     = useTruncateText({ text: product?.name, wordLimit: getWordLimit() });
 
-
-  const cartItems = useSelector(state => state?.cartReducer ?? []);
-  const cartItem = product && cartItems.find(cartItem => cartItem?.id == product?.id);
-
-  const wishlistItems = useSelector(state => state?.wishlistReducer ?? []);
-  const wishlistItem = product && wishlistItems.find(wishlistItem => wishlistItem?.id == product?.id);
-  
-  
-  const addToCart = () => {
-    
-    dispatch(cart.add(product));
+  const {
+    cartUtils: { cartItem, addToCart },
+    wishlistUtils: { wishlistItem, handleWishlist}
   }
-
-
-  const handleWishlist = () => {
-
-    if (!wishlistItem?.isWishlist) {
-      dispatch(wishlist.add(product));
-    }
-    else {
-      dispatch(wishlist.remove(wishlistItem?.id))
-    }
-  }
+    = useProductUtils(product);
 
 
   return (

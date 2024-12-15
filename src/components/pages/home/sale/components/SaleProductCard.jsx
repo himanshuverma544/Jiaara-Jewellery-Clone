@@ -1,55 +1,56 @@
-import { useState } from "react";
-
+import Link from "next/link";
 import Image from "next/image";
 
-import { useDispatch } from "react-redux";
-import { cart } from "@/redux/slices/cart";
-
 import { IoCartOutline } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 import Rating from "@/components/general/Rating";
+import Icon from "@/components/general/Icon";
+
 import ProductQuantity from "@/components/global/ProductQuantity";
 
 import useClamp from "@/utils/hooks/general/useClamp";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
+import useProductUtils from "@/utils/hooks/global/useProductUtils";
+
 import INR from "@/utils/functions/general/INR";
 
+import { PRODUCT, WISHLIST } from "@/routes";
 
-const INITIAL_QTY = 0;
+
 const STOCK_LEFT_FALLBACK_VALUE = 15;
 
 
-export default function SaleProductCard({ product }) {  
-
-  const dispatch = useDispatch();
+export default function SaleProductCard({
+  product,
+  icon = {
+    className: "text-lg",
+    active: WISHLIST?.activeIcon,
+    inactive: WISHLIST?.inactiveIcon,
+    general: <></>
+  }
+}) {  
 
   const { clamp } = useClamp();
 
   const { displayText: productName } = useTruncateText({ text: product?.name, wordLimit: 4 });
 
-
-  const [quantity, setQuantity] = useState(INITIAL_QTY);
-
-  const getQuantity = currentQuantity => {
-    setQuantity(currentQuantity);
+  const {
+    cartUtils: { cartItem, addToCart },
+    wishlistUtils: { wishlistItem, handleWishlist}
   }
-
-  const addToCart = () => {
-
-    dispatch(cart.add(product));
-    setQuantity(INITIAL_QTY + 1);
-  }
-
+    = useProductUtils(product);
 
   return (
     <div className="sale-product-card rounded-sm bg-white ">
 
       <div className="wrapper h-[50vw] max-h-[15rem] flex justify-center items-center">
 
-        <div className="img-cont relative w-1/2 h-[inherit] max-h-[inherit]">
+        <Link
+          className="img-cont relative w-1/2 h-[inherit] max-h-[inherit]"
+          href={PRODUCT?.getPathname(product?.id)}
+        >
           <Image
             className="object-fill object-center rounded-tl-xl"
             fill
@@ -59,7 +60,7 @@ export default function SaleProductCard({ product }) {
           <span className="discount-percent absolute top-0 left-0 px-2 py-1 text-xs rounded-tl-sm bg-red-500 text-white">
             {product?.discountPercentage}
           </span>
-        </div>
+        </Link>
 
         <div className="content w-1/2 flex flex-col items-center justify-center gap-3 pt-5 ps-3 pe-5">
         <div
@@ -129,8 +130,8 @@ export default function SaleProductCard({ product }) {
 
       </div>
 
-      <div className="actions flex justify-evenly items-center px-[1vw] py-5">
-        {quantity <= INITIAL_QTY ?
+      <div className="actions flex justify-between items-center px-[1.2vw] py-5">
+        {!cartItem ?
           <button
             className="add-to-cart flex items-center gap-1 px-2 py-2 bg-primaryFont text-white"
             onClick={addToCart}
@@ -151,20 +152,28 @@ export default function SaleProductCard({ product }) {
           </button>
           :
           <ProductQuantity
-            productId={product?.id}
-            callback={getQuantity}
-            theClassName="h-[2rem] flex items-stretch ms-1 rounded bg-primaryFont xs:ms-0"
-            inputClassName="w-[1.5rem] px-2 py-1 rounded-sm outline-none text-center text-xs input-selection-primaryFont focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[3rem] xs:text-base sm:px-3 sm:py-2"
+            productId={cartItem?.id}
+            theClassName="h-[2rem] flex items-stretch ms-1 rounded-sm bg-primaryFont xs:ms-0"
+            inputClassName="w-[1.5rem] px-2 py-1 outline-none text-center text-xs input-selection-primaryFont focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[3rem] xs:text-base sm:px-3 sm:py-2"
             buttonsClassName="px-2 py-2 text-xs text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
             incrementIcon={FiPlus}
             decrementIcon={FiMinus}
+            cartQtyCount={cartItem?.cartQtyCount}
             stockLeft={
               product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE
             }
           />
         }
-        <button className="wishlist flex items-center gap-1 px-2 py-2 bg-primaryFont text-white">
-          <IoMdHeartEmpty className="text-lg"/>
+        <button
+          className="wishlist flex items-center gap-1 px-2 py-2 bg-primaryFont text-white"
+          onClick={handleWishlist}
+        >
+          {(icon?.general || icon?.active || icon?.inactive) &&
+            <Icon
+              className={`${icon?.className}`}
+              icon={wishlistItem?.isWishlist ? icon?.active : icon?.inactive ?? icon?.general}
+            />
+          }
           <span
             className="text-xs uppercase"
             style={{
@@ -175,11 +184,10 @@ export default function SaleProductCard({ product }) {
               })
             }}
           >
-            Add to Wishlist
+            {!wishlistItem?.isWishlist ? "Add to Wishlist" : "Added to Wishlist"}
           </span>
         </button>
       </div>
-
     </div>
   );
 }
