@@ -60,7 +60,7 @@ const Accordion = ({
         </span>
       </button>
 
-      {divider.upper.isEnabled &&
+      {divider?.upper?.isEnabled &&
         <hr className={`w-full ${divider.upper.className}`}/>
       }
 
@@ -73,13 +73,13 @@ const Accordion = ({
         <Content
           className={`
             ${contentClassName}
-            ${(!unmountOnExit && isOpen) ? "block" : "hidden"}
+            ${(isOpen) ? "block" : "hidden"}
           `}
           icon={content}
         />
       </CSSTransition>
 
-      {(isOpen && divider.bottom.isEnabled) &&
+      {(isOpen && divider?.bottom?.isEnabled) &&
         <hr className={`w-full ${divider.bottom.className}`}/>
       }
     </div>
