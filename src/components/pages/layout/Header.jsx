@@ -115,9 +115,12 @@ export default function Header() {
     queryFn: getCollections,
   });
 
+  
 
-  const totalCartItems = useSelector(state => state?.cartReducer.length ?? 0);
-  const totalWishlistItems = useSelector(state => state?.wishlistReducer.length ?? 0);
+  const totalCartItems = useSelector(
+    state => state?.cartReducer?.reduce((sum, item) => sum + item?.cartQtyCount, 0) ?? 0
+  );
+  const totalWishlistItems = useSelector(state => state?.wishlistReducer?.length ?? 0);
 
 
   return (
