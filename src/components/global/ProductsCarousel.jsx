@@ -16,8 +16,8 @@ import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides
 export default function ProductsCarousel({
   
   visibleSlides: { 
-    desktop = 5,
-    tablet = 4,
+    desktop = 4,
+    tablet = 3,
     mobile = 2
   } = {},
 
@@ -40,7 +40,7 @@ export default function ProductsCarousel({
     productComponent = 
     <Product
       product={null}
-      imgContClassName="relative w-full h-[40vw] sm:h-[20vw] lg:h-[15vw]"
+      imgContClassName="relative w-full h-[40vw] sm:h-[25vw] lg:h-[20vw]"
       productDetailsContClassName="text-xs text-primaryFont"
       productNameClassName="uppercase"
       btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
