@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 
 import { useEffect, useContext, useCallback } from 'react';
 
-import { useSelector } from "react-redux";
+import { cart } from "@/redux/slices/cart";
+import { useDispatch, useSelector } from "react-redux";
 
 import { context } from "@/context-API/context";
 import { storeData } from "@/context-API/actions/action.creators";
@@ -55,6 +56,8 @@ export default function CheckoutForm({ className = "" }) {
 
   const router = useRouter();
 
+  const cartDispatch = useDispatch();
+
   const methods = useForm({ mode: "onChange" });
 
   const { dispatch,  data: { triggered } = {}, data: { objects } = {} } = useContext(context);
@@ -100,13 +103,17 @@ export default function CheckoutForm({ className = "" }) {
 
     try {
       const { data: { orderId } } = await createOrder(orderData);
-      router.push(ORDER?.getPathname(orderId));
+
+      if (orderId) {
+        cartDispatch(cart.clear());
+        dispatch(storeData({ orderNavigationFlag: true }, "vars"));
+        router.push(ORDER.getPathname(orderId));
+      }
     }
     catch(error) {
       console.error("Error receiving the order.", error);
     }
-
-  }, [router, triggered, objects, cartItems]);
+  }, [router, triggered, objects, cartItems, dispatch, cartDispatch]);
 
   
   useEffect(() => {
