@@ -7,6 +7,8 @@ import Icon from "@/components/general/Icon";
 
 import isFalsy from "@/utils/functions/general/isFalsy";
 
+const INITIAL_QTY = 1;
+
 
 export default function ProductQuantity({
   productId = null,
@@ -17,17 +19,17 @@ export default function ProductQuantity({
   inputClassName = "",
   buttonsClassName: buttonClassName = "",
   stockLeft = 0,
-  callback: getQuantity = () => {},
+  callback = () => {}
 }) {
   
-  const [quantity, setQuantity] = useState(cartQtyCount);
+  const [quantity, setQuantity] = useState(cartQtyCount || INITIAL_QTY);
 
   const dispatch = useDispatch();
 
 
   useEffect(()=> {
 
-    setQuantity(cartQtyCount);
+    setQuantity(cartQtyCount || INITIAL_QTY);
   }, [cartQtyCount]);
 
 
@@ -69,7 +71,7 @@ export default function ProductQuantity({
 
     dispatch(cart.incrementQty({ productId, cartQtyCount: quantity + 1 }));
     
-    getQuantity(quantity + 1);
+    callback(quantity + 1);
 
     setQuantity(prev => {
 
@@ -83,7 +85,7 @@ export default function ProductQuantity({
   const handleDecrement = () => {
 
     dispatch(cart.decrementQty({ productId, cartQtyCount: quantity - 1 }));
-    getQuantity(quantity - 1);
+    callback(quantity - 1);
     setQuantity(prev => prev - 1);
   }
 
@@ -97,7 +99,7 @@ export default function ProductQuantity({
           rounded-s-sm
           font-semibold
           ${buttonClassName}
-          ${disableIncrementButton() && "opacity-50"}
+          ${disableIncrementButton() ? "opacity-50" : ""}
         `}
         type="button"
         onClick={handleIncrement}
@@ -108,8 +110,9 @@ export default function ProductQuantity({
       <input
         className={`
           quantity-count
+          input-selection-black
           ${inputClassName}
-          ${isOutOfStock() && "opacity-50"}
+          ${isOutOfStock() ? "opacity-50" : ""}
         `}
         autoComplete="off"
         value={quantity}
@@ -123,7 +126,7 @@ export default function ProductQuantity({
           rounded-e-sm
           font-semibold
           ${buttonClassName}
-          ${disableDecrementButton() && "opacity-50"}
+          ${disableDecrementButton() ? "opacity-50" : ""}
         `}
         type="button"
         onClick={handleDecrement}

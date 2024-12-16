@@ -9,14 +9,22 @@ const cartSlice = createSlice({
 
     add(state, action) {
 
-      const product = action.payload;
-        state.push({ ...product, cartQtyCount: 1 });
+      const { product, cartQtyCount } = action?.payload;
+
+      const existingProduct = state.find(item => item?.id == product?.id);
+
+      if (existingProduct) {
+        existingProduct.cartQtyCount += cartQtyCount;
+      }
+      else {
+        state.push({ ...product, cartQtyCount });
+      }
     },
 
     incrementQty(state, action) {
 
-      const { productId, cartQtyCount } = action.payload;
-      const existingProduct = state.find(item => item.id == productId);
+      const { productId, cartQtyCount } = action?.payload;
+      const existingProduct = state.find(item => item?.id == productId);
 
       if (existingProduct) {
         existingProduct.cartQtyCount = cartQtyCount;
@@ -25,7 +33,7 @@ const cartSlice = createSlice({
 
     decrementQty(state, action) {
 
-      const { productId, cartQtyCount } = action.payload;
+      const { productId, cartQtyCount } = action?.payload;
       const productIndex = state.findIndex(item => item?.id == productId);
 
       if (productIndex >= 0) {
@@ -35,7 +43,7 @@ const cartSlice = createSlice({
           existingProduct.cartQtyCount = cartQtyCount;
         }
         else {
-          const products = state.filter(item => item.id != productId);
+          const products = state.filter(item => item?.id != productId);
           return products;
         }
       }
@@ -43,8 +51,8 @@ const cartSlice = createSlice({
 
     remove(state, action) {
 
-      const productId = action.payload;
-      const products = state.filter(item => item.id != productId);
+      const productId = action?.payload;
+      const products = state.filter(item => item?.id != productId);
       return products;
     },
 

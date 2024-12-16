@@ -14,10 +14,11 @@ export default function ProductUpperOverview({
     active: WISHLIST?.activeIcon,
     inactive: WISHLIST?.inactiveIcon,
     general: <></>
-  }
+  },
+  wishlistUtils = null
 }) {
 
-  const { wishlistUtils: { wishlistItem, handleWishlist} } = useProductUtils(product);
+  const { wishlistItem = {}, handleWishlist = () => {} } = wishlistUtils || {};
 
   return (
     <div className={`wrapper flex justify-between items-left ${className}`}>
