@@ -43,7 +43,7 @@ export default function Latest() {
           playDirection: "backward"
         }}
         sliderClassName="select-none cursor-grab active:cursor-grabbing"
-        slideClassName="mx-[2.5vw]"
+        slideClassName="mx-[1.5vw]"
         slideInnerClassName="flex flex-col gap-3"
         data={{ products: data?.products }}
       />
