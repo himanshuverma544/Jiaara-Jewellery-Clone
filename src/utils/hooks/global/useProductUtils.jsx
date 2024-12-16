@@ -14,9 +14,10 @@ export default function useProductUtils(product = null) {
   const wishlistItem = product && wishlistItems.find(wishlistItem => wishlistItem?.id == product?.id);
 
 
-  const addToCart = () => {
+  const addToCart = (quantity = 1) => {
     
-    dispatch(cart.add(product));
+    quantity = !isNaN(quantity) || 1;
+    dispatch(cart.add({ product, cartQtyCount: quantity }));
   }
 
   const handleWishlist = () => {
