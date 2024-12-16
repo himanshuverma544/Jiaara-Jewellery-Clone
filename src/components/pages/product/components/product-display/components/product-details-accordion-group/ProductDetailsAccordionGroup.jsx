@@ -5,7 +5,7 @@ import Specification from "./components/Specification";
 import ProductDescription from "./components/ProductDescription";
 
 
-export default function ProductDetailsAccordionGroup({ product }) {
+export default function ProductDetailsAccordionGroup({ className = "", product = null }) {
 
   const accordionsData = [
     {
@@ -20,7 +20,7 @@ export default function ProductDetailsAccordionGroup({ product }) {
   
   
   return (
-    <div className="wrapper pb-5 bg-white">
+    <div className={`wrapper pb-5 bg-white ${className}`}>
       <div className="product-details-accordion-group px-[5vw]">
         {accordionsData.map((accordionData, index) =>
           <Accordion

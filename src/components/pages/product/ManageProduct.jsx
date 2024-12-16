@@ -14,7 +14,7 @@ export default function ManageProduct({ className = "", params }) {
 
   const { id } = params;
 
-  const { data, isLoading, isSuccess } = useQuery({
+  const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: [`product-${id}`],
     queryFn: () => getProductsByIds({ ids: [id] })
   });
@@ -40,7 +40,7 @@ export default function ManageProduct({ className = "", params }) {
   const { products: [product] = [] } = data || {};
 
 
-  if (!product || Object.keys(product).length <= 0) {
+  if (!product || Object.keys(product).length <= 0 || isError) {
     return (
       <Validation
         className="w-screen h-screen text-primaryFont"

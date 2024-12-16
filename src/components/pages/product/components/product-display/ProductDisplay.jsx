@@ -12,7 +12,7 @@ export default function ProductDisplay({ product = null }) {
       id="product-display"
       className="flex flex-col"
     >
-      <div className="wrapper flex flex-col px-[3vw] py-10 md:flex-row lg:px-[5vw] xl:py-16">
+      <div className="wrapper w-full flex flex-col px-[3vw] py-10 md:flex-row lg:px-[5vw] xl:py-16">
         <ProductShowcase product={product}/>
         <ProductOverview product={product}/>
       </div>
