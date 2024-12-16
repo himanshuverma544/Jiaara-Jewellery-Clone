@@ -59,7 +59,8 @@ export const WISHLIST = {
   title: "Wishlist",
   pathname: "/wishlist",
   inactiveIcon: IoMdHeartEmpty,
-  activeIcon: IoMdHeart
+  activeIcon: IoMdHeart,
+  isBadgeEnabled: true
 }
 
 export const CART = {
@@ -67,7 +68,8 @@ export const CART = {
   title: "Cart",
   pathname: "/cart",
   inactiveIcon: IoCartOutline,
-  activeIcon: IoCart
+  activeIcon: IoCart,
+  isBadgeEnabled: true
 }
 
 export const CHECKOUT = {

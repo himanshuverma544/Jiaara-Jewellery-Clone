@@ -1,4 +1,8 @@
+'use client';
+
 import Icon from "@/components/general/Icon";
+
+import useClient from "@/utils/hooks/general/useClient";
 
 
 export default function Badge({
@@ -7,47 +11,59 @@ export default function Badge({
     className: "",
     innerClassName: "",
     icon: null,
-    alt: ""
+    alt: "badge-icon"
   },
   badge = {
     className: "",
-    size: "50px",
-    textSize: "",
+    size: "15px",
+    textSize: "text-2xs",
     position: {
-      top: "0px",
+      top: "-8px",
       right: "0px",
       bottom: "0px",
-      left: "0px",
+      left: "13px",
     },
-    value: "",
-    backgroundColor: "",
-    textColor: ""
+    value: 0,
+    backgroundColor: "bg-white",
+    textColor: "text-black"
   }
 }) {
 
+  const isClient = useClient();
+  
   return (
-    <div className={`relative ${className}`}>
-      <Icon
-        className={icon?.className}
-        innerClassName={icon?.innerClassName}
-        icon={icon?.icon}
-        alt={icon?.alt}
-      />
-      <div className={`
-        badge
-        ${className}
-        size-[${badge?.size}]
-        flex justify-center items-center rounded-[50%] absolute
-        top-[${badge?.position?.top}]
-        right-[${badge?.position?.right}]
-        bottom-[${badge?.position?.bottom}]
-        left-[${badge?.position?.left}]
-        ${badge?.textSize}
-        ${badge?.backgroundColor}
-        ${badge?.textColor}
-      `}>
-        {badge?.value}
+    (isClient &&
+      <div className={`relative ${className}`}>
+        <Icon
+          className={`${icon.className} z-10`}
+          innerClassName={icon.innerClassName}
+          icon={icon.icon}
+          alt={icon.alt}
+        />
+        <div
+          className={`
+            badge
+            ${badge.className}
+            rounded-[50%]
+            ${badge.textSize}
+            ${badge.backgroundColor}
+            ${badge.textColor}
+          `}
+          style={{
+            width: badge.size,
+            height: badge.size,
+            position: "absolute",
+            top: badge.position.top,
+            right: badge.position.right,
+            bottom: badge.position.bottom,
+            left: badge.position.left,
+            lineHeight: badge.size,
+            textAlign: "center"
+          }}
+        >
+          {badge.value}
+        </div>
       </div>
-    </div>
+    )
   );
 }

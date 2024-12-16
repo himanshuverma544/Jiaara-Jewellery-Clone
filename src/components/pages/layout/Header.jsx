@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import { context } from "@/context-API/context";
 
+import { useSelector } from 'react-redux';
+
 import { useQuery } from "@tanstack/react-query";
 
 import NavItem from '@/components/general/NavItem';
@@ -114,6 +116,10 @@ export default function Header() {
   });
 
 
+  const totalCartItems = useSelector(state => state?.cartReducer.length ?? 0);
+  const totalWishlistItems = useSelector(state => state?.wishlistReducer.length ?? 0);
+
+
   return (
     <header
       id="header"
@@ -145,34 +151,39 @@ export default function Header() {
             bg-secondaryBackground
             lg:justify-evenly lg:px-0 lg:py-5 lg:uppercase lg:bg-transparent
           `}>
-            {[HOME, SEARCH, SHOP].map(route => 
+            {[HOME, SEARCH, SHOP].map(route =>
               <NavItem
                 key={route?.id}
-                title={route?.title}
-                href={route?.pathname}
-                icon={{
-                  active: route?.activeIcon,
-                  inactive: route?.inactiveIcon,
-                  general: route?.generalIcon
+                title={{
+                  className: `
+                    nav-item-title
+                    text-sm
+                    text-primaryFont
+                    ${isHeroSecVisible ? "lg:text-white" : "lg:text-primaryFont"}
+                  `,
+                  name: route?.title
                 }}
-                linkClass={`
-                  flex flex-col items-center justify-center gap-2 px-3 py-3
-                  rounded
-                  lg:flex-row lg:gap-2
-                `}
-                iconClass={`
-                  nav-item-icon
-                  text-base
-                  text-primaryFont
-                  lg:hidden
-                  ${isHeroSecVisible ? "lg:text-white" : "lg:text-primaryFont"}
-                `}
-                titleClass={`
-                  nav-item-title
-                  text-sm
-                  text-primaryFont
-                  ${isHeroSecVisible ? "lg:text-white" : "lg:text-primaryFont"}
-                `}
+                href={{
+                  className: `
+                    flex flex-col items-center justify-center gap-2 px-3 py-3 rounded
+                    lg:flex-row lg:gap-2
+                  `,
+                  pathname: route?.pathname
+                }}
+                icon={{
+                  className: `
+                    nav-item-icon
+                    text-base
+                    text-primaryFont
+                    lg:hidden
+                    ${isHeroSecVisible ? "lg:text-white" : "lg:text-primaryFont"}
+                  `,
+                  status: {
+                    active: route?.activeIcon,
+                    inactive: route?.inactiveIcon,
+                    general: route?.generalIcon
+                  }
+                }}
                 enabled={disableNavItem(route, [SEARCH], lg)}
               />
             )}
@@ -180,7 +191,7 @@ export default function Header() {
             {screenWidth >= lg &&
               <li className="categories-nav-item nav-item list-none">
                 <NavItemDropdown
-                  className="categories-dropdown text-sm "
+                  className="categories-dropdown text-sm"
                   inputGroupClassName="cursor-default"
                   isLinkMode={true}
                   input={{
@@ -285,11 +296,31 @@ export default function Header() {
             {[SEARCH, WISHLIST, CART].map(route =>
               <NavItem
                 key={route?.id}
-                href={route?.pathname}
+                href={{
+                  pathname: route?.pathname
+                }}
                 icon={{
-                  active: route?.activeIcon,
-                  inactive: route?.inactiveIcon,
-                  general: route?.generalIcon
+                  status: {
+                    active: route?.activeIcon,
+                    inactive: route?.inactiveIcon,
+                    general: route?.generalIcon
+                  },
+                  badge:{
+                    badge: {
+                      size: "15px",
+                      textSize: "text-2xs",
+                      position: {
+                        top: "-8px",
+                        left: "13px"
+                      },
+                      value: route?.id === "wishlist" ? totalWishlistItems : totalCartItems,
+                      backgroundColor: `
+                        ${isHeroSecVisible ? "backdrop-blur bg-opacity-50 bg-white" : "bg-primaryFont"}
+                      `,
+                      textColor: "text-white"
+                    },
+                    isBadgeEnabled: route?.isBadgeEnabled
+                  }
                 }}
                 enabled={enableNavItem(route, [SEARCH], lg)}
               />
