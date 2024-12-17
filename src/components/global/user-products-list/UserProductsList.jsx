@@ -1,5 +1,6 @@
 import React from "react";
 
+import Link from "next/link";
 import Image from "next/image";
 
 import { IoCloseOutline } from "react-icons/io5";
@@ -16,6 +17,8 @@ import useTruncateText from "@/utils/hooks/general/useTruncateText";
 import INR from "@/utils/functions/general/INR";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
+
+import { PRODUCT } from "@/routes";
 
 
 export default function UserProductsList({
@@ -50,14 +53,17 @@ export default function UserProductsList({
 
           <React.Fragment key={product?.id || index}>
             <li className={`row-${index + 1} ${rowClassName}`}>
-              <div className={`img-cont relative ${productImageContClassName}`}>
+              <Link
+                className={`img-cont relative ${productImageContClassName}`}
+                href={PRODUCT.getPathname(product?.id ?? "#")}
+              >
                 <Image
                   fill
                   className={`object-cover ${productImageClassName}`}
                   src={product?.image}
                   alt={product?.slug || product?.name}
                 />
-              </div>
+              </Link>
 
               <div className={`product-details ${productDetailsClassName}`}>
                 <div className="product-name text-2xs xs:text-xs md:text-sm font-semibold">
