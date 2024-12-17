@@ -28,9 +28,9 @@ export default function ProductUpperOverview({
         </h2>
 
         <div className="wrapper flex items-center gap-3 py-1 text-primaryFont">
-          <Rating className="product-rating text-lg" given={product?.rating}/>
+          <Rating className="product-rating text-lg" given={product?.rating ?? 0}/>
           <div className="ratings-count text-xs uppercase opacity-50">
-            {`${product?.ratingCount} Ratings`}
+            {`${product?.ratingCount ?? 0} Ratings`}
           </div>
         </div>
       </div>

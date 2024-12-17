@@ -1,4 +1,10 @@
-import { useRef } from "react";
+'use client';
+
+import Link from "next/link";
+
+import { useRouter } from 'next/navigation';
+
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import { FiMinus, FiPlus } from "react-icons/fi";
 
@@ -6,16 +12,22 @@ import ProductUpperOverview from "@/components/pages/product/components/product-
 import Content from "@/components/general/Icon";
 import ProductQuantity from "@/components/global/ProductQuantity";
 
+import useSleep from "@/utils/hooks/general/useSleep";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 import INR from "@/utils/functions/general/INR";
 import useProductUtils from "@/utils/hooks/global/useProductUtils";
+
+import { CHECKOUT } from "@/routes";
 
 const INITIAL_QTY = 1;
 const stockLeftFallBackValue = 15;
 
 
 export default function ProductOverview({ product = null }) {
+
+  const router = useRouter();
+
 
   const {
     isExpanded,
@@ -25,17 +37,35 @@ export default function ProductOverview({ product = null }) {
     = useTruncateText({ text: product?.shortDescription, wordLimit: 17 });
 
 
-  const quantity = useRef(INITIAL_QTY);
+  const { sleep, clearSleep } = useSleep();
+
+
+  const addToCartButtonRef = useRef(null);
+
+  
+  const [quantity, setQuantity] = useState(INITIAL_QTY);
+
+  const [error, setError] = useState({});
+
 
   const getQuantity = receivedQuantity => {
-    quantity.current = receivedQuantity;
+    setQuantity(receivedQuantity);
   }
 
 
-  const { wishlistUtils, cartUtils: { addToCart } } = useProductUtils(product);
+  const {
+    cartUtils: { cartItem, addToCart },
+    buyNowUtils: { theBuyNow },
+    wishlistUtils
+  }
+    = useProductUtils(product);
+
+    
+  let stockQuantity = product?.stockQuantity ? product?.stockQuantity : stockLeftFallBackValue;
+  stockQuantity -= (cartItem?.cartQtyCount ?? 0);
 
 
-  function getStockStatus() {
+  const getStockStatus = () => {
 
     if (product?.inStock) {
 
@@ -50,6 +80,88 @@ export default function ProductOverview({ product = null }) {
       return "Currently, Out of Stock.";
     }
   }
+
+
+  const disableAddToCartButton = () => {
+
+    addToCartButtonRef.current.disabled = true;
+    addToCartButtonRef.current.style.opacity = '0.7';
+  }
+
+  const enableAddToCartButton = () => {
+
+    addToCartButtonRef.current.disabled = false;
+    addToCartButtonRef.current.style.opacity = '1';
+  }
+
+  const manageAddToCartButton = async quantity => {
+
+    addToCartButtonRef.current.textContent = `${quantity} ${quantity <= 1 ? "Item" : "Items"} Added`;
+    disableAddToCartButton();
+
+    await sleep(3000);
+    clearSleep();
+    
+    if (getError()) {
+      enableAddToCartButton();
+    }
+    addToCartButtonRef.current.textContent = "Add to Cart";
+  }
+
+  const handleAddToCartButton = async () => {
+
+    addToCart(quantity);
+    manageAddToCartButton(quantity);
+  }
+
+
+  const handleBuyNowButton = (event, isValid) => {
+
+    event.preventDefault();
+
+    if (isValid) {
+      theBuyNow(quantity);
+      router.push(CHECKOUT.pathname);
+    }
+  }
+
+  const getError = useCallback(() => {
+
+    if (quantity > stockLeftFallBackValue) {
+      return {
+        stockLimit: true,
+        message: "You have reached the maximum quantity allowed for this product."
+      };
+    }
+
+    else if (stockQuantity <= 0) {
+      return {
+        stockQuantity: true,
+        message: "No stock left for this product."
+      };
+    }
+
+    else if (quantity <= 0 || quantity > stockQuantity) {
+
+      const currentQuantityValue
+        = stockLeftFallBackValue < stockQuantity ? stockLeftFallBackValue : stockQuantity;
+
+      return {
+        quantity: true,
+        message: `Quantity should be between 0 and ${currentQuantityValue}`
+      };
+    }
+
+    return null;
+
+  }, [quantity, stockQuantity]);
+
+  useEffect(() => {
+
+    const error = getError();
+    setError(error);
+    
+  }, [getError]);
 
 
   return (
@@ -103,16 +215,19 @@ export default function ProductOverview({ product = null }) {
         
         <div className="wrapper flex justify-between items-center mt-2">
           <ProductQuantity
+            productId={product.id}
             theClassName="flex items-stretch"
             inputClassName="w-[2.7rem] px-2 py-1 text-center text-sm bg-septenaryBackground sm:text-base sm:py-2"
             buttonsClassName="px-3 py-2 text-sm bg-white sm:text-base sm:py-2"
             incrementIcon={FiPlus}
             decrementIcon={FiMinus}
-            stockLeft={product?.stockQuantity ? product?.stockQuantity : stockLeftFallBackValue}
+            stockLeft={stockQuantity}
+            stockLimit={stockLeftFallBackValue}
             callback={getQuantity}
           />
 
           <button
+            ref={addToCartButtonRef}
             className={`
               add-to-cart
               px-[8vw] py-2 rounded-sm
@@ -123,18 +238,34 @@ export default function ProductOverview({ product = null }) {
               md:px-[3vw]
               md:text-sm
               lg:px-[5vw]
-              ${!product?.inStock && "opacity-50"}
+              ${(!product?.inStock || error) ? "opacity-50" : ""}
             `}
-            disabled={!product?.inStock}
-            onClick={() => addToCart(quantity.current)}
+            disabled={!product?.inStock || error}
+            onClick={handleAddToCartButton}
           >
             Add to Cart
           </button>
         </div>
 
-        <button className="buy-now py-2 rounded-sm text-sm uppercase bg-primaryFont text-white sm:text-base">
+        {error && 
+          <p className="error text-red-500 text-xs">
+            {error?.message ?? ""}
+          </p>
+        }
+
+        <Link
+          className={`
+            buy-now
+            py-2 rounded-sm
+            text-center text-sm uppercase
+            bg-primaryFont text-white sm:text-base
+            ${error ? "opacity-50 cursor-default" : ""}
+          `}
+          href={CHECKOUT.pathname}
+          onClick={event => handleBuyNowButton(event, !error)}
+        >
           Buy Now
-        </button>
+        </Link>
       </div>
     </div>
   );
