@@ -8,8 +8,8 @@ function useTruncateText({ text = "", wordLimit = 10 } = {}) {
 
   const createTruncateText = (text, wordLimit) => {
     return (
-      text.split(' ').length > wordLimit ?
-        text.split(' ').slice(0, wordLimit).join(' ') + '…' : text
+      text?.split(' ')?.length > wordLimit ?
+        text?.split(' ')?.slice(0, wordLimit)?.join(' ') + '…' : text
     );
   };
 

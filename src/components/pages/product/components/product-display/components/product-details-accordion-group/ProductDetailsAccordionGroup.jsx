@@ -20,7 +20,7 @@ export default function ProductDetailsAccordionGroup({ className = "", product =
   
   
   return (
-    <div className={`wrapper pb-5 bg-white ${className}`}>
+    <div className={`wrapper pt-4 pb-5 bg-white ${className}`}>
       <div className="product-details-accordion-group px-[5vw]">
         {accordionsData.map((accordionData, index) =>
           <Accordion

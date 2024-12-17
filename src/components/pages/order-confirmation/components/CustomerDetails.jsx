@@ -1,7 +1,5 @@
 export default function CustomerDetails({ className = "", customer }) {
 
-  console.log({customer});
-
   return (
     <div className={`customer-details w-full flex flex-col gap-3 md:flex-row md:flex-between md:gap-16 ${className}`}>
       
