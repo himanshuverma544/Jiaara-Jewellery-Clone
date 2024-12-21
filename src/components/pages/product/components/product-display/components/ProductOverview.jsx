@@ -10,24 +10,28 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 
 import ProductUpperOverview from "@/components/pages/product/components/product-display/components/general/ProductUpperOverview";
 import Content from "@/components/general/Icon";
+
 import ProductQuantity from "@/components/global/ProductQuantity";
 
 import useSleep from "@/utils/hooks/general/useSleep";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
+import usePreviousRoute from "@/utils/hooks/general/usePreviousRoute";
+
+import useProductUtils from "@/utils/hooks/global/useProductUtils";
 
 import INR from "@/utils/functions/general/INR";
-import useProductUtils from "@/utils/hooks/global/useProductUtils";
 
 import { CHECKOUT } from "@/routes";
 
 const INITIAL_QTY = 1;
-const stockLeftFallBackValue = 15;
+const stockLimit = 15;
 
 
 export default function ProductOverview({ product = null }) {
 
   const router = useRouter();
 
+  const { saveRoute: saveCurrentRoute } = usePreviousRoute();
 
   const {
     isExpanded,
@@ -61,7 +65,7 @@ export default function ProductOverview({ product = null }) {
     = useProductUtils(product);
 
     
-  let stockQuantity = product?.stockQuantity ? product?.stockQuantity : stockLeftFallBackValue;
+  let stockQuantity = product?.stockQuantity ? product?.stockQuantity : stockLimit;
   stockQuantity -= (cartItem?.cartQtyCount ?? 0);
 
 
@@ -120,14 +124,17 @@ export default function ProductOverview({ product = null }) {
     event.preventDefault();
 
     if (isValid) {
+
       theBuyNow(quantity);
+      
+      saveCurrentRoute();
       router.push(CHECKOUT.pathname);
     }
   }
 
   const getError = useCallback(() => {
 
-    if (quantity > stockLeftFallBackValue) {
+    if (quantity > stockLimit) {
       return {
         stockLimit: true,
         message: "You have reached the maximum quantity allowed for this product."
@@ -144,7 +151,7 @@ export default function ProductOverview({ product = null }) {
     else if (quantity <= 0 || quantity > stockQuantity) {
 
       const currentQuantityValue
-        = stockLeftFallBackValue < stockQuantity ? stockLeftFallBackValue : stockQuantity;
+        = stockLimit < stockQuantity ? stockLimit : stockQuantity;
 
       return {
         quantity: true,
@@ -222,7 +229,7 @@ export default function ProductOverview({ product = null }) {
             incrementIcon={FiPlus}
             decrementIcon={FiMinus}
             stockLeft={stockQuantity}
-            stockLimit={stockLeftFallBackValue}
+            stockLimit={stockLimit}
             callback={getQuantity}
           />
 

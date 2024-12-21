@@ -16,9 +16,6 @@ export default function BeautifulGrid({ className = "", items = {} }) {
 
   const { itemsArr, urlsArr } = items;
 
-  const isLast = currPos => !(items[currPos + 1]);
-  
-
   while (pos < itemsArr?.length) {
 
     rows.push(
@@ -59,8 +56,7 @@ export default function BeautifulGrid({ className = "", items = {} }) {
         {pos < itemsArr.length && (
           <div className="row-3 grid grid-cols-12 gap-2 md:grid-cols-11">
             <BeautifulCard
-              className={` md:col-span-3
-                ${(!isLast(pos)) ? "col-span-6": "col-span-full"}
+              className={`col-span-6 md:col-span-3
                 ${isEven(pos) ? "md:order-first" : "md:order-last"}`
               }
               item={itemsArr[pos]}

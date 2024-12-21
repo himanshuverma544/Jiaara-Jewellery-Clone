@@ -123,7 +123,7 @@ export default function ProductShowcase({ product = null }) {
           <Slider className="primary-product-variations-slider select-none cursor-grab active:cursor-grabbing">
             {product?.gallery?.map((productImage, index) =>
               <Slide
-                key={productImage?.id || index}
+                key={index}
                 index={index}
                 className="mx-[1.25vw]"
                 data-slide-num={index}
@@ -168,7 +168,7 @@ export default function ProductShowcase({ product = null }) {
           >
             {product?.gallery?.map((productImage, index) =>
               <Slide
-                key={productImage.id || index}
+                key={index}
                 index={index}
                 className={`
                   mx-[1.8vw]

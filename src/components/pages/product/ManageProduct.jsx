@@ -22,7 +22,7 @@ export default function ManageProduct({ className = "", params }) {
   if (isNaN(id)) {
     return (
       <Validation
-        className="w-screen h-screen text-primaryFont"
+        className="w-screen h-[20rem] text-primaryFont"
         message="Not a Valid Product URL"
       />
     );
@@ -31,7 +31,7 @@ export default function ManageProduct({ className = "", params }) {
   if (isLoading) {
     return (
       <Validation
-        className="w-screen h-screen text-primaryFont"
+        className="w-screen h-[20rem] text-primaryFont"
         message="Loading Product…"
       />
     );
@@ -43,7 +43,7 @@ export default function ManageProduct({ className = "", params }) {
   if (!product || Object.keys(product).length <= 0 || isError) {
     return (
       <Validation
-        className="w-screen h-screen text-primaryFont"
+        className="w-screen h-[20rem] text-primaryFont"
         message="Not a Valid Product URL"
       />
     );
