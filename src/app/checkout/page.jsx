@@ -1,13 +1,11 @@
-import CheckoutForm from "@/components/pages/checkout/CheckoutForm";
-import OrderSummary from "@/components/global/order-summary/OrderSummary";
+import ManageCheckout from "@/components/pages/checkout/ManageCheckout";
 
 
 export default function Checkout() {
 
   return (
     <div className="checkout-page flex flex-col gap-5 py-10">
-      <CheckoutForm/>
-      <OrderSummary/>
+      <ManageCheckout/>
     </div>
   );
 }
