@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { cart } from "@/redux/slices/cart";
 import { wishlist } from "@/redux/slices/wishlist";
@@ -36,22 +38,30 @@ export default function useProductUtils(product = null) {
   const theBuyNow = (quantity = 1) => {
 
     quantity = !isNaN(quantity) ? quantity : 1;
-    dispatch(buyNow.add({ product, qtyCount: quantity }));
+    dispatch(buyNow.add({ product, cartQtyCount: quantity }));
   }
+
+  const clearBuyNow = useCallback(() => {
+
+    dispatch(buyNow.clear());
+  }, [dispatch]);
 
 
   return ({
     cartUtils: {
       cartItem,
+      cartItems,
       addToCart
     },
     wishlistUtils: {
       wishlistItem,
+      wishlistItems,
       handleWishlist
     },
     buyNowUtils: {
       buyNowItem,
-      theBuyNow
+      theBuyNow,
+      clearBuyNow
     }
   });
 }
