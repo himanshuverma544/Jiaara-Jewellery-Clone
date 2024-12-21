@@ -3,21 +3,19 @@
 import { useState, useContext } from 'react';
 import { context } from "@/context-API/context";
 
-import { useSelector } from "react-redux";
-
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import Accordion from "@/components/general/Accordion";
+
 import UserProductsList from "@/components/global/user-products-list/UserProductsList";
 import CouponForm from "@/components/global/CouponForm";
+import OrderCalculation from "@/components/global/order-summary/components/OrderCalculation";
 
-import OrderCalculation from "./components/OrderCalculation";
+import useCheckoutPageValidations from '@/utils/hooks/global/useCheckoutPageValidations';
 
 
 export default function OrderSummary({ className = "" }) {
-
-  const cartItems = useSelector(state => state?.cartReducer);
 
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -31,6 +29,7 @@ export default function OrderSummary({ className = "" }) {
     }
   };
 
+  const { items } = useCheckoutPageValidations();
 
   return (
     <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
@@ -54,7 +53,7 @@ export default function OrderSummary({ className = "" }) {
         content={
           <UserProductsList
             theClassName="checkout-products-list p-[5vw] rounded-lg bg-white"
-            productsList={cartItems}
+            productsList={items}
             context={{ isCheckout: true }}
             rowClassName="flex justify-between"
             divider={true}
@@ -74,20 +73,22 @@ export default function OrderSummary({ className = "" }) {
 
       <hr className="border-primaryFont"/>
 
-      <OrderCalculation cartItems={cartItems}/>
+      <OrderCalculation cartItems={items}/>
 
       <button
         className={`
           checkout-btn
-          px-5 py-2 mt-3 rounded-lg
+          flex gap-5 px-5 py-2 mt-3 rounded-lg
           uppercase
           bg-primaryFont text-white
-          ${isDisabled ? "opacity-50" : ""}  
+          ${isDisabled ? "opacity-70" : ""}  
         `}
         onClick={handlePlaceOrder}
         disabled={isDisabled}
       >
-        Place Order
+        <span className="w-full button-text">
+          {!isDisabled ? "Place Order" : "Placing Order…"}  
+        </span>
       </button>
     </div>
   );
