@@ -3,18 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const buyNowSlice = createSlice({
   name: "buyNow",
-  initialState: {},
+  initialState: [],
   
   reducers: {
 
     add(state, action) {
 
-      const { product, qtyCount } = action?.payload;
-      return ({...product, qtyCount });
+      const { product, cartQtyCount } = action?.payload;
+      return [{...product, cartQtyCount }];
     },
 
     clear() {
-      return {};
+      return [];
     }
   }
 });
