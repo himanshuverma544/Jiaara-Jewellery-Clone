@@ -41,7 +41,7 @@ const Accordion = ({
 
 
   return (
-    <div className={`accordion ${className} flex flex-col `}>
+    <div className={`accordion ${className} flex flex-col`}>
       <button
         onClick={toggleAccordion}
         className={`

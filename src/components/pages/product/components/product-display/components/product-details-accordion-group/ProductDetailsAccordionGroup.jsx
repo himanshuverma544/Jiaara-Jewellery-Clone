@@ -43,6 +43,7 @@ export default function ProductDetailsAccordionGroup({ className = "", product =
             iconClassName="md:text-lg"
             openIcon={FiPlus}
             closeIcon={FiMinus}
+            defaultState={true}
             unmountOnExit={true}
           />
         )}
