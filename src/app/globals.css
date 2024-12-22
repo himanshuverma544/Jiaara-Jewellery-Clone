@@ -66,16 +66,7 @@ input[type="number"] {
     text-wrap: balance;
   }
 
-  .overlay {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-
+  
   .bullet-all {
     list-style: none;
     padding: 0;
@@ -85,7 +76,7 @@ input[type="number"] {
       display: flex;
       align-items: flex-start;
     }
-
+    
     & > *::before {
       content: "•";
       margin-right: 10px;
@@ -93,8 +84,16 @@ input[type="number"] {
       line-height: 1;
     }
   }
- 
-
+  
+  .overlay {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
   .overlay-black-10::after {
     @apply overlay opacity-10 bg-black;
   }
