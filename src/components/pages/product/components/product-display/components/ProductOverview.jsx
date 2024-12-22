@@ -24,6 +24,7 @@ import INR from "@/utils/functions/general/INR";
 import { CHECKOUT } from "@/routes";
 
 const INITIAL_QTY = 1;
+const NO_STOCK_QTY = 0;
 const stockLimit = 15;
 
 
@@ -45,7 +46,7 @@ export default function ProductOverview({ product = null }) {
 
 
   const addToCartButtonRef = useRef(null);
-
+  const [isAddToCartBtnLoading, setIsAddToCartBtnLoading] = useState(false);
   
   const [quantity, setQuantity] = useState(INITIAL_QTY);
 
@@ -85,7 +86,6 @@ export default function ProductOverview({ product = null }) {
     }
   }
 
-
   const disableAddToCartButton = () => {
 
     addToCartButtonRef.current.disabled = true;
@@ -100,16 +100,24 @@ export default function ProductOverview({ product = null }) {
 
   const manageAddToCartButton = async quantity => {
 
+    setIsAddToCartBtnLoading(true);
     addToCartButtonRef.current.textContent = `${quantity} ${quantity <= 1 ? "Item" : "Items"} Added`;
     disableAddToCartButton();
 
     await sleep(3000);
     clearSleep();
+
+    const currentStockQuantity = (stockLimit < stockQuantity ? stockLimit : stockQuantity) - quantity;
+
+    if (quantity > currentStockQuantity) {
+      setQuantity(currentStockQuantity > 0 ? INITIAL_QTY : NO_STOCK_QTY);
+    }
     
-    if (getError()) {
+    if (currentStockQuantity > 0) {
       enableAddToCartButton();
     }
     addToCartButtonRef.current.textContent = "Add to Cart";
+    setIsAddToCartBtnLoading(false);
   }
 
   const handleAddToCartButton = async () => {
@@ -132,6 +140,7 @@ export default function ProductOverview({ product = null }) {
     }
   }
 
+  
   const getError = useCallback(() => {
 
     if (quantity > stockLimit) {
@@ -155,13 +164,14 @@ export default function ProductOverview({ product = null }) {
 
       return {
         quantity: true,
-        message: `Quantity should be between 0 and ${currentQuantityValue}`
+        message: `Quantity should be between 0 and ${currentQuantityValue + 1}`
       };
     }
 
     return null;
 
   }, [quantity, stockQuantity]);
+
 
   useEffect(() => {
 
@@ -231,6 +241,7 @@ export default function ProductOverview({ product = null }) {
             stockLeft={stockQuantity}
             stockLimit={stockLimit}
             callback={getQuantity}
+            cartQtyCount={quantity}
           />
 
           <button
@@ -256,7 +267,7 @@ export default function ProductOverview({ product = null }) {
 
         {error && 
           <p className="error text-red-500 text-xs">
-            {error?.message ?? ""}
+            {(!isAddToCartBtnLoading && error?.message) ?? ""}
           </p>
         }
 

@@ -40,8 +40,9 @@ export default function ProductQuantity({
 
   useEffect(() => {
 
-    setQuantity(cartQtyCount || INITIAL_QTY);
-  }, [cartQtyCount]);
+    setQuantity(isProductPage ? cartQtyCount : cartQtyCount || INITIAL_QTY);
+
+  }, [isProductPage, cartQtyCount]);
 
 
   useEffect(() => {
