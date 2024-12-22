@@ -20,8 +20,6 @@ import setStatePromptly from "@/utils/functions/general/setStatePromptly";
 import ProductUpperOverview from "./general/ProductUpperOverview";
 
 
-//TODO: Just below tablet screen size, secondary carousel turns into vertical orientation.
-
 export default function ProductShowcase({ product = null }) {
 
   const primaryCarouselRef = useRef(null);
@@ -163,7 +161,7 @@ export default function ProductShowcase({ product = null }) {
             classNameTrayWrap={sliderTrayWrapClassName}
             classNameTray={`
               slider-tray
-              ${screenWidth >= md && "flex flex-col items-center justify-center gap-2"}
+              ${screenWidth >= md ? "flex flex-col items-center justify-center gap-2" : ""}
             `}
           >
             {product?.gallery?.map((productImage, index) =>
@@ -176,6 +174,7 @@ export default function ProductShowcase({ product = null }) {
                   md:mx-0
                   ${applySecondaryCarouselSlideSelection(index)}
                 `}
+                innerClassName="w-[25vw] md:w-full"
                 style={handleSecondaryCarouselSlidePaddingBottom}
                 data-slide-num={index}
                 onClick={() => handleSecondaryCarouselSlide(index)}
