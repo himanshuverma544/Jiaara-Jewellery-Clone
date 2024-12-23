@@ -16,14 +16,6 @@ export default function BuildingWithPurpose() {
       </h2>
 
       <div className="content-cont w-full flex flex-col md:flex-row">
-        <div className="img-cont relative w-[inherit] h-[20rem] md:w-[40%] md:h-auto">
-          <Image
-            className="object-cover object-center"
-            fill
-            src={`${dirAssets}/preview-image.jpg`}
-            alt="Hands-Craft Preview Image"
-          />
-        </div>
         <ContentOnBackground
           className="text-content relative md:w-[60%]"
           image={{
@@ -45,6 +37,15 @@ export default function BuildingWithPurpose() {
             Their unwavering commitment to excellence ensures that every piece of jewelry is not only a beautiful adornment but a timeless work of art, rich with history and meaning.
           </p>
         </ContentOnBackground>
+
+        <div className="img-cont relative w-[inherit] h-[20rem] md:w-[40%] md:h-auto">
+          <Image
+            className="object-cover object-center"
+            fill
+            src={`${dirAssets}/preview-image.jpg`}
+            alt="Hands-Craft Preview Image"
+          />
+        </div>
       </div>
     </section>
   );
