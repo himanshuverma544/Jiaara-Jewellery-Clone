@@ -9,6 +9,7 @@ import Testimonials from "@/components/pages/home/testimonials/Testimonials";
 import Sale from "@/components/pages/home/sale/Sale";
 import FollowOnInstagram from "@/components/pages/home/follow-on-instagram/FollowOnInstagram";
 import FeaturedDeals from "@/components/pages/home/featured-deals/FeaturedDeals";
+import JiaaraStory from "@/components/pages/home/JiaaraStory";
 
 
 export default function Home() {
@@ -24,8 +25,8 @@ export default function Home() {
       <CelebrityStyle/>
       <KeyBenefits/>
       <Testimonials/>
+      <JiaaraStory/>
       <BuildingWithPurpose/>
-      {/* <FollowOnInstagram/> */}
     </div>
   );
 }
