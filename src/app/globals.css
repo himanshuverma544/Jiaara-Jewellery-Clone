@@ -23,6 +23,7 @@ footer {
   align-self: end;
 }
 
+
 /* 404 Page */
 main {
   & h1.next-error-h1,
@@ -30,6 +31,7 @@ main {
     @apply text-primaryFont;
   }
 }
+
 
 /* Utilities */
 
