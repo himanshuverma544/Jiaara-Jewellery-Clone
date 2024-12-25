@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import "@/app/globals.css";
@@ -10,7 +10,7 @@ import Main from "@/components/pages/layout/Main";
 import Footer from "@/components/pages/layout/Footer";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Jiaara Jewellery",
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16"/>
       </head>
       <body
-        className={`${inter.className}`}
+        className={`${montserrat.className}`}
         suppressHydrationWarning={process.env.NODE_ENV === "development"}
       >
         <App>
