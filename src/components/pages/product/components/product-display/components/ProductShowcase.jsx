@@ -10,6 +10,7 @@ import {
 } from 'pure-react-carousel';
 
 import Media from "@/components/general/Media";
+import ZoomableImage from "@/components/general/ZoomableImage";
 
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useGoToSlide from "@/utils/hooks/pure-react-carousel/useGoToSlide";
@@ -125,14 +126,26 @@ export default function ProductShowcase({ product = null }) {
                 index={index}
                 className="mx-[1.25vw]"
                 data-slide-num={index}
-                innerClassName="md:h-[23rem]"
               >
-                <Media
-                  imgContClassName="img-cont relative w-full h-[80vw] md:h-[inherit]"
-                  imgClassName="object-cover object-center rounded"
-                  videoClassName="w-full h-[80vw] object-fill rounded-sm md:h-[inherit]"
-                  src={productImage?.src}
-                  alt={productImage?.alt}
+                <ZoomableImage
+                  image={{
+                    className: "object-cover object-center rounded-sm"
+                  }}
+                  video={{
+                    className: "object-fill rounded-sm"
+                  }}
+                  media={{
+                    contClassName: "w-full h-[90vw] max-h-[25rem]",
+                    src: productImage?.src,
+                    alt: productImage?.alt
+                  }}
+                  zoom={{
+                    className: "w-[35%] h-[31vw]",
+                    position: {
+                      top: "27%",
+                      right: "25%"
+                    }
+                  }}
                 />
               </Slide>
             )}
