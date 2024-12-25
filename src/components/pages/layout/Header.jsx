@@ -145,7 +145,7 @@ export default function Header() {
         </div>
       </Link>
 
-      <div className="wrapper w-full flex relative">
+      <div className="wrapper w-full flex relative font-medium">
         
         <nav className="navbar w-[inherit] fixed bottom-0 left-0 lg:static">
           <ul className={`
