@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import useWindowSize from "../general/useWindowSize";
-import useSleep from "../general/useSleep";
+import useWindowSize from "@/utils/hooks/general/useWindowSize";
+import useSleep from "@/utils/hooks/general/useSleep";
 
 
 export default function useRemoveExcessBottomPadding({
