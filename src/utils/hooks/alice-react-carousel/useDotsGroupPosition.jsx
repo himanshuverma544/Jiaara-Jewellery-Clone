@@ -1,14 +1,9 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 
-/*
-* This is unstable version.
-* Doesn't works when loaded normally on screen.
-* Works on screen resizing.
-*/
 
 const useDotsGroupPosition = ({
   carouselNodeRef = null,
@@ -21,7 +16,7 @@ const useDotsGroupPosition = ({
 
   const { screenWidth, breakpoints } = useWindowSize();
 
-  const getPosition = position => {
+  const getPosition = useCallback(position => {
 
     let globalPosition = position?.global || '0';
     let breakpointPosition = position?.breakpoints || {};
@@ -60,8 +55,7 @@ const useDotsGroupPosition = ({
     }
 
     return selectedPosition;
-  }
-
+  }, [screenWidth, breakpoints]);
 
   useEffect(() => {
 
@@ -71,14 +65,14 @@ const useDotsGroupPosition = ({
         const aliceCarouselDotsNode = carouselNodeRef?.current?.querySelector(givenDotsGroupClassName);
   
         if (aliceCarouselDotsNode) {
-          aliceCarouselDotsNode.style.marginTop = getPosition(position);
+          aliceCarouselDotsNode.style.top = getPosition(position);
         }
       }
     }
 
     handlePosition();
 
-  }, [carouselNodeRef, screenWidth, givenDotsGroupClassName]);
+  }, [carouselNodeRef, position, screenWidth, givenDotsGroupClassName, getPosition]);
  
   
   return { getPosition };
