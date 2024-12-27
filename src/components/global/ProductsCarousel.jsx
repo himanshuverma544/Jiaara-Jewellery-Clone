@@ -6,7 +6,7 @@ import {
   Slide,
 } from 'pure-react-carousel';
 
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { context } from '@/context-API/context';
 
 import Product from '@/components/global/Product';
