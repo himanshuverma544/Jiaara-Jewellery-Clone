@@ -91,7 +91,6 @@ export default function ProductGalleryCarousel({
         carouselNodeRef?.current.removeEventListener('touchstart', handleInteraction);
       }
     }
-
   }, []);
 
 
