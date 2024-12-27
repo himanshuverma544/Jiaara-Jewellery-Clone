@@ -6,7 +6,7 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import "@/styles/react-alice-carousel.css";
 
-import { useState, useEffect, useRef, useContext, useCallback } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 import { context } from "@/context-API/context";
 import { storeData } from "@/context-API/actions/action.creators";
@@ -56,7 +56,7 @@ export default function ProductGalleryCarousel({
   }
   
 
-  const handleInteraction = useCallback(event => {
+  const handleInteraction = event => {
     
     if (event) {
       event.preventDefault();
@@ -73,28 +73,26 @@ export default function ProductGalleryCarousel({
 
       setHasInteracted(true);
     }
-  }, [hasInteracted, dispatch]);
+  }
   
   useEffect(() => {
 
     function handleTouchStartInteraction() {
 
-      const node = carouselNodeRef.current;
-
-      if (node) {
-        node.addEventListener('touchstart', handleInteraction, { passive: false });
+      if (carouselNodeRef?.current) {
+        carouselNodeRef?.current.addEventListener('touchstart', handleInteraction, { passive: false });
       }
     }
 
     handleTouchStartInteraction();
 
     return () => {
-      if (node) {
-        node.removeEventListener('touchstart', handleInteraction);
+      if (carouselNodeRef?.current) {
+        carouselNodeRef?.current.removeEventListener('touchstart', handleInteraction);
       }
     }
 
-  }, [handleInteraction]);
+  }, []);
 
 
   useDotsGroupPosition({
