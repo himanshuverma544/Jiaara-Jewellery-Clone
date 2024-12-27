@@ -63,8 +63,8 @@ export default function SaleProductCard({
             className: "object-cover object-center rounded-tl-xl"
           }}
           dotsGroupPosition={{
-            global: '50vw',
-            breakpoints: { sm: '25vw', lg: '17vw' }
+            global: '70%',
+            breakpoints: { xs: '75%', sm: ' 70%', xxl: '80%' }
           }}
         />
 

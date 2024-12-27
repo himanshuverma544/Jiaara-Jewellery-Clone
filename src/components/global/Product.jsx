@@ -99,8 +99,8 @@ export default function Product({
           className: imgClassName
         }}
         dotsGroupPosition={{
-          global: '35vw',
-          breakpoints: { sm: '21vw', lg: '17vw' }
+          global: '60%',
+          breakpoints: { xs: '65%', sm: '75%', lg: '70%', xxl: '80%' }
         }}
       />
 
