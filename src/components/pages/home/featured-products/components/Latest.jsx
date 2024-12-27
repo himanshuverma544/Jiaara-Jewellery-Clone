@@ -30,7 +30,7 @@ export default function Latest() {
       />
     );
   }
-
+  
   return (
     (isSuccess && data?.products?.length > 0) &&
       <ProductsCarousel

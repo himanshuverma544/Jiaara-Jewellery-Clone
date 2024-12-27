@@ -33,6 +33,7 @@ export default function BestSeller() {
     );
   }
 
+
   return (
     (isSuccess && data?.products?.length > 0) &&
       <ProductsCarousel
