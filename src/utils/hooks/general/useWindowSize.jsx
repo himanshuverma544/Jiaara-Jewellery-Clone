@@ -22,8 +22,7 @@ const useWindowSize = (customBreakpoints = {}) => {
 
     setScreenWidth(window.innerWidth);
 
-    const handleResize = () =>
-      setScreenWidth(window.innerWidth);
+    const handleResize = () => setScreenWidth(window.innerWidth);
 
     window.addEventListener("resize", handleResize);
 
@@ -32,10 +31,12 @@ const useWindowSize = (customBreakpoints = {}) => {
     };
   }, []);
 
-  return { 
+
+  return {
     breakpoints,
     screenWidth
   };
-};
+}
+
 
 export default useWindowSize;
