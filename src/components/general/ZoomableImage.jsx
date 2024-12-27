@@ -168,11 +168,11 @@ const ZoomableImage = ({
               className={`
                 square-focused-cursor
                 hidden
-                md:size-[5rem]
-                md:flex md:justify-center md:items-center
-                md:absolute md:inset-0 md:z-50
-                md:pointer-events-none
-              md:border-white md:bg-black/20
+                lg:size-[5rem]
+                lg:flex lg:justify-center lg:items-center
+                lg:absolute lg:inset-0 lg:z-50
+                lg:pointer-events-none
+              lg:border-white lg:bg-black/20
               `}
               style={{
                 top: `${position.y}%`,
@@ -197,7 +197,7 @@ const ZoomableImage = ({
               bg-center bg-cover bg-no-repeat
               bg-white shadow-lg
               pointer-events-none
-              md:hidden
+              lg:hidden
             `}
             style={{
               backgroundImage: `url(${theMedia?.zoomSrc || theMedia?.src})`,
@@ -214,15 +214,15 @@ const ZoomableImage = ({
         <div
           className={`
             hidden
-            md:w-screen md:h-screen
-            md:flex md:justify-center md:items-center
-            md:fixed inset-0 md:z-10
-            md:overflow-hidden md:pointer-events-none
+            lg:w-screen lg:h-screen
+            lg:flex lg:justify-center lg:items-center
+            lg:fixed inset-0 lg:z-10
+            lg:overflow-hidden lg:pointer-events-none
           `}
         >
           <div
             className={`
-              zoomed-image-md
+              zoomed-image-lg
               ${theZoom?.className}
               bg-center bg-cover bg-no-repeat
               bg-white shadow-lg
