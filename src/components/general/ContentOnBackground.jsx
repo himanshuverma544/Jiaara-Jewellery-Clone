@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Media from "@/components/general/Media";
 
 
 export default function ContentOnBackground({
@@ -6,7 +6,7 @@ export default function ContentOnBackground({
   innerClassName = "",
   image = {
     className: "",
-    innerClassName: "",
+    innerClassName: "object-cover object-center",
     src: "",
     alt: ""
   },
@@ -16,14 +16,13 @@ export default function ContentOnBackground({
   return (
     <div className={`${className} ${image?.src ? "relative" : ""}`}>
       {image?.src ?
-        <div className={`img-cont absolute inset-0 ${image?.className}`}>
-          <Image
-            className={`object-cover object-center ${image?.innerClassName}`}
-            fill
-            src={image?.src}
-            alt={image?.alt}
-          />
-        </div>
+        <Media
+          imgContClassName={`img-cont absolute inset-0 ${image?.className}`}
+          imgClassName={`${image?.innerClassName}`}
+          videoClassName={`${image?.className} object-fill object-center`}
+          src={image?.src}
+          alt={image?.alt}
+        />
           :
         {children}
       }
