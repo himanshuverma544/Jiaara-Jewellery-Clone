@@ -1,12 +1,13 @@
 'use client';
 
-import React from "react";
-
 import { 
   CarouselProvider,
   Slider,
   Slide,
 } from 'pure-react-carousel';
+
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { context } from '@/context-API/context';
 
 import Product from '@/components/global/Product';
 
@@ -38,22 +39,42 @@ export default function ProductsCarousel({
   data: {
     products = [],
     productComponent = 
-    <Product
-      product={null}
-      imgContClassName="relative w-full h-[40vw] sm:h-[25vw] lg:h-[20vw]"
-      productDetailsContClassName="text-xs text-primaryFont"
-      productNameClassName="uppercase"
-      btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
-      iconContClassName="text-lg p-2 bg-white text-black"
-    />
+      <Product
+        product={null}
+        imgContClassName="relative w-full h-[40vw] sm:h-[25vw] lg:h-[20vw]"
+        productDetailsContClassName="text-xs text-primaryFont"
+        productNameClassName="uppercase"
+        btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
+        iconContClassName="text-lg p-2 bg-white text-black"
+      />
   } = {}
 }) {
+
+
+  const [keepPlaying, setKeepPlaying] = useState(isPlaying);
+
+  const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
+
+  useEffect(() => {
+
+    function handleProductGalleryCarouselInteractions() {
+
+      if (keepPlaying && triggered && states?.productGalleryCarousel?.hasInteracted) {
+        setKeepPlaying(false);
+      }
+    }
+
+    handleProductGalleryCarouselInteractions();
+
+  }, [keepPlaying, triggered, states?.productGalleryCarousel?.hasInteracted]);
+
 
   const { visibleSlidesCount } = useVisibleSlides({
     desktopVisibleSlidesCount: desktop,
     tabletVisibleSlidesCount: tablet,
     mobileVisibleSlidesCount: mobile
   });
+
 
   return (
     <div className={`${className} flex flex-col gap-6`}>
@@ -70,7 +91,7 @@ export default function ProductsCarousel({
         isIntrinsicHeight
         visibleSlides={visibleSlidesCount}
         totalSlides={products.length}
-        isPlaying={isPlaying}
+        isPlaying={keepPlaying}
         interval={interval}
         playDirection={playDirection}
       >
