@@ -53,13 +53,13 @@ const ZoomableImage = ({
 
 
   const disableScroll = () => {
-    document.documentElement.classList.add('overflow-hidden');
-    document.body.classList.add('overflow-hidden');
+    // document.documentElement.classList.add('overflow-hidden');
+    // document.body.classList.add('overflow-hidden');
   }
 
   const enableScroll = () => {
-    document.documentElement.classList.remove('overflow-hidden');
-    document.body.classList.remove('overflow-hidden');
+    // document.documentElement.classList.remove('overflow-hidden');
+    // document.body.classList.remove('overflow-hidden');
   }
 
 
