@@ -1,12 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import Image from "next/image";
-
 import { FiPlus, FiMinus } from "react-icons/fi";
 
-import ProductQuantity from "@/components/global/ProductQuantity";
 import Icon from "@/components/general/Icon";
+import ProductQuantity from "@/components/global/ProductQuantity";
+import ProductGalleryCarousel from "@/components/global/ProductGalleryCarousel";
 
 import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
@@ -18,7 +16,7 @@ import INR from "@/utils/functions/general/INR";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
-import { SHOP, CATEGORIES, COLLECTIONS, PRODUCT, WISHLIST } from "@/routes";
+import { SHOP, CATEGORIES, COLLECTIONS, WISHLIST } from "@/routes";
 
 
 export default function Product({
@@ -92,21 +90,20 @@ export default function Product({
 
 
   return (
-    <div className={`product-cont flex flex-col items-center justify-center gap-3 ${className}`}>
-      {product?.image &&
-        <Link
-          className={`img-cont ${imgContClassName}`}
-          href={PRODUCT?.getPathname(product?.id)}
-        >
-          <Image
-            className={imgClassName}
-            fill
-            src={product?.image}
-            alt={product?.name}
-          />
-        </Link>
-      }
-      
+    <div className={`product-cont flex flex-col items-center justify-center gap-3 z-10 ${className}`}>
+
+      <ProductGalleryCarousel
+        product={product}
+        media={{
+          contClassName: imgContClassName,
+          className: imgClassName
+        }}
+        dotsGroupPosition={{
+          global: '35vw',
+          breakpoints: { sm: '21vw', lg: '17vw' }
+        }}
+      />
+
       {(product?.name || product?.price) &&
         <div className={`
           product-details
