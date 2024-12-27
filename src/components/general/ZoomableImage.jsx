@@ -1,9 +1,7 @@
 'use client';
 
 import ReactDOM from "react-dom";
-
 import { useState, useEffect, useRef } from 'react';
-
 import Media from '@/components/general/Media';
 
 
@@ -14,7 +12,6 @@ const ZoomableImage = ({
   media = {},
   zoom = {}
 }) => {
-
   const theImage = {
     className: "",
     ...image
@@ -43,7 +40,7 @@ const ZoomableImage = ({
     },
     level: 4,
     ...zoom
-  }
+  };
 
 
   const [isZoomed, setIsZoomed] = useState(false);
@@ -52,23 +49,10 @@ const ZoomableImage = ({
   const touchTimer = useRef(null);
 
 
-  const disableScroll = () => {
-    // document.documentElement.classList.add('overflow-hidden');
-    // document.body.classList.add('overflow-hidden');
-  }
-
-  const enableScroll = () => {
-    // document.documentElement.classList.remove('overflow-hidden');
-    // document.body.classList.remove('overflow-hidden');
-  }
-
-
   const handleMouseEnter = () => {
-
     setIsZoomed(true);
-    disableScroll();
   }
-  
+
   const handleMouseMove = event => {
 
     const { left, top, width, height } = event.target.getBoundingClientRect();
@@ -80,9 +64,7 @@ const ZoomableImage = ({
   }
 
   const handleMouseLeave = () => {
-
     setIsZoomed(false);
-    enableScroll();
   }
 
 
@@ -95,15 +77,15 @@ const ZoomableImage = ({
     }
   }, []);
 
+
   const handleTouchStart = () => {
 
     touchTimer.current = setTimeout(() => {
       setIsZoomed(true);
-      disableScroll();
     }, 1000);
   }
 
-  const handleTouchMove = (event) => {
+  const handleTouchMove = event => {
 
     if (!isZoomed) {
       clearTimeout(touchTimer.current);
@@ -126,10 +108,9 @@ const ZoomableImage = ({
   const handleTouchEnd = () => {
 
     clearTimeout(touchTimer.current);
-    
+
     if (isZoomed) {
       setIsZoomed(false);
-      enableScroll();
     }
   }
 
@@ -143,7 +124,7 @@ const ZoomableImage = ({
         ${className}
       `}
     >
-      {/* Original Image */}
+    {/* Original Image */}
       <div
         className={`${theMedia.contClassName}`}
         onMouseEnter={handleMouseEnter}
@@ -152,6 +133,7 @@ const ZoomableImage = ({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onTouchMove={handleTouchMove}
+        onContextMenu={event => event.preventDefault()}
       >
         <div className="relative w-full h-full cursor-none">
           <Media
@@ -162,7 +144,7 @@ const ZoomableImage = ({
             alt={theMedia.alt}
           />
 
-          {/* Custom Cursor */}
+        {/* Custom Cursor */}
           {isZoomed &&
             <div
               className={`
@@ -172,7 +154,7 @@ const ZoomableImage = ({
                 lg:flex lg:justify-center lg:items-center
                 lg:absolute lg:inset-0 lg:z-50
                 lg:pointer-events-none
-              lg:border-white lg:bg-black/20
+                lg:border-white lg:bg-black/20
               `}
               style={{
                 top: `${position.y}%`,
@@ -187,7 +169,7 @@ const ZoomableImage = ({
           }
         </div>
 
-        {/* Zoomed View (Mobile Devices) */}
+      {/* Zoomed View (Mobile Devices) */}
         {isZoomed &&
           <div
             className={`
@@ -208,8 +190,7 @@ const ZoomableImage = ({
         }
       </div>
 
-
-      {/* Zoomed View (Desktop & Tablet) */}
+    {/* Zoomed View (Desktop & Tablet) */}
       {isZoomed && ReactDOM.createPortal(
         <div
           className={`
@@ -242,7 +223,8 @@ const ZoomableImage = ({
         </div>, document.body
       )}
     </div>
-  )}
+  );
+};
 
-  
+
 export default ZoomableImage;
