@@ -187,7 +187,7 @@ export default function ProductShowcase({ product = null }) {
                   md:mx-0
                   ${applySecondaryCarouselSlideSelection(index)}
                 `}
-                innerClassName="w-[25vw] md:w-full"
+                innerClassName="w-[20vw] md:w-full"
                 style={handleSecondaryCarouselSlidePaddingBottom}
                 data-slide-num={index}
                 onClick={() => handleSecondaryCarouselSlide(index)}
