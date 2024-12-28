@@ -187,7 +187,6 @@ export default function ProductOverview({ product = null }) {
       <ProductUpperOverview
         className="w-full hidden md:flex md:justify-between md:items-start md:gap-5 xl:w-[95%]"
         product={product}
-        wishlistUtils={wishlistUtils}
       />
 
       <div className="wrapper flex flex-wrap items-center gap-4 xs:justify-around md:flex-col md:items-start xl:w-[95%]">
