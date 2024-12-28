@@ -1,6 +1,6 @@
 'use client';
 
-import { 
+import {
   CarouselProvider,
   Slider,
   Slide,
@@ -16,7 +16,7 @@ import useVisibleSlides from '@/utils/hooks/pure-react-carousel/useVisibleSlides
 
 export default function ProductsCarousel({
   
-  visibleSlides: { 
+  visibleSlides: {
     desktop = 4,
     tablet = 3,
     mobile = 2
@@ -51,13 +51,20 @@ export default function ProductsCarousel({
 }) {
 
 
+  const [isTouchInteracting, setIsTouchInteracting] = useState(false);
   const [keepPlaying, setKeepPlaying] = useState(isPlaying);
 
+
   const { data: { triggered } = {}, data: { states } = {} } = useContext(context) || {};
+
 
   useEffect(() => {
 
     function handleProductGalleryCarouselInteractions() {
+
+      if (triggered) {
+        setIsTouchInteracting(!(states?.productGalleryCarousel?.isTouchInteracting));
+      }
 
       if (keepPlaying && triggered && states?.productGalleryCarousel?.hasInteracted) {
         setKeepPlaying(false);
@@ -65,8 +72,14 @@ export default function ProductsCarousel({
     }
 
     handleProductGalleryCarouselInteractions();
-
-  }, [keepPlaying, triggered, states?.productGalleryCarousel?.hasInteracted]);
+  },
+    [
+      keepPlaying,
+      triggered,
+      states?.productGalleryCarousel?.isTouchInteracting,
+      states?.productGalleryCarousel?.hasInteracted
+    ]
+  );
 
 
   const { visibleSlidesCount } = useVisibleSlides({
@@ -94,6 +107,7 @@ export default function ProductsCarousel({
         isPlaying={keepPlaying}
         interval={interval}
         playDirection={playDirection}
+        touchEnabled={isTouchInteracting}
       >
         <Slider className={`products-slider ${sliderClassName}`}>
           {products.length > 0 &&

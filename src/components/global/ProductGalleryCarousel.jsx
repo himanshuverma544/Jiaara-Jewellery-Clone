@@ -47,6 +47,8 @@ export default function ProductGalleryCarousel({
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isCarouselHovered, setIsCarouselHovered] = useState(false);
   
+  const [isTouchInteracting, setIsTouchInteracting] = useState(false);
+
   
   const handleLinkOnClick = event => {
 
@@ -56,10 +58,12 @@ export default function ProductGalleryCarousel({
   }
   
 
-  const handleInteraction = event => {
+  const handleInteraction = (event) => {
     
     if (event) {
-      event.preventDefault();
+      if (event.type === "mousedown") {
+        event.preventDefault();
+      }
       event.stopPropagation();
     }
 
@@ -73,31 +77,34 @@ export default function ProductGalleryCarousel({
 
       setHasInteracted(true);
     }
-  }
+
+    if (event && event.type === "touchstart") {
+      setIsTouchInteracting(true);
+    }
+  };
   
-  useEffect(() => {
-
-    function handleTouchStartInteraction() {
-
-      if (carouselNodeRef?.current) {
-        carouselNodeRef?.current.addEventListener('touchstart', handleInteraction, { passive: false });
-      }
-    }
-
-    handleTouchStartInteraction();
-
-    return () => {
-      if (carouselNodeRef?.current) {
-        carouselNodeRef?.current.removeEventListener('touchstart', handleInteraction);
-      }
-    }
-  }, []);
-
 
   useDotsGroupPosition({
     carouselNodeRef,
     position: dotsGroupPosition
   });
+
+
+  
+  useEffect(() => {
+
+    function handleTouchInteraction() {
+  
+      dispatch(storeData({
+        productGalleryCarousel: {
+          isTouchInteracting
+        }
+      }, "states"));
+    }
+
+    handleTouchInteraction();
+
+  }, [isTouchInteracting, dispatch]);
 
 
   useEffect(() => {
@@ -127,6 +134,8 @@ export default function ProductGalleryCarousel({
         onMouseEnter={() => setIsCarouselHovered(true)}
         onMouseLeave={() => setIsCarouselHovered(false)}
         onMouseDown={handleInteraction}
+        onTouchStart={handleInteraction}
+        onTouchEnd={() => setIsTouchInteracting(false)}
       >
         <AliceCarousel
           ref={carouselRef}
