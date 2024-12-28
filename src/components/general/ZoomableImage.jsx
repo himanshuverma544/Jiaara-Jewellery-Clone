@@ -1,7 +1,7 @@
 'use client';
 
 import ReactDOM from "react-dom";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Media from '@/components/general/Media';
 
 
@@ -67,17 +67,6 @@ const ZoomableImage = ({
     setIsZoomed(false);
   }
 
-
-  useEffect(() => {
-
-    document.body.style.touchAction = 'none';
-
-    return () => {
-      document.body.style.touchAction = 'auto';
-    }
-  }, []);
-
-
   const handleTouchStart = () => {
 
     touchTimer.current = setTimeout(() => {
@@ -92,7 +81,6 @@ const ZoomableImage = ({
       return;
     }
 
-    event.preventDefault();
     event.stopPropagation();
 
     const touch = event.touches[0];
@@ -144,7 +132,7 @@ const ZoomableImage = ({
             alt={theMedia.alt}
           />
 
-        {/* Custom Cursor */}
+          {/* Custom Cursor */}
           {isZoomed &&
             <div
               className={`
@@ -169,7 +157,7 @@ const ZoomableImage = ({
           }
         </div>
 
-      {/* Zoomed View (Mobile Devices) */}
+        {/* Zoomed View (Mobile Devices) */}
         {isZoomed &&
           <div
             className={`
@@ -190,7 +178,7 @@ const ZoomableImage = ({
         }
       </div>
 
-    {/* Zoomed View (Desktop & Tablet) */}
+      {/* Zoomed View (Desktop & Tablet) */}
       {isZoomed && ReactDOM.createPortal(
         <div
           className={`
