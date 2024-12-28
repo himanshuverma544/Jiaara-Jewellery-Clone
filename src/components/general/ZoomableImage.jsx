@@ -1,7 +1,12 @@
 'use client';
 
 import ReactDOM from "react-dom";
-import { useState, useRef } from 'react';
+
+import { useState, useEffect, useRef, useContext } from 'react';
+
+import { context } from "@/context-API/context";
+import { storeData } from "@/context-API/actions/action.creators";
+
 import Media from '@/components/general/Media';
 
 
@@ -32,6 +37,7 @@ const ZoomableImage = ({
 
   const theZoom = {
     className: "",
+    positionType: "static",
     position: {
       top: "0%",
       right: "0%",
@@ -42,6 +48,8 @@ const ZoomableImage = ({
     ...zoom
   };
 
+  const { dispatch } = useContext(context) || {};
+
 
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({ x: 50, y: 50 });
@@ -49,21 +57,44 @@ const ZoomableImage = ({
   const touchTimer = useRef(null);
 
 
+  useEffect(() => {
+
+    function storeComponentData() {
+      dispatch(storeData({ zoomableImage: { isZoomed } }, "states"));
+    }
+    storeComponentData();
+
+  }, [isZoomed, dispatch]);
+
+
+  const disableScroll = () => {
+    document.documentElement.classList.add('overflow-hidden', 'lg:overflow-auto');
+    document.body.classList.add('overflow-hidden', 'lg:overflow-auto');
+  }
+
+  const enableScroll = () => {
+    document.documentElement.classList.remove('overflow-hidden', 'lg:overflow-auto');
+    document.body.classList.remove('overflow-hidden', 'lg:overflow-auto');
+  }
+
+
   const handleMouseEnter = () => {
+    disableScroll();
     setIsZoomed(true);
   }
-
+  
   const handleMouseMove = event => {
-
+    
     const { left, top, width, height } = event.target.getBoundingClientRect();
-
+    
     const x = ((event.clientX - left) / width) * 100;
     const y = ((event.clientY - top) / height) * 100;
-
+    
     setPosition({ x, y });
   }
-
+  
   const handleMouseLeave = () => {
+    enableScroll();
     setIsZoomed(false);
   }
 
@@ -71,6 +102,7 @@ const ZoomableImage = ({
 
     touchTimer.current = setTimeout(() => {
       setIsZoomed(true);
+      disableScroll();
     }, 1000);
   }
 
@@ -99,6 +131,7 @@ const ZoomableImage = ({
 
     if (isZoomed) {
       setIsZoomed(false);
+      enableScroll();
     }
   }
 
@@ -183,10 +216,14 @@ const ZoomableImage = ({
         <div
           className={`
             hidden
-            lg:w-screen lg:h-screen
             lg:flex lg:justify-center lg:items-center
-            lg:fixed inset-0 lg:z-10
+            lg:z-10
             lg:overflow-hidden lg:pointer-events-none
+            ${(theZoom.positionType === "fixed") ?
+              "lg:w-screen lg:h-screen lg:fixed"
+                :
+              (theZoom.positionType === "relative" ? "lg:relative" : "")
+            }
           `}
         >
           <div
@@ -198,7 +235,7 @@ const ZoomableImage = ({
               pointer-events-none
             `}
             style={{
-              position: "absolute",
+              position: theZoom.positionType,
               top: theZoom.position?.top,
               right: theZoom.position?.right,
               bottom: theZoom.position?.bottom,
@@ -208,7 +245,7 @@ const ZoomableImage = ({
               backgroundPosition: `${position.x}% ${position.y}%`
             }}
           ></div>
-        </div>, document.body
+        </div>, document.getElementById("zoomable-image-preview")
       )}
     </div>
   );

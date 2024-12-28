@@ -140,11 +140,7 @@ export default function ProductShowcase({ product = null }) {
                     alt: productImage?.alt
                   }}
                   zoom={{
-                    className: "w-[35%] h-[31vw]",
-                    position: {
-                      top: "27%",
-                      right: "25%"
-                    }
+                    className: "lg:w-[40vw] lg:max-w-[30rem] h-[90vw] max-h-[25rem]",
                   }}
                 />
               </Slide>
