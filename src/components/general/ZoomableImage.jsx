@@ -37,7 +37,10 @@ const ZoomableImage = ({
 
   const theZoom = {
     className: "",
-    positionType: "static",
+    positionType: {
+      outer: "static",
+      inner: "static"
+    },
     position: {
       top: "0%",
       right: "0%",
@@ -219,10 +222,10 @@ const ZoomableImage = ({
             lg:flex lg:justify-center lg:items-center
             lg:z-10
             lg:overflow-hidden lg:pointer-events-none
-            ${(theZoom.positionType === "fixed") ?
+            ${(theZoom.positionType.outer === "fixed") ?
               "lg:w-screen lg:h-screen lg:fixed"
                 :
-              (theZoom.positionType === "relative" ? "lg:relative" : "")
+              (theZoom.positionType.outer === "relative" ? "lg:relative" : "lg:static")
             }
           `}
         >
@@ -235,7 +238,7 @@ const ZoomableImage = ({
               pointer-events-none
             `}
             style={{
-              position: theZoom.positionType,
+              position: theZoom.positionType.inner,
               top: theZoom.position?.top,
               right: theZoom.position?.right,
               bottom: theZoom.position?.bottom,
