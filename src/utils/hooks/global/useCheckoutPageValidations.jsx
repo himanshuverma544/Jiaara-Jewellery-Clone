@@ -19,8 +19,13 @@ const useCheckoutPageValidations = () => {
 
   const { isReady: isPreviousRouteReady, previousRoute, removePreviousRoute } = usePreviousRoute();
   const { isReady: isNavigationTypeReady, isPageReload } = useNavigationType();
+  
 
-  const { cartUtils: { cartItems }, buyNowUtils: { buyNowItem, clearBuyNow } } = useProductUtils();
+  const {
+    cartUtils: { cartItems, clearCart },
+    buyNowUtils: { buyNowItem, clearBuyNow }
+  }
+    = useProductUtils();
 
 
   const isProductPageRoute = useMemo(() => {
@@ -38,6 +43,7 @@ const useCheckoutPageValidations = () => {
     }
 
     return false;
+
   }, [isPreviousRouteReady]);
 
 
@@ -53,7 +59,7 @@ const useCheckoutPageValidations = () => {
         clearBuyNow();
       }
 
-      else if (cartItems?.length < 0) {
+      else if (cartItems?.length <= 0) {
         router.push(HOME.pathname);
       }
     }
@@ -61,7 +67,7 @@ const useCheckoutPageValidations = () => {
 
   const validateBuyNowItemPerceptive = (() => {
 
-    if (isBuyNowItemPerceptive() && buyNowItem?.length < 0) {
+    if (isBuyNowItemPerceptive() && buyNowItem?.length <= 0) {
       router.push(HOME.pathname);
     }
   });
@@ -109,7 +115,8 @@ const useCheckoutPageValidations = () => {
 
 
   return {
-    items: isBuyNowItemPerceptive() ? buyNowItem : cartItems
+    currentItems: isBuyNowItemPerceptive() ? buyNowItem : cartItems,
+    clearItems: isBuyNowItemPerceptive() ? clearBuyNow : clearCart
   };
 }
 
