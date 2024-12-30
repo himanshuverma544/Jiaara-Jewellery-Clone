@@ -84,7 +84,7 @@ export default function Product({
 
   const {
     cartUtils: { cartItem, addToCart },
-    wishlistUtils: { wishlistItem, handleWishlist}
+    wishlistUtils: { wishlistItem, handleWishlist }
   }
     = useProductUtils(product);
 
