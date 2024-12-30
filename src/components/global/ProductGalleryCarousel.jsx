@@ -37,7 +37,7 @@ export default function ProductGalleryCarousel({
   
   const { dispatch } = useContext(context);
   
-  const { clickType, handleMouseUp, handleMouseDown } = useClickTracker({ threshold: 100 });
+  const { clickType, handleMouseUp, handleMouseDown } = useClickTracker({ threshold: 200 });
 
   const carouselRef = useRef(null);
   const carouselNodeRef = useRef(null);
