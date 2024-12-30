@@ -58,7 +58,7 @@ export default function ProductGalleryCarousel({
   }
   
 
-  const handleInteraction = (event) => {
+  const handleInteraction = (event = null) => {
     
     if (event) {
       if (event.type === "mousedown") {
@@ -77,36 +77,8 @@ export default function ProductGalleryCarousel({
 
       setHasInteracted(true);
     }
-
-    if (event && event.type === "touchstart") {
-      setIsTouchInteracting(true);
-    }
-  };
+  }
   
-
-  useDotsGroupPosition({
-    carouselNodeRef,
-    position: dotsGroupPosition
-  });
-
-
-  
-  useEffect(() => {
-
-    function handleTouchInteraction() {
-  
-      dispatch(storeData({
-        productGalleryCarousel: {
-          isTouchInteracting
-        }
-      }, "states"));
-    }
-
-    handleTouchInteraction();
-
-  }, [isTouchInteracting, dispatch]);
-
-
   useEffect(() => {
 
     let intervalId;
@@ -125,6 +97,40 @@ export default function ProductGalleryCarousel({
     
   }, [isCarouselHovered, hasInteracted]);
 
+
+  const handleIsTouchInteracting = (event = null) => {
+
+    if (event) {
+      if (event.type === "touchstart") {
+        setIsTouchInteracting(true);
+      }
+      else if (event.type === "touchend") {
+        setIsTouchInteracting(false);
+      }
+    }
+  }
+  
+  useEffect(() => {
+
+    function handleTouchInteraction() {
+  
+      dispatch(storeData({
+        productGalleryCarousel: {
+          isTouchInteracting
+        }
+      }, "states"));
+    }
+
+    handleTouchInteraction();
+
+  }, [isTouchInteracting, dispatch]);
+
+
+  useDotsGroupPosition({
+    carouselNodeRef,
+    position: dotsGroupPosition
+  });
+
   
   return (
     (product?.gallery?.length > 0 &&
@@ -134,8 +140,8 @@ export default function ProductGalleryCarousel({
         onMouseEnter={() => setIsCarouselHovered(true)}
         onMouseLeave={() => setIsCarouselHovered(false)}
         onMouseDown={handleInteraction}
-        onTouchStart={handleInteraction}
-        onTouchEnd={() => setIsTouchInteracting(false)}
+        onTouchStart={handleIsTouchInteracting}
+        onTouchEnd={handleIsTouchInteracting}
       >
         <AliceCarousel
           ref={carouselRef}
