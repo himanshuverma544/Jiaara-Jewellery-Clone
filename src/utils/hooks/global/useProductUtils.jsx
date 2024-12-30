@@ -25,6 +25,12 @@ export default function useProductUtils(product = null) {
     dispatch(cart.add({ product, cartQtyCount: quantity }));
   }
 
+  const clearCart = () => {
+
+    dispatch(cart.clear());
+  }
+
+
   const handleWishlist = () => {
 
     if (!wishlistItem?.isWishlist) {
@@ -34,6 +40,7 @@ export default function useProductUtils(product = null) {
       dispatch(wishlist.remove(wishlistItem?.id))
     }
   }
+
 
   const theBuyNow = (quantity = 1) => {
 
@@ -51,7 +58,8 @@ export default function useProductUtils(product = null) {
     cartUtils: {
       cartItem,
       cartItems,
-      addToCart
+      addToCart,
+      clearCart
     },
     wishlistUtils: {
       wishlistItem,
