@@ -41,7 +41,7 @@ export default function ProductsCarousel({
     productComponent = 
       <Product
         product={null}
-        imgContClassName="relative w-full h-[40vw] sm:h-[25vw] lg:h-[20vw]"
+        imgContClassName="relative w-[43vw] h-[43vw] sm:w-[29vw] sm:h-[29vw] lg:w-[21vw] lg:h-[21vw]"
         productDetailsContClassName="text-xs text-primaryFont"
         productNameClassName="uppercase"
         btnTextClassName="text-2xs uppercase bg-primaryFont text-white xs:text-xs"
