@@ -2,70 +2,35 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useEffect, useContext, useCallback } from 'react';
-
-import { cart } from "@/redux/slices/cart";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useContext } from 'react';
 
 import { context } from "@/context-API/context";
 import { storeData } from "@/context-API/actions/action.creators";
 
-import { useForm, FormProvider  } from 'react-hook-form';
-import AutoSelect from '@/components/general/AutoSelect';
+import { useForm, FormProvider } from 'react-hook-form';
 
+import AutoSelect from '@/components/general/AutoSelect';
 import InputField from '@/components/general/InputField';
 
 import { createOrder } from "@/utils/functions/api/cms/woocommerce/orders";
 
 import { ORDER } from '@/routes';
 
-
-const indianStates = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal"
-];
+import { indianStates } from '@/utils/constants';
 
 
-export default function CheckoutForm({ className = "" }) {
+export default function CheckoutForm({ className = "", currentItems = [], clearItems = () => {} }) {
 
   const router = useRouter();
 
-  const cartDispatch = useDispatch();
+  const { dispatch, data: { triggered } = {}, data: { objects } = {} } = useContext(context);
+
+  const checkout = (triggered && objects?.checkout) || {};
 
   const methods = useForm({ mode: "onChange" });
+  
 
-  const { dispatch,  data: { triggered } = {}, data: { objects } = {} } = useContext(context);
-  
-  const cartItems = useSelector(state => state?.cartReducer);
-  
-  
-  const theOnSubmitCheckoutForm = useCallback(async (data) => {
+  const theOnSubmitCheckoutForm = async (data) => {
 
     const formData = {
       first_name: data?.firstName,
@@ -79,6 +44,12 @@ export default function CheckoutForm({ className = "" }) {
       country: 'IN',
       phone: data?.contactNumber
     };
+    
+    const couponCode =
+      (
+        checkout?.couponData &&
+        Object.keys(checkout?.couponData).length > 0
+      ) && checkout?.couponData?.couponCode;
 
 
     const orderData = {
@@ -87,16 +58,16 @@ export default function CheckoutForm({ className = "" }) {
       set_paid: false,
       billing: formData,
       shipping: formData,
-      line_items: cartItems?.map(item => ({
-        product_id: item?.id,
-        quantity: item?.cartQtyCount
+      line_items: currentItems?.map(currentItem => ({
+        product_id: currentItem?.id,
+        quantity: currentItem?.cartQtyCount
       }))
     };
 
-    if (triggered && objects?.couponData && Object.keys(objects?.couponData).length > 0) {
+    if (couponCode) {
       orderData.coupon_lines = [
         {
-          code: objects?.couponData?.couponCode
+          code: couponCode
         }
       ];
     }
@@ -105,29 +76,46 @@ export default function CheckoutForm({ className = "" }) {
       const { data: { orderId } } = await createOrder(orderData);
 
       if (orderId) {
-        cartDispatch(cart.clear());
-        dispatch(storeData({ orderNavigationFlag: true }, "vars"));
+
+        dispatch(
+          storeData({
+            checkout: {
+              ...checkout,
+              orderNavigationFlag: true
+            }
+          }, "objects")
+        );
+
+        clearItems();
         router.push(ORDER.getPathname(orderId));
       }
     }
     catch(error) {
       console.error("Error receiving the order.", error);
     }
-  }, [router, triggered, objects, cartItems, dispatch, cartDispatch]);
+  }
 
   
   useEffect(() => {
 
     function storeComponentData() {
 
-      dispatch(storeData({
-        onSubmitCheckoutForm: methods?.handleSubmit(theOnSubmitCheckoutForm) },
-        "functions"
-      ));
+      const haveErrors = Object.keys(methods?.formState?.errors || {})?.length > 0;
+
+      dispatch(
+        storeData({
+          checkout: {
+            ...checkout,
+            haveErrors,
+            onSubmitCheckoutForm: methods?.handleSubmit(theOnSubmitCheckoutForm)
+          }
+        }, "objects")
+      );
     }
+
     storeComponentData();
 
-  }, [dispatch, methods, theOnSubmitCheckoutForm]);
+  }, [methods?.formState?.errors]);
 
 
   return (

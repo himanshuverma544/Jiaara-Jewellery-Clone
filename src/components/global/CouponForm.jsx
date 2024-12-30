@@ -13,14 +13,25 @@ import InputField from "@/components/general/InputField";
 
 export default function CouponForm({ className = "" }) {
 
-  const { dispatch } = useContext(context);
-  
+  const { data: { triggered } = {}, data: { objects } = {}, dispatch } = useContext(context);
+  const checkout = (triggered && objects?.checkout) || {};
+
+
   const { control, handleSubmit } = useForm({ mode: "onChange" });
 
+  
   const onApplyCoupon = data => {
 
-    dispatch(storeData({ couponData: data }, "objects"));
+    dispatch(
+      storeData({
+        checkout: {
+          ...checkout,
+          couponData: data
+        }
+      }, "objects")
+    );
   }
+
 
   return (
     <form

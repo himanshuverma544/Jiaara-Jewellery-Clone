@@ -16,6 +16,8 @@ import CustomerDetails from "@/components/pages/order-confirmation/components/Cu
 
 import Validation from "@/components/general/Validation";
 
+import useDebounceEffect from '@/utils/hooks/general/useDebounceEffect';
+
 import { getOrder } from "@/utils/functions/api/cms/woocommerce/orders";
 
 import { HOME } from '@/routes';
@@ -27,17 +29,18 @@ export default function ManageOrderConfirmation({ className = "", params = null 
 
   const [isRouteVerified, setIsRouteVerified] = useState(false);
 
-  const { data: { triggered } = {}, data: { vars } = {}, dispatch } = useContext(context) || {};
+  const { data: { triggered } = {}, data: { objects } = {}, dispatch } = useContext(context) || {};
+  const checkout = triggered && objects?.checkout || {};
 
-
+  
   useEffect(() => {
 
     if (!isRouteVerified) {
 
-      const orderNavigationFlag = (triggered && vars?.orderNavigationFlag) || false;
+      const orderNavigationFlag = checkout?.orderNavigationFlag || false;
       setIsRouteVerified(orderNavigationFlag);
     }
-  }, [isRouteVerified, triggered, vars?.orderNavigationFlag]);
+  }, [isRouteVerified]);
 
 
   useEffect(() => {
@@ -45,11 +48,20 @@ export default function ManageOrderConfirmation({ className = "", params = null 
     if (isRouteVerified) {
 
       function storeComponentData() {
-        dispatch(storeData({ orderNavigationFlag: false }, "vars"));
+
+        dispatch(
+          storeData({
+            checkout: {
+              ...checkout,
+              orderNavigationFlag: false
+            }
+          }, "objects")
+        );
       }
+
       storeComponentData();
     }
-  }, [isRouteVerified, dispatch]);
+  }, [isRouteVerified]);
 
 
   const { data: order, isLoading, isSuccess, isError } = useQuery({
@@ -57,6 +69,14 @@ export default function ManageOrderConfirmation({ className = "", params = null 
     queryFn: () => getOrder({ orderId: params?.id }),
     enabled: isRouteVerified
   });
+
+
+  useDebounceEffect(() => {
+
+    if (!isRouteVerified || isError) {
+      router.push(HOME.pathname);
+    }
+  }, [isRouteVerified, isError, router], 1000);
 
 
   if (isLoading) {
@@ -69,21 +89,15 @@ export default function ManageOrderConfirmation({ className = "", params = null 
   }
 
   if (!isRouteVerified) {
-
-    router.push(HOME.pathname);
-
     return (
       <Validation
         className="w-screen h-[20rem] text-primaryFont"
-        message="URL Expired."
+        message="URL Invalidated."
       />
     );
   }
 
   if(isError) {
-
-    router.push(HOME.pathname);
-
     return (
       <Validation
         className="w-screen h-[20rem] text-primaryFont"

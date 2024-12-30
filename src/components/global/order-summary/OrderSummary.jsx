@@ -12,25 +12,25 @@ import UserProductsList from "@/components/global/user-products-list/UserProduct
 import CouponForm from "@/components/global/CouponForm";
 import OrderCalculation from "@/components/global/order-summary/components/OrderCalculation";
 
-import useCheckoutPageValidations from '@/utils/hooks/global/useCheckoutPageValidations';
 
+export default function OrderSummary({ className = "", currentItems = [] }) {
 
-export default function OrderSummary({ className = "" }) {
+  const { data: { triggered } = {}, data: { objects } = {} } = useContext(context) || {};
+  const checkout = (triggered && objects?.checkout) || {};
+
 
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const { data: { triggered } = {}, data: { functions } = {} } = useContext(context) || {};
-
   const handlePlaceOrder = () => {
 
-    if (triggered && functions?.onSubmitCheckoutForm) {
-      functions.onSubmitCheckoutForm();
+    checkout?.onSubmitCheckoutForm();
+
+    if (checkout?.haveErrors) {
       setIsDisabled(true);
     }
-  };
+  }
 
-  const { items } = useCheckoutPageValidations();
-
+  
   return (
     <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
       <div className="heading text-xl text-primaryFont sm:text-2xl">
@@ -53,7 +53,7 @@ export default function OrderSummary({ className = "" }) {
         content={
           <UserProductsList
             theClassName="checkout-products-list p-[5vw] rounded-lg bg-white"
-            productsList={items}
+            productsList={currentItems}
             context={{ isCheckout: true }}
             rowClassName="flex justify-between"
             divider={true}
@@ -73,7 +73,7 @@ export default function OrderSummary({ className = "" }) {
 
       <hr className="border-primaryFont"/>
 
-      <OrderCalculation cartItems={items}/>
+      <OrderCalculation cartItems={currentItems}/>
 
       <button
         className={`
