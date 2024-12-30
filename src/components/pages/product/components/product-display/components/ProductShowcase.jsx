@@ -141,6 +141,7 @@ export default function ProductShowcase({ product = null }) {
                   }}
                   zoom={{
                     className: "lg:w-[40vw] lg:max-w-[30rem] h-[90vw] max-h-[25rem]",
+                    portalId: "zoomable-image-preview"
                   }}
                 />
               </Slide>

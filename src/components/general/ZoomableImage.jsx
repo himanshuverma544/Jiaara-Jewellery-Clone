@@ -37,6 +37,7 @@ const ZoomableImage = ({
 
   const theZoom = {
     className: "",
+    portalId: "",
     positionType: {
       outer: "static",
       inner: "static"
@@ -248,7 +249,7 @@ const ZoomableImage = ({
               backgroundPosition: `${position.x}% ${position.y}%`
             }}
           ></div>
-        </div>, document.getElementById("zoomable-image-preview")
+        </div>, document.getElementById(theZoom.portalId)
       )}
     </div>
   );
