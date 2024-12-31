@@ -6,8 +6,8 @@ import { useState, useRef, useEffect } from "react";
 
 import { useFormContext } from "react-hook-form";
 
-import InputField from "./InputField";
-import Icon from "./Icon";
+import InputField from "@/components/general/InputField";
+import Icon from "@/components/general/Icon";
 
 import useScrollIntoView from "@/utils/hooks/general/useScrollIntoView";
 import useClickOutside from "@/utils/hooks/general/useClickOutside";
@@ -81,6 +81,8 @@ const AutoSelect = ({
   useEffect(() => {
 
     if (isLinkMode) return;
+
+    if (options.length <= 0) return;
 
     function handleInputValue() {
 
