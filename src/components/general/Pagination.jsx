@@ -32,7 +32,7 @@ export default function Pagination({
 
 
   return (
-    <div className="pagination flex flex-wrap justify-center items-center gap-0.5 px-5 mb-14">
+    <div className="pagination flex flex-wrap justify-center items-center gap-0.5 px-5">
       <button
         className={`
           px-2 py-2 border
