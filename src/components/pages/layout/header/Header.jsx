@@ -162,7 +162,7 @@ export default function Header() {
             bg-secondaryBackground
             lg:justify-evenly lg:px-0 lg:py-5 lg:uppercase lg:bg-transparent
           `}>
-            {[HOME, SEARCH, SHOP].map(route =>
+            {[HOME, SHOP].map(route =>
               <NavItem
                 key={route?.id}
                 title={{
@@ -195,7 +195,7 @@ export default function Header() {
                     general: route?.generalIcon
                   }
                 }}
-                enabled={disableNavItem(route, [SEARCH], lg)}
+                enabled={disableNavItem(route, [], lg)}
               />
             )}
 
@@ -304,7 +304,7 @@ export default function Header() {
             text-lg
             ${isHeroSecVisible ? "text-white" : "text-primaryFont"}
           `}>
-            {[SEARCH, WISHLIST, CART].map(route =>
+            {[WISHLIST, CART].map(route =>
               <NavItem
                 key={route?.id}
                 href={{
@@ -333,7 +333,7 @@ export default function Header() {
                     isBadgeEnabled: route?.isBadgeEnabled
                   }
                 }}
-                enabled={enableNavItem(route, [SEARCH], lg)}
+                enabled={enableNavItem(route, [], lg)}
               />
             )}
             {screenWidth < lg &&
