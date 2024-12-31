@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { context } from "@/context-API/context";
 
 import { useSelector } from 'react-redux';
 
 import { useQuery } from "@tanstack/react-query";
+
+import ManageSearch from "@/components/pages/layout/header/components/ManageSearch";
 
 import NavItem from '@/components/general/NavItem';
 import NavItemDropdown from '@/components/general/AutoSelect';
@@ -116,11 +118,13 @@ export default function Header() {
   });
 
   
-
   const totalCartItems = useSelector(
     state => state?.cartReducer?.reduce((sum, item) => sum + item?.cartQtyCount, 0) ?? 0
   );
   const totalWishlistItems = useSelector(state => state?.wishlistReducer?.length ?? 0);
+
+
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
 
   return (
@@ -345,6 +349,11 @@ export default function Header() {
         </nav>
 
       </div>
+
+      <ManageSearch
+        isSearchActive={isSearchActive}
+        setIsSearchActive={setIsSearchActive}
+      />
     </header>
   );
 }

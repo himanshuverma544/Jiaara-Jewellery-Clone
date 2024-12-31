@@ -4,7 +4,7 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import "@/app/globals.css";
 
 import App from "@/components/pages/layout/App";
-import Header from "@/components/pages/layout/Header";
+import Header from "@/components/pages/layout/header/Header";
 import ManageLayoutSidebar from "@/components/pages/layout/manage-layout-sidebar/ManageLayoutSidebar";
 import Main from "@/components/pages/layout/Main";
 import Footer from "@/components/pages/layout/Footer";
