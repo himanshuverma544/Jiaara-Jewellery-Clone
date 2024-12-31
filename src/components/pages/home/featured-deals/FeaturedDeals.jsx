@@ -1,4 +1,8 @@
+import Link from "next/link";
 import Image from "next/image";
+
+import { SHOP } from "@/routes";
+
 
 const secAssetsDir = "/assets/pages/homepage/deal";
 
@@ -71,9 +75,12 @@ export default function FeaturedDeals() {
                 </div>
               </div>
 
-              <button className="shop-now-btn px-2 py-1 rounded text-sm bg-black text-white 2xs:px-4 sm:text-base">
+              <Link
+                className="shop-now-btn px-2 py-1 rounded text-sm bg-black text-white 2xs:px-4 sm:text-base"
+                href={SHOP?.pathname}
+              >
                 Shop Now
-              </button>
+              </Link>
             </div>
 
             <p className="deal-disclaimer text-center mt-2 text-xs">
