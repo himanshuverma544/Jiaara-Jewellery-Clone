@@ -19,7 +19,9 @@ export async function GET(req) {
   }
 
   const id = apiParams?.id ?? "";
-  if (id) { delete apiParams?.id; }
+  if (id) {
+    delete apiParams?.id;
+  }
 
   let page = apiParams.page || 1;
 

@@ -28,7 +28,7 @@ export default function SaleProductCard({
     inactive: WISHLIST?.inactiveIcon,
     general: <></>
   }
-}) {  
+}) {
 
   const { clamp } = useClamp();
 
