@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 
 import { useFormContext } from "react-hook-form";
 
@@ -53,10 +53,7 @@ const AutoSelect = ({
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   
-  const [selectedOption, setSelectedOption] = useState(() => {
-    methods?.setValue(input?.inputName, defaultOption);
-    return defaultOption;
-  });
+  const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const inputRef = useRef(null);  
   const dropdownRef = useRef(null);
@@ -76,6 +73,30 @@ const AutoSelect = ({
 
     initializeFilteredOptions();
   }, [options]);
+
+
+  useEffect(() => {
+
+    function initializeDefaultSelectedOption() {
+      methods?.setValue(input?.inputName, defaultOption);
+    }
+
+    initializeDefaultSelectedOption();
+  }, []);
+
+  
+  useEffect(() => {
+
+    function getInputValue() {
+      
+      if (typeof input.value === "function") {
+        input.value(inputValue);
+      }
+    }
+
+    getInputValue();
+
+  }, [input, inputValue]);
 
 
   useEffect(() => {
@@ -212,4 +233,5 @@ const AutoSelect = ({
   );
 };
 
-export default AutoSelect;
+
+export default memo(AutoSelect);
