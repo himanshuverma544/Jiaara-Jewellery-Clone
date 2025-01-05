@@ -189,6 +189,7 @@ export default function InputField({
                       name={input?.inputName}
                       type={input?.type}
                       className={`${input?.className} outline-none hover:ring-1 focus:ring-1`}
+                      value={field?.value ?? ""}
                       placeholder={input?.placeholder}
                       autoComplete={input?.autoComplete}
                       autoFocus={input?.autoFocus}
@@ -221,7 +222,7 @@ export default function InputField({
             name={input?.inputName}
             type={input?.type}
             className={`${input?.className} outline-none hover:ring-1 focus:ring-1`}
-            value={input?.value}
+            value={input?.value ?? ""}
             placeholder={input?.placeholder}
             autoComplete={input?.autoComplete}
             autoFocus={input?.autoFocus}
