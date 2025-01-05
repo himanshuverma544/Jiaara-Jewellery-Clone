@@ -16,6 +16,11 @@ function getSetup(baseURL) {
 
 const WooCommerceAPI = getSetup(process.env.WC_API_URL);
 const WooCommerceAnalyticsAPI = getSetup(process.env.WC_API_ANALYTICS_URL);
+const WooCommerceSearchSuggestionsAPI = getSetup(process.env.WC_API_SEARCH_SUGGS_URL);
 
 
-export { WooCommerceAPI, WooCommerceAnalyticsAPI };
+export {
+  WooCommerceAPI,
+  WooCommerceAnalyticsAPI,
+  WooCommerceSearchSuggestionsAPI
+};
