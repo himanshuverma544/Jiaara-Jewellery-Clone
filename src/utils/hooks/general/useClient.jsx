@@ -10,7 +10,7 @@ const useClient = () => {
   }, []);
 
   return isClient;
-};
+}
 
 
 export default useClient;
