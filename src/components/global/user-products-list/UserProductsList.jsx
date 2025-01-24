@@ -9,6 +9,7 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { cart } from "@/redux/slices/cart";
 
+import CartHead from "@/components/pages/cart/components/CartHead";
 import ProductQuantity from "@/components/global/ProductQuantity";
 import TotalPrice from "@/components/global/user-products-list/components/TotalPrice";
 
@@ -28,6 +29,8 @@ export default function UserProductsList({
     isCheckout: false
   },
   rowClassName = "",
+  parentWrapperClassName = "",
+  wrapperClassName = "",
   dividerClassName = "",
   divider = false,
   productsList = [],
@@ -46,88 +49,119 @@ export default function UserProductsList({
   }
 
   return (
-    <ul className={`${theClassName} flex flex-col gap-3`}>
+    <div className="user-products-list flex flex-col">
 
-      {productsList?.length > 0 &&
-        productsList?.map((product, index) =>
+      <ul className={`${theClassName} flex flex-col gap-3`}>
 
-          <React.Fragment key={product?.id || index}>
-            <li className={`row-${index + 1} ${rowClassName}`}>
-              <Link
-                className={`img-cont relative ${productImageContClassName}`}
-                href={PRODUCT.getPathname(product?.id ?? "#")}
-              >
-                <Image
-                  fill
-                  className={`object-cover ${productImageClassName}`}
-                  src={product?.image}
-                  alt={product?.slug || product?.name}
-                />
-              </Link>
+        <li className="cart-head-wrapper">
+          <CartHead
+            className="pb-[5vw]"
+            cartItemsCount={productsList?.length}
+          />
+        </li>
 
-              <div className={`product-details ${productDetailsClassName}`}>
-                <div className="product-name text-2xs xs:text-xs md:text-sm font-semibold">
-                  {getTruncateText(product?.name, 3)}
-                </div>
-                
-                {context.isCheckout &&
-                  <div className="quantity">
-                    {`Qty: ${product?.cartQtyCount}`}
+        {productsList?.length > 0 &&
+          productsList?.map((product, index) =>
+
+            <li key={product?.id || index}
+              className={`row-${index + 1} ${rowClassName}`}
+            >
+              <div className={`parent-wrapper ${parentWrapperClassName}`}>
+                <div className={`wrapper ${wrapperClassName}`}>
+
+                  <div className="col-1">
+                    <div className={`product-details flex gap-[5vw]`}>
+                      <Link
+                        className={`img-cont relative ${productImageContClassName}`}
+                        href={PRODUCT.getPathname(product?.id ?? "#")}
+                      >
+                        <Image
+                          fill
+                          className={`object-cover ${productImageClassName}`}
+                          src={product?.image}
+                          alt={product?.slug || product?.name}
+                        />
+                      </Link>
+
+                      <div className={`${productDetailsClassName}`}>
+                        <div className="product-name text-2xs xs:text-xs sm:text-sm font-medium">
+                          {getTruncateText(product?.name, 15)}
+                        </div>
+
+                        {context.isCart &&
+                          <ProductQuantity
+                            theClassName="w-fit h-[2rem] flex rounded bg-white"
+                            inputClassName={`
+                              w-[2.5rem] px-2 py-1 rounded-sm outline-none
+                              text-center text-xs
+                              input-selection-primaryFont
+                              focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground
+                              xs:text-base
+                              sm:px-3 sm:py-2
+                            `}
+                            buttonsClassName="px-3 py-2 text-xs bg-primaryFont text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
+                            incrementIcon={FiPlus}
+                            decrementIcon={FiMinus}
+                            productId={product?.id}
+                            cartQtyCount={product?.cartQtyCount}
+                            stockLeft={product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE}
+                          />
+                        }
+                      </div>
+                    </div>
                   </div>
-                }
-                {context.isCart && 
-                  <TotalPrice
-                    className="total-price mt-1 text-xs 2xs:text-sm"
-                    text={`${INR(product?.price)} x ${product?.cartQtyCount} = `}
-                    amount={product?.price * product?.cartQtyCount}
-                  />
-                }
+
+                  <div className="col-2">
+                    {context.isCart &&
+                      <button
+                        className={`remove-btn ${productRemoveButtonClassName}`}
+                        onClick={() => removeCartItem(product?.id)}
+                      >
+                        <IoCloseOutline className="cross-icon"/>
+                      </button> 
+                    }
+                  </div>
+                </div>
+
+                <div className="product-summary flex flex-col gap-1 text-xs text-primaryFont xs:text-sm">
+                  <div className="product-price flex justify-between">
+                    <div className="text">
+                      Price
+                    </div>
+                    <div className="value">
+                      {INR(product?.price)}
+                    </div>
+                  </div>
+
+                  <div className="product-quantity flex justify-between">
+                    <div className="text">
+                      Quantity
+                    </div>
+                    <div className="value">
+                      {product?.cartQtyCount}
+                    </div>
+                  </div>
+
+                  <div className="product-total-price flex justify-between">
+                    <div className="text">
+                      Total Price
+                    </div>
+                    <div className="value">
+                      {INR(product?.price * product?.cartQtyCount)}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {context.isCheckout &&
-                <TotalPrice
-                  className="total-price px-1 text-xs 2xs:text-sm"
-                  text={`${INR(product?.price)} x ${product?.cartQtyCount} = `}
-                  amount={product?.price * product?.cartQtyCount}
-                />
-              }
-
-              {context.isCart &&
-                <ProductQuantity
-                  theClassName="h-[2rem] flex items-stretch ms-1 rounded bg-white xs:ms-0"
-                  inputClassName={`
-                    w-[1.5rem] px-2 py-1 rounded-sm outline-none
-                    text-center text-xs
-                    input-selection-primaryFont
-                    focus:ring-1 hover:ring-1 focus:ring-primaryFont hover:ring-secondaryBackground xs:w-[2rem] xs:text-base
-                    sm:px-3 sm:py-2
-                  `}
-                  buttonsClassName="px-2 py-2 text-xs bg-primaryFont text-white xs:text-sm sm:px-3 sm:py-2 sm:text-base"
-                  incrementIcon={FiPlus}
-                  decrementIcon={FiMinus}
-                  productId={product?.id}
-                  cartQtyCount={product?.cartQtyCount}
-                  stockLeft={product?.stockQuantity ? product?.stockQuantity : STOCK_LEFT_FALLBACK_VALUE}
-                />
-              }
-
-              {context.isCart &&
-                <button
-                  className={`remove-btn ${productRemoveButtonClassName}`}
-                  onClick={() => removeCartItem(product?.id)}
-                >
-                  <IoCloseOutline className="cross-icon"/>
-                </button> 
+              {divider && productsList?.length - 1 !== index &&
+                <div className="divider-cont">
+                  <hr className={`divider ${dividerClassName}`}/>
+                </div>
               }
             </li>
-            {divider && productsList?.length - 1 !== index &&
-              <li className="divider-cont">
-                <hr className={`divider ${dividerClassName}`}/>
-              </li>
-            }
-          </React.Fragment>
-        )
-      }
-    </ul>
+          )
+        }
+      </ul>
+    </div>
   );
 }

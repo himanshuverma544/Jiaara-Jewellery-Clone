@@ -3,7 +3,6 @@
 import { useSelector } from "react-redux";
 
 import UserProductsStatus from "@/components/global/UserProductsStatus";
-import CartHead from "@/components/pages/cart/components/CartHead";
 import CartData from "@/components/pages/cart/components/CartData";
 import OrderSummary from "@/components/pages/cart/components/OrderSummary";
 import KeyBenefits from "@/components/global/key-benefits/KeyBenefits";
@@ -28,23 +27,35 @@ export default function CartManagement() {
             text-primaryFont
             2xs:text-sm
             xs:text-base
-            sm:my-[8vw]
+            sm:my-[7vw]
             sm:text-lg
-            md:gap-16
+            md:gap-16 md:my-[5vw]
             md:text-xl
             lg:text-2xl
             xl:text-3xl
             2xl:text-4xl
           `}
         />
-        <CartHead className="px-[8vw] mt-5" cartItemsCount={cartItems?.length}/>
-        <CartData className="px-[8vw] py-5 mt-5" cartItems={cartItems}/>
-        {cartItems?.length > 0 &&
-          <OrderSummary className="px-[8vw] mt-5" cartItems={cartItems}/>
-        }
+        <div className="wrapper lg:flex lg:justify-evenly">
+          <CartData
+            className="px-[8vw] py-5 mt-5 lg:px-[5vw]"
+            cartItems={cartItems}
+          />
+          {cartItems?.length > 0 &&
+            <OrderSummary
+              className="px-[8vw] mt-5 lg:px-[5vw]"
+              cartItems={cartItems}
+            />
+          }
+        </div>
+
         <KeyBenefits className="mt-10"/>
+        
         {cartItems?.length > 0 &&
-          <RelatedProducts className="mt-5 mb-10" cartItems={cartItems}/>
+          <RelatedProducts
+            className="mt-5 mb-10"
+            cartItems={cartItems}
+          />
         }
       </div>
     )

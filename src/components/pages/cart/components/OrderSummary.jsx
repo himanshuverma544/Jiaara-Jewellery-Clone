@@ -23,7 +23,7 @@ export default function OrderSummary({ className = "", cartItems = [] }) {
       <OrderCalculation cartItems={cartItems}/>
 
       <Link
-        className="checkout-btn px-5 py-2 mt-3 rounded-lg text-center uppercase bg-primaryFont text-white"
+        className="checkout-btn px-5 py-2 mt-3 rounded-sm text-center uppercase bg-primaryFont text-white"
         href={CHECKOUT?.pathname}
       >
         Proceed to Checkout

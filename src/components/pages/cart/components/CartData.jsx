@@ -19,15 +19,17 @@ export default function CartData({ className = "", cartItems = [] }) {
   return (
     <UsersProductsList
       productsList={cartItems}
-      theClassName={`cart-products-list p-[5vw] rounded-lg ${className}`}
+      theClassName={`cart-products-list p-[5vw] ${className}`}
       context={{ isCart: true }}
-      rowClassName="flex justify-between items-center xs:justify-evenly xs:gap-1"
+      rowClassName="flex flex-col"
+      parentWrapperClassName="flex flex-col gap-5"
+      wrapperClassName="flex justify-between"
       divider={true}
-      dividerClassName="my-3 border-primaryFont"
+      dividerClassName="my-5 border-primaryFont"
       productImageContClassName="size-[25vw] max-w-[7rem] max-h-[7rem] me-3"
-      productImageClassName="rounded-lg"
-      productDetailsClassName="w-[25%] flex flex-col gap-1 p-1 text-xs uppercase text-primaryFont xs:text-sm"
-      productRemoveButtonClassName="ms-3 text-lg text-primaryFont xs:text-xl sm:text-2xl"
+      productImageClassName="rounded-sm"
+      productDetailsClassName="w-[55%] md:w-[60%] flex flex-col justify-between gap-3 px-1 text-xs uppercase text-primaryFont xs:text-sm"
+      productRemoveButtonClassName="flex items-stretch text-lg text-primaryFont xs:text-xl sm:text-2xl"
     />
   );
 }
