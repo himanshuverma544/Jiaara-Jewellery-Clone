@@ -35,7 +35,7 @@ export default function CouponForm({ className = "" }) {
 
   return (
     <form
-      className={`coupon-form flex items-end gap-5 ${className}`}
+      className={`coupon-form w-full flex items-end gap-5 lg:gap-3 ${className}`}
       onSubmit={handleSubmit(onApplyCoupon)}
     >
       <InputField
@@ -43,7 +43,7 @@ export default function CouponForm({ className = "" }) {
         input={{
           id: "coupon-code",
           inputName: "couponCode",
-          className: "w-[inherit] ps-3 pe-10 py-3 rounded-md text-sm input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+          className: "w-[inherit] ps-3 pe-10 py-3 rounded-sm text-sm input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
           placeholder: "e.g., SAVE50",
           icon: {
             className: "text-primaryFont", 
@@ -58,7 +58,7 @@ export default function CouponForm({ className = "" }) {
       />
       <button
         type="submit"
-        className="coupon-code-apply-btn rounded-md px-[7vw] py-3 text-sm uppercase text-white bg-primaryFont"
+        className="coupon-code-apply-btn rounded-sm px-[7vw] py-3 text-sm uppercase text-white bg-primaryFont lg:px-[1.5vw]"
       >
         Apply
       </button>

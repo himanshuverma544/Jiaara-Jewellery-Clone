@@ -81,6 +81,10 @@ export default function ProductGalleryCarousel({
   
   useEffect(() => {
 
+    if (product?.gallery?.length <= 1) {
+      return;
+    }
+
     let intervalId;
 
     if (isCarouselHovered && !hasInteracted) {

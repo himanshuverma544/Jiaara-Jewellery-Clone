@@ -15,6 +15,8 @@ export default function Collections({ className = "" }) {
   const { data: collections, isLoading, isSuccess } = useQuery({
     queryKey: ["general-collections"],
     queryFn: getCollections,
+    retry: 10,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
   const collectionsUrl = isSuccess ?

@@ -104,6 +104,8 @@ export default function Header() {
   useQuery({
     queryKey: ['parent-categories'],
     queryFn: () => getCategories({ parent: 0 }),
+    retry: 10,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
 
@@ -115,6 +117,8 @@ export default function Header() {
   useQuery({
     queryKey: ['general-collections'],
     queryFn: getCollections,
+    retry: 10,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
   
@@ -191,7 +195,7 @@ export default function Header() {
                     general: route?.generalIcon
                   }
                 }}
-                enabled={disableNavItem(route, [SEARCH], lg)}
+                enabled={disableNavItem(route, [], lg)}
               />
             )}
 
@@ -329,7 +333,7 @@ export default function Header() {
                     isBadgeEnabled: route?.isBadgeEnabled
                   }
                 }}
-                enabled={enableNavItem(route, [SEARCH], lg)}
+                enabled={enableNavItem(route, [], lg)}
               />
             )}
             {screenWidth < lg &&

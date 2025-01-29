@@ -14,7 +14,9 @@ export default function Categories({ className = "" }) {
   
   const { data: parentCategories, isLoading, isSuccess } = useQuery({
     queryKey: ['parent-categories'],
-    queryFn: () => getCategories({ parent: 0 })
+    queryFn: () => getCategories({ parent: 0 }),
+    retry: 10,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
   const requiredCategories = isSuccess ?
