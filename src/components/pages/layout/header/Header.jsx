@@ -158,7 +158,7 @@ export default function Header() {
             bg-secondaryBackground
             lg:justify-evenly lg:px-0 lg:py-5 lg:uppercase lg:bg-transparent
           `}>
-            {[HOME, SEARCH, SHOP].map(route =>
+            {[HOME, SHOP].map(route =>
               <NavItem
                 key={route?.id}
                 title={{
@@ -300,7 +300,7 @@ export default function Header() {
             text-lg
             ${isHeroSecVisible ? "text-white" : "text-primaryFont"}
           `}>
-            {[SEARCH, WISHLIST, CART].map(route =>
+            {[WISHLIST, CART].map(route =>
               <NavItem
                 key={route?.id}
                 href={{
@@ -350,10 +350,10 @@ export default function Header() {
 
       </div>
 
-      <ManageSearch
+      {/* <ManageSearch
         isSearchActive={isSearchActive}
         setIsSearchActive={setIsSearchActive}
-      />
+      /> */}
     </header>
   );
 }
