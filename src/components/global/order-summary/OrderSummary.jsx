@@ -32,14 +32,15 @@ export default function OrderSummary({ className = "", currentItems = [] }) {
 
   
   return (
-    <div className={`checkout-order-summary flex flex-col px-[8vw] py-5 ${className}`}>
+    <div className={`checkout-order-summary flex flex-col py-5 ${className}`}>
       <div className="heading text-xl text-primaryFont sm:text-2xl">
         Order Summary
       </div>
       
       <Accordion
-        titleClassName="text-sm text-primaryFont sm:text-base"
-        title={`Show Products`}
+        titleClassName="text-sm text-primaryFont font-medium sm:text-base"
+        title={currentItems?.length <= 1 ? `(${currentItems?.length} item)` : `(${currentItems?.length} items)`}
+      
         divider={{
           upper: {
             className: "pb-5 border-primaryFont",
@@ -52,21 +53,23 @@ export default function OrderSummary({ className = "", currentItems = [] }) {
         }}
         content={
           <UserProductsList
-            theClassName="checkout-products-list p-[5vw] rounded-lg bg-white"
             productsList={currentItems}
-            context={{ isCheckout: true }}
-            rowClassName="flex justify-between"
+            theClassName={`cart-products-list p-[5vw] bg-white`}
+            rowClassName="flex flex-col"
+            parentWrapperClassName="flex flex-col gap-5"
+            wrapperClassName="flex justify-between"
             divider={true}
-            dividerClassName="my-3 border-black"
-            productImageContClassName="size-[25vw] max-w-[7rem] max-h-[7rem]"
-            productImageClassName="border rounded-lg border-tertiaryBackground"
-            productDetailsClassName="w-[40%] flex flex-col gap-1 px-1 text-xs uppercase 2xs:text-sm"
-            productRemoveButtonClassName="text-base"
+            dividerClassName="my-5 border-primaryFont"
+            productImageContClassName="size-[25vw] max-w-[7rem] max-h-[7rem] me-3"
+            productImageClassName="rounded-sm"
+            productDetailsClassName="flex flex-col justify-between gap-5 px-1 text-xs uppercase text-primaryFont xs:text-sm"
+            productRemoveButtonClassName="flex items-stretch text-lg text-primaryFont xs:text-xl sm:text-2xl"
           />
         }
         iconClassName="text-primaryFont text-xl"
         openIcon={<MdKeyboardArrowDown/>}
         closeIcon={<MdKeyboardArrowUp/>}
+        defaultState={true}
       />
 
       <CouponForm className="mb-5"/>

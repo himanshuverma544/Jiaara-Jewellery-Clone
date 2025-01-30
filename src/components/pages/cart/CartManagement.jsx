@@ -43,7 +43,7 @@ export default function CartManagement() {
           />
           {cartItems?.length > 0 &&
             <OrderSummary
-              className="px-[8vw] mt-5 lg:px-[5vw]"
+              className="px-[8vw] mt-5 lg:w-[50%] lg:px-[5vw]"
               cartItems={cartItems}
             />
           }

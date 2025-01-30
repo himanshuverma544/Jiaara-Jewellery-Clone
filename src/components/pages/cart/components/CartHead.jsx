@@ -14,7 +14,7 @@ export default function CartHead({ className = "", cartItemsCount = 0 }) {
 
   return (
     <div className={`cart-head flex justify-between items-center ${className}`}>
-      <div className="heading flex gap-3 uppercase font-semibold text-primaryFont md:text-lg">
+      <div className="heading flex gap-3 uppercase font-medium text-primaryFont md:text-lg">
         <span className="heading-text">
           Your Cart
         </span>

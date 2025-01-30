@@ -1,5 +1,3 @@
-import React from "react";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,11 +9,9 @@ import { cart } from "@/redux/slices/cart";
 
 import CartHead from "@/components/pages/cart/components/CartHead";
 import ProductQuantity from "@/components/global/ProductQuantity";
-import TotalPrice from "@/components/global/user-products-list/components/TotalPrice";
+import ProductSummary from "@/components/global/user-products-list/components/ProductSummary";
 
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
-
-import INR from "@/utils/functions/general/INR";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
 
@@ -24,20 +20,12 @@ import { PRODUCT } from "@/routes";
 
 export default function UserProductsList({
   theClassName = "",
+  productsList = [],
   context = {
     isCart: false,
     isCheckout: false
   },
-  rowClassName = "",
-  parentWrapperClassName = "",
-  wrapperClassName = "",
-  dividerClassName = "",
   divider = false,
-  productsList = [],
-  productImageContClassName = "",
-  productImageClassName = "",
-  productDetailsClassName = "",
-  productRemoveButtonClassName = ""
 }) {
 
   const dispatch = useDispatch();
@@ -53,37 +41,39 @@ export default function UserProductsList({
 
       <ul className={`${theClassName} flex flex-col gap-3`}>
 
-        <li className="cart-head-wrapper">
-          <CartHead
-            className="pb-[5vw]"
-            cartItemsCount={productsList?.length}
-          />
-        </li>
+        {context.isCart &&
+          <li className="cart-head-wrapper">
+            <CartHead
+              className="pb-[5vw]"
+              cartItemsCount={productsList?.length}
+            />
+          </li>
+        }
 
         {productsList?.length > 0 &&
           productsList?.map((product, index) =>
 
-            <li key={product?.id || index}
-              className={`row-${index + 1} ${rowClassName}`}
-            >
-              <div className={`parent-wrapper ${parentWrapperClassName}`}>
-                <div className={`wrapper ${wrapperClassName}`}>
+            <li key={product?.id || index} className={`row-${index + 1} flex flex-col`}>
+              <div className="parent-wrapper flex flex-col gap-5">
+                <div className="wrapper flex justify-between">
 
-                  <div className="col-1">
-                    <div className={`product-details flex gap-[5vw]`}>
+                  <div className="col-1 w-full">
+                    <div className="product-details w-[inherit] flex gap-[5vw]">
                       <Link
-                        className={`img-cont relative ${productImageContClassName}`}
+                        className={`img-cont size-[25vw] relative max-w-[7rem] max-h-[7rem] me-3`}
                         href={PRODUCT.getPathname(product?.id ?? "#")}
                       >
                         <Image
                           fill
-                          className={`object-cover ${productImageClassName}`}
+                          className={`object-cover rounded-sm`}
                           src={product?.image}
                           alt={product?.slug || product?.name}
                         />
                       </Link>
 
-                      <div className={`${productDetailsClassName}`}>
+                    <div className="parent-wrapper w-[inherit] flex flex-col gap-5">
+                      <div className="wrapper flex flex-col justify-between gap-5 px-1 text-xs uppercase text-primaryFont xs:text-sm">
+
                         <div className="product-name text-2xs xs:text-xs sm:text-sm font-medium">
                           {getTruncateText(product?.name, 15)}
                         </div>
@@ -108,13 +98,21 @@ export default function UserProductsList({
                           />
                         }
                       </div>
+                      
+                      <ProductSummary
+                        className="hidden md:flex md:flex-col md:gap-1 md:text-sm md:text-primaryFont"
+                        productPrice={product?.price}
+                        productQtyCount={product?.cartQtyCount}
+                      />
+                    </div>
+
                     </div>
                   </div>
 
                   <div className="col-2">
                     {context.isCart &&
                       <button
-                        className={`remove-btn ${productRemoveButtonClassName}`}
+                        className="remove-btn flex items-stretch text-lg text-primaryFont xs:text-xl sm:text-2xl"
                         onClick={() => removeCartItem(product?.id)}
                       >
                         <IoCloseOutline className="cross-icon"/>
@@ -123,39 +121,16 @@ export default function UserProductsList({
                   </div>
                 </div>
 
-                <div className="product-summary flex flex-col gap-1 text-xs text-primaryFont xs:text-sm">
-                  <div className="product-price flex justify-between">
-                    <div className="text">
-                      Price
-                    </div>
-                    <div className="value">
-                      {INR(product?.price)}
-                    </div>
-                  </div>
-
-                  <div className="product-quantity flex justify-between">
-                    <div className="text">
-                      Quantity
-                    </div>
-                    <div className="value">
-                      {product?.cartQtyCount}
-                    </div>
-                  </div>
-
-                  <div className="product-total-price flex justify-between">
-                    <div className="text">
-                      Total Price
-                    </div>
-                    <div className="value">
-                      {INR(product?.price * product?.cartQtyCount)}
-                    </div>
-                  </div>
-                </div>
+                <ProductSummary
+                  className="flex flex-col gap-1 text-xs text-primaryFont xs:text-sm md:hidden"
+                  productPrice={product.price}
+                  productQtyCount={product.cartQtyCount}
+                />
               </div>
 
               {divider && productsList?.length - 1 !== index &&
                 <div className="divider-cont">
-                  <hr className={`divider ${dividerClassName}`}/>
+                  <hr className="divider my-5 border-primaryFont"/>
                 </div>
               }
             </li>
