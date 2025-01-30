@@ -122,7 +122,7 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
     <FormProvider { ...methods}>
       <form
         id="the-checkout-form"
-        className={`checkout-form flex flex-col gap-10 px-[8vw] ${className}`}
+        className={`checkout-form flex flex-col gap-10 ${className}`}
         onSubmit={methods?.handleSubmit(theOnSubmitCheckoutForm)}
       >
         <div className="form-group flex flex-col gap-5">
@@ -134,7 +134,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "first-name",
               inputName: "firstName",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter First Name",
               required: true
             }}
             label={{
@@ -153,7 +154,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "last-name",
               inputName: "lastName",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter Last Name",
               required: true
             }}
             label={{
@@ -173,7 +175,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
               id: "email",
               inputName: "email",
               type: "email",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter Email",
               required: true
             }}
             label={{
@@ -194,7 +197,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
               id: "contact-number",
               inputName: "contactNumber",
               type: "number",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter Contact Number",
               min: 0,
               required: true,
               minLength: 10,
@@ -226,7 +230,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "address",
               inputName: "address",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter Address",
               required: true
             }}
             label={{
@@ -245,11 +250,12 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "additional-address",
               inputName: "additionalAddress",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter Landmark"
             }}
             label={{
               className: "text-sm text-primaryFont",
-              text: "Apartment, suit, etc."
+              text: "Landmark"
             }}
           />
           
@@ -257,7 +263,8 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "city",
               inputName: "city",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              placeholder: "Enter City",
               required: true
             }}
             label={{
@@ -277,7 +284,7 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "states-auto-select",
               inputName: "state",
-              className: "w-[inherit] border rounded-md p-3 text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
+              className: "w-[inherit] p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont hover:ring-secondaryBackground focus:ring-primaryFont",
               placeholder: "Select State",
               autoComplete: "off",
               required: true,
@@ -304,9 +311,10 @@ export default function CheckoutForm({ className = "", currentItems = [], clearI
             input={{
               id: "pin-code",
               inputName: "pinCode",
-              className: "w-full px-3 py-2 border rounded-md border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
+              className: "w-full p-3 border rounded-md text-sm border-quaternaryBackground input-selection-primaryFont focus:ring-primaryFont hover:ring-secondaryBackground",
               type: "number",
               min: 0,
+              placeholder: "Enter PIN Code",
               required: true
             }}
             label={{
