@@ -37,7 +37,7 @@ export default function ProductGalleryCarousel({
   
   const { dispatch } = useContext(context);
   
-  const { clickType, handleMouseUp, handleMouseDown } = useClickTracker({ threshold: 200 });
+  const { clickType, handleMouseUp, handleMouseDown } = useClickTracker({ threshold: 100 });
 
   const carouselRef = useRef(null);
   const carouselNodeRef = useRef(null);
@@ -79,6 +79,7 @@ export default function ProductGalleryCarousel({
     }
   }
   
+
   useEffect(() => {
 
     if (product?.gallery?.length <= 1) {
@@ -88,10 +89,16 @@ export default function ProductGalleryCarousel({
     let intervalId;
 
     if (isCarouselHovered && !hasInteracted) {
-      intervalId = setInterval(() => 
-        carouselRef?.current?.slideNext(),
-        carouselRef.current.props.autoPlayInterval
-      );
+
+      intervalId = setInterval(() => {
+
+        if (activeIndex < (product?.gallery?.length - 1)) {
+          carouselRef?.current?.slideNext();
+        }
+        else {
+          carouselRef?.current?.slideTo(0);
+        }
+      }, carouselRef.current.props.autoPlayInterval);
     }
     else {
       clearInterval(intervalId);
@@ -99,7 +106,7 @@ export default function ProductGalleryCarousel({
 
     return () => clearInterval(intervalId);
     
-  }, [isCarouselHovered, hasInteracted]);
+  }, [isCarouselHovered, hasInteracted, activeIndex]);
 
 
   const handleIsTouchInteracting = (event = null) => {
@@ -150,9 +157,10 @@ export default function ProductGalleryCarousel({
         <AliceCarousel
           ref={carouselRef}
           autoPlayInterval={1000}
-          infinite
+          infinite={false}
           mouseTracking={true}
-          disableButtonsControls
+          disableButtonsControls={true}
+          disableDotsControls={product?.gallery?.length <= 1}
           syncStateOnPropsUpdate
           activeIndex={activeIndex}
           onSlideChanged={item => setActiveIndex(item?.slide)}
@@ -160,7 +168,7 @@ export default function ProductGalleryCarousel({
           {product?.gallery?.map((image, index) => (
             <Link
               key={index}
-              className={`product-link w-[inherit] h-[inherit] active:cursor-grabbing`}
+              className="product-link w-[inherit] h-[inherit] active:cursor-grabbing"
               href={PRODUCT?.getPathname(product?.id) ?? ""}
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
