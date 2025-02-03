@@ -17,6 +17,7 @@ const ZoomableImage = ({
   media = {},
   zoom = {}
 }) => {
+  
   const theImage = {
     className: "",
     ...image
