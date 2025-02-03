@@ -100,7 +100,10 @@ export default function UserProductsList({
                       </div>
                       
                       <ProductSummary
-                        className="hidden md:flex md:flex-col md:gap-1 md:text-sm md:text-primaryFont"
+                        className={`
+                        2xs:text-primaryFont sm:text-sm
+                          ${context.isCart ? "hidden md:flex md:flex-col md:gap-1" : "2xs:flex 2xs:flex-col 2xs:gap-1 2xs:text-xs"}
+                        `}
                         productPrice={product?.price}
                         productQtyCount={product?.cartQtyCount}
                       />
@@ -122,7 +125,10 @@ export default function UserProductsList({
                 </div>
 
                 <ProductSummary
-                  className="flex flex-col gap-1 text-xs text-primaryFont xs:text-sm md:hidden"
+                  className={`
+                    flex flex-col gap-1 text-xs text-primaryFont xs:text-sm
+                    ${context.isCart ? "md:hidden" : "2xs:hidden"}
+                  `}
                   productPrice={product.price}
                   productQtyCount={product.cartQtyCount}
                 />

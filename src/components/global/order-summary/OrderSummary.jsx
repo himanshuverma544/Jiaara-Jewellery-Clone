@@ -53,17 +53,10 @@ export default function OrderSummary({ className = "", currentItems = [] }) {
         }}
         content={
           <UserProductsList
+            theClassName="cart-products-list p-[5vw] bg-white"
             productsList={currentItems}
-            theClassName={`cart-products-list p-[5vw] bg-white`}
-            rowClassName="flex flex-col"
-            parentWrapperClassName="flex flex-col gap-5"
-            wrapperClassName="flex justify-between"
+            context={{ isCheckout: true }}
             divider={true}
-            dividerClassName="my-5 border-primaryFont"
-            productImageContClassName="size-[25vw] max-w-[7rem] max-h-[7rem] me-3"
-            productImageClassName="rounded-sm"
-            productDetailsClassName="flex flex-col justify-between gap-5 px-1 text-xs uppercase text-primaryFont xs:text-sm"
-            productRemoveButtonClassName="flex items-stretch text-lg text-primaryFont xs:text-xl sm:text-2xl"
           />
         }
         iconClassName="text-primaryFont text-xl"
