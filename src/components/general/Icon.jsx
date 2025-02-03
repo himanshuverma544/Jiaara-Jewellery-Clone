@@ -3,6 +3,8 @@ import DOMPurify from 'dompurify';
 
 import Image from 'next/image';
 
+import Wrapper from "@/components/general/Wrapper";
+
 
 function isReactElement(icon) {
   return React.isValidElement(icon);
@@ -38,6 +40,7 @@ const Icon = ({
   innerClassName = "",
   icon = null,
   alt = "",
+  tag = "div",
   ...props
 }) => {
 
@@ -68,9 +71,12 @@ const Icon = ({
   }
 
   else if (isHTML(icon)) {
+
     const sanitizedHTML = DOMPurify.sanitize(icon);
+    
     return (
-      <div
+      <Wrapper
+        tag={tag}
         className={className}
         dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
         {...props}
@@ -90,5 +96,6 @@ const Icon = ({
     return null;
   }
 };
+
 
 export default Icon;
