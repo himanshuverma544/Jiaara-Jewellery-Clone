@@ -8,6 +8,7 @@ import ProductGrid from "@/components/global/ProductGrid";
 
 import Pagination from "@/components/general/Pagination";
 import Validation from "@/components/general/Validation";
+import ContentOnBackground from "@/components/general/ContentOnBackground";
 
 import { getProducts } from "@/utils/functions/api/cms/woocommerce/products";
 
@@ -35,9 +36,7 @@ export default function ManageShop({ className = "", params }) {
       keepPreviousData: true
     });
   
-  useEffect(() => {
-    fetchProducts();
-  }, [currentPage]);
+  useEffect(() => { fetchProducts(); }, [currentPage]);
 
 
   if (isLoading || isFetching) {
@@ -61,6 +60,20 @@ export default function ManageShop({ className = "", params }) {
 
   return (
     <div className={`flex flex-col gap-5 my-10 ${className}`}>
+
+      <ContentOnBackground
+        className={`
+          banner
+          h-[14rem]
+          flex justify-center items-center
+          text-5xl font-medium
+          bg-quaternaryBackground text-white
+          sm:text-6xl
+        `}
+      >
+        {productsData?.bannerName}
+      </ContentOnBackground>
+
       <ProductGrid
         products={productsData?.products || []}
       />

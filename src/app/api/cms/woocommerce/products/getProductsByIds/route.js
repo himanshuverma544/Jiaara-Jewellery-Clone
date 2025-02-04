@@ -26,7 +26,7 @@ export async function GET(req) {
 
       const formattedData = Array.isArray(data) ? data : [data];
 
-      const products = formattedData.map((product) => getProductDetails(product));
+      const products = formattedData.map(product => getProductDetails(product));
 
       allProducts.push(...products);
     }

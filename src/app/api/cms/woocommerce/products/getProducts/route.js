@@ -18,12 +18,28 @@ export async function GET(req) {
     apiParams[key] = convertValue(value);
   }
 
+
   const id = apiParams?.id ?? "";
   if (id) {
     delete apiParams?.id;
   }
 
   let page = apiParams.page || 1;
+
+  let currentCategoryId = apiParams?.category || null;
+
+
+  function getBannerName() {
+
+    let requiredCategory;
+
+    if (allProducts?.length > 0) {
+      requiredCategory = allProducts[0]?.categories?.find(category => currentCategoryId == category.id);
+    }
+
+    return requiredCategory?.name || "Shop";
+  }
+
 
   try {
     while (true) {
@@ -53,7 +69,8 @@ export async function GET(req) {
 
     return new Response(JSON.stringify({
       products: allProducts,
-      storeInfo
+      storeInfo,
+      bannerName: getBannerName(),
     }), { status: 200 });
   }
   catch (error) {

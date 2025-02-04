@@ -24,7 +24,7 @@ export default function ContentOnBackground({
           alt={image?.alt}
         />
           :
-        {children}
+        children
       }
       {(image?.src && children) &&
         <div className={`${innerClassName} relative`}>
