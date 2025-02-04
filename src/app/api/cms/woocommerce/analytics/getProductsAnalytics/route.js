@@ -31,7 +31,7 @@ export async function GET(req) {
 
       if (data.length === 0) break;
 
-      const products = await Promise.all(data.map(async requiredProduct => {
+      const products = await Promise.any(data.map(async requiredProduct => {
 
         const theEndpoint = requiredProduct?._links?.product[0]?.href;
         const productDetailsEndpoint = theEndpoint.substring(theEndpoint.indexOf("/products/"));
