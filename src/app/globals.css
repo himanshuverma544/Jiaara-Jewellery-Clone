@@ -10,8 +10,23 @@ body {
 }
 
 main {
-  &:not(:has(div.homepage)) {
+  &:not(
+    :has(
+      div.homepage,
+      div.shop-page,
+      div.category-page,
+      div.collection-page
+    )
+  ) {
     margin-top: 6.75rem;
+  }
+
+  &:has(
+    div.shop-page,
+    div.category-page,
+    div.collection-page
+  ) {
+    margin-top: 4.3rem;
   }
 
   &:not(:has(div.no-pb)) {
