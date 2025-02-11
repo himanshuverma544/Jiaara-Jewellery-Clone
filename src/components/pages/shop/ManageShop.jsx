@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import ProductGrid from "@/components/global/ProductGrid";
+import SidebarFilter from "@/components/global/filter/sidebar-filter/SidebarFilter";
 
 import Pagination from "@/components/general/Pagination";
 import Validation from "@/components/general/Validation";
@@ -59,13 +60,12 @@ export default function ManageShop({ className = "", params }) {
 
 
   return (
-    <div className={`flex flex-col gap-5 my-10 ${className}`}>
-
+    <div className={`flex flex-col ${className}`}>
       <ContentOnBackground
         className={`
           banner
           h-[14rem]
-          flex justify-center items-center
+          flex justify-center items-center mt-[2.4rem]
           text-5xl font-medium
           bg-quaternaryBackground text-white
           sm:text-6xl
@@ -74,16 +74,19 @@ export default function ManageShop({ className = "", params }) {
         {productsData?.bannerName}
       </ContentOnBackground>
 
-      <ProductGrid
-        products={productsData?.products || []}
-      />
-      {productsData?.storeInfo?.totalPages > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={productsData?.storeInfo?.totalPages}
-        />
-      )}
+      <div className="wrapper flex">
+        <SidebarFilter/>
+        <div className="child-wrapper flex flex-col gap-10 my-10">
+          <ProductGrid products={productsData?.products || []}/>
+          {productsData?.storeInfo?.totalPages > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={productsData?.storeInfo?.totalPages}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

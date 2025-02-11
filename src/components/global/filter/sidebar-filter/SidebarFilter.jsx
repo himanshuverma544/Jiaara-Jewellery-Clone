@@ -75,8 +75,10 @@ export default function SidebarFilter({ className = "" }) {
     <Sidebar
       innerRef={innerRef}
       className={`filter ${className}`}
-      innerClassName="w-[inherit] xs:w-[20rem] px-3 bg-white"
-      isOpen={isOpen} setIsOpen={setIsOpen}
+      innerClassName="xs:w-[20rem] px-3 bg-white"
+      isOpen={true}
+      setIsOpen={setIsOpen}
+      persistent={{ value: true, position: "6.8rem" }}
     >
       <div className="wrapper flex justify-between sticky top-0 px-3 py-5 z-10 border-b uppercase font-medium bg-white">
         <div className="heading">
