@@ -3,8 +3,7 @@ import "@/styles/accordion-animations.css";
 import { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import Icon from "./Icon";
-
+import Icon from "@/components/general/Icon";
 const Content = Icon;
 
 
