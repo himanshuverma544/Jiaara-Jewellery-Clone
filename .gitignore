@@ -40,17 +40,11 @@ next-env.d.ts
 # designs
 /designs
 
-# conceptual-assets
-public/assets/img
-
 # data
 /data
 
 # credentials
 credentials.local.md
 
-# pages
-/app/test
-
 # components
-Try.jsx
+TheTest.jsx
