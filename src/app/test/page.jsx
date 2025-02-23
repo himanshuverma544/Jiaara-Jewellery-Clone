@@ -1,4 +1,4 @@
-import TheTest from '@/components/pages/test/TheTest';
+import TheTest from "@/components/pages/test/TheTest";
 
 
 export default function Test() {
