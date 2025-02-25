@@ -25,9 +25,9 @@ export default function Sidebar({
         w-full h-full
         ${persistent?.value ? "sticky" : "fixed inset-0 z-20 overlay-black-50"}
         transition-opacity duration-300
-        ${isOpen || persistent.value ?
+        ${isOpen ?
           `active opacity-100 after:opacity-50` :
-          "opacity-0 pointer-events-none after:opacity-0 after:pointer-events-none"
+          "w-0 opacity-0 pointer-events-none after:opacity-0 after:pointer-events-none"
         }
       `}
       style={{ top: persistent?.value ? persistent?.position : "0" }}
@@ -47,7 +47,7 @@ export default function Sidebar({
           overflow-y-auto
           shadow-lg
           transition-transform duration-300
-          ${isOpen || persistent.value ? "translate-x-0" : "-translate-x-full"}
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {children}

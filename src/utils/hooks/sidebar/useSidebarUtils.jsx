@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 
 
-export default function useSidebarUtils() {
+export default function useSidebarUtils({ defaultState = false } = {}) {
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultState);
   const innerRef = useRef(null);
 
 

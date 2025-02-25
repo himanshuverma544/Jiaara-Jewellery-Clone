@@ -55,7 +55,7 @@ export default function SidebarFilter({ className = "" }) {
 
   const { dispatch } = useContext(context);
 
-  const { sidebarState: [isOpen, setIsOpen], innerRef } = useSidebarUtils();
+  const { sidebarState: [isOpen, setIsOpen], innerRef } = useSidebarUtils({ defaultState: true });
 
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function SidebarFilter({ className = "" }) {
       innerRef={innerRef}
       className={`filter ${className}`}
       innerClassName="xs:w-[20rem] px-3 bg-white"
-      isOpen={true}
+      isOpen={false}
       setIsOpen={setIsOpen}
       persistent={{ value: true, position: "6.8rem" }}
     >
