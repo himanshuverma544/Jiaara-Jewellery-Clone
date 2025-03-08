@@ -10,7 +10,7 @@ export default function CartHead({ className = "", cartItemsCount = 0 }) {
 
   const clearCart = () =>
     dispatch(cart.clear());
-
+  
 
   return (
     <div className={`cart-head flex justify-between items-center ${className}`}>

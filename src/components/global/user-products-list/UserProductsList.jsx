@@ -11,6 +11,8 @@ import CartHead from "@/components/pages/cart/components/CartHead";
 import ProductQuantity from "@/components/global/ProductQuantity";
 import ProductSummary from "@/components/global/user-products-list/components/ProductSummary";
 
+import Validation from "@/components/general/Validation";
+
 import useTruncateText from "@/utils/hooks/general/useTruncateText";
 
 import { STOCK_LEFT_FALLBACK_VALUE } from "@/utils/constants";
@@ -45,12 +47,12 @@ export default function UserProductsList({
           <li className="cart-head-wrapper">
             <CartHead
               className="pb-[5vw]"
-              cartItemsCount={productsList?.length}
+              cartItemsCount={productsList?.length || 0}
             />
           </li>
         }
-
-        {productsList?.length > 0 &&
+        
+        {productsList?.length > 0 ?
           productsList?.map((product, index) =>
 
             <li key={product?.id || index} className={`row-${index + 1} flex flex-col`}>
@@ -141,6 +143,11 @@ export default function UserProductsList({
               }
             </li>
           )
+        :
+          <Validation
+            className="w-full h-[10rem] text-primaryFont"
+            message="Cart is empty."
+          />
         }
       </ul>
     </div>

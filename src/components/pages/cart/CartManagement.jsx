@@ -17,6 +17,7 @@ export default function CartManagement() {
 
   const cartItems = useSelector(state => state?.cartReducer ?? []);
 
+
   return (
     (isClient &&
       <div className="cart-page flex flex-col">
