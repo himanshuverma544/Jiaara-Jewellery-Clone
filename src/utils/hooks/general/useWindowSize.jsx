@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { debounce } from "@/utils/functions/general/performance";
 
 const defaultBreakpoints = {
   xxl: 1536,
@@ -12,7 +13,7 @@ const defaultBreakpoints = {
 };
 
 
-const useWindowSize = (customBreakpoints = {}) => {
+const useWindowSize = (customBreakpoints = {}, delay = 100) => {
 
   const [screenWidth, setScreenWidth] = useState(0);
   
@@ -22,14 +23,16 @@ const useWindowSize = (customBreakpoints = {}) => {
 
     setScreenWidth(window.innerWidth);
 
-    const handleResize = () => setScreenWidth(window.innerWidth);
+    const handleResize = debounce(() =>
+      setScreenWidth(window.innerWidth), delay
+    );
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [delay]);
 
 
   return {
