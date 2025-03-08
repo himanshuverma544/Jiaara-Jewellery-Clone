@@ -40,15 +40,6 @@ export default function ManageShop({ className = "", params }) {
   useEffect(() => { fetchProducts(); }, [currentPage]);
 
 
-  if (isLoading || isFetching) {
-    return (
-      <Validation
-        className="w-screen h-[20rem] text-primaryFont"
-        message="Loading Products…"
-      />
-    );
-  }
-  
   if (isError) {
     return (
       <Validation
@@ -76,8 +67,15 @@ export default function ManageShop({ className = "", params }) {
 
       <div className="wrapper flex">
         <SidebarFilter/>
-        <div className="child-wrapper flex flex-col gap-10 my-10">
-          <ProductGrid products={productsData?.products || []}/>
+        <div className="child-wrapper w-full flex flex-col items-center justify-center gap-10 my-10">
+          {(isLoading || isFetching) ?
+            <Validation
+              className="w-full h-[20rem] text-primaryFont"
+              message="Loading Products…"
+            />
+            :
+            <ProductGrid products={productsData?.products || []}/>
+          }
           {productsData?.storeInfo?.totalPages > 0 && (
             <Pagination
               currentPage={currentPage}
