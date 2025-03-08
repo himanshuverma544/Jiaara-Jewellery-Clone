@@ -77,7 +77,7 @@ export default function SidebarFilter({ className = "" }) {
 
   return (
     <Sidebar
-      innerRef={innerRef}
+      innerRef={screenWidth < lg ? innerRef : null}
       className={`filter ${className}`}
       innerClassName="px-3 bg-white xs:w-[20rem] lg:w-[31vw] xl:w-[25vw]"
       isOpen={isOpen}
