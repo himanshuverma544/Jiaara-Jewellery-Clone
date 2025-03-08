@@ -17,6 +17,7 @@ import PriceFilter from "@/components/global/filter/sidebar-filter/components/Pr
 import CategoriesFilter from "@/components/global/filter/sidebar-filter/components/CategoriesFilter";
 import CollectionsFilter from "@/components/global/filter/sidebar-filter/components/CollectionsFilter";
 
+import useWindowSize from "@/utils/hooks/general/useWindowSize";
 import useSidebarUtils from "@/utils/hooks/sidebar/useSidebarUtils";
 
 import { getCategories } from "@/utils/functions/api/cms/woocommerce/categories";
@@ -26,6 +27,8 @@ import { CATEGORIES, COLLECTIONS } from "@/routes";
 
 
 export default function SidebarFilter({ className = "" }) {
+
+  const { breakpoints: { lg }, screenWidth } = useWindowSize();
 
   const {
     data: parentCategories,
@@ -55,7 +58,8 @@ export default function SidebarFilter({ className = "" }) {
 
   const { dispatch } = useContext(context);
 
-  const { sidebarState: [isOpen, setIsOpen], innerRef } = useSidebarUtils({ defaultState: true });
+  const { sidebarState: [isOpen, setIsOpen], innerRef }
+    = useSidebarUtils({ defaultState: setTimeout(() => screenWidth >= lg) });
 
 
   useEffect(() => {
@@ -75,10 +79,10 @@ export default function SidebarFilter({ className = "" }) {
     <Sidebar
       innerRef={innerRef}
       className={`filter ${className}`}
-      innerClassName="xs:w-[20rem] px-3 bg-white"
-      isOpen={false}
+      innerClassName="px-3 bg-white xs:w-[20rem] lg:w-[31vw] xl:w-[25vw]"
+      isOpen={isOpen}
       setIsOpen={setIsOpen}
-      persistent={{ value: true, position: "6.8rem" }}
+      persistent={{ value: screenWidth >= lg, position: "6.8rem" }}
     >
       <div className="wrapper flex justify-between sticky top-0 px-3 py-5 z-10 border-b uppercase font-medium bg-white">
         <div className="heading">

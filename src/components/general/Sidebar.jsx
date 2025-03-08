@@ -22,11 +22,11 @@ export default function Sidebar({
       className={`
         ${className}
         sidebar-cont
-        w-full h-full
+        h-full
         ${persistent?.value ? "sticky" : "fixed inset-0 z-20 overlay-black-50"}
         transition-opacity duration-300
         ${isOpen ?
-          `active opacity-100 after:opacity-50` :
+          `w-full active opacity-100 after:opacity-50` :
           "w-0 opacity-0 pointer-events-none after:opacity-0 after:pointer-events-none"
         }
       `}
