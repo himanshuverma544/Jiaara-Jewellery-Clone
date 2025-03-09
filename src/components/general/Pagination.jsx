@@ -7,7 +7,7 @@ import { IoIosArrowBack } from "react-icons/io";
 export default function Pagination({
   totalPages = 0,
   currentPage = 1,
-  setCurrentPage = () => {},
+  setCurrentPage = () => {}
 }) {
 
   const isSelectedPage = page => {
