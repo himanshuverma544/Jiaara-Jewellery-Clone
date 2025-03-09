@@ -2,6 +2,7 @@ import Media from "@/components/general/Media";
 
 
 export default function ContentOnBackground({
+  forwardRef = null,
   className = "",
   innerClassName = "",
   image = {
@@ -14,7 +15,7 @@ export default function ContentOnBackground({
 }) {
 
   return (
-    <div className={`${className} ${image?.src ? "relative" : ""}`}>
+    <div ref={forwardRef} className={`${className} ${image?.src ? "relative" : ""}`}>
       {image?.src ?
         <Media
           imgContClassName={`img-cont absolute inset-0 ${image?.className}`}
