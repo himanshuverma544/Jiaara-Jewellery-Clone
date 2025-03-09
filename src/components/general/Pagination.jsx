@@ -7,11 +7,15 @@ import { IoIosArrowBack } from "react-icons/io";
 export default function Pagination({
   totalPages = 0,
   currentPage = 1,
-  setCurrentPage = () => {}
+  setCurrentPage = () => {},
 }) {
 
   const isSelectedPage = page => {
     return page == currentPage;
+  }
+
+  const selectedPage = page => {
+    setCurrentPage(page);
   }
 
   const nextPage = () => {
@@ -60,7 +64,7 @@ export default function Pagination({
               border-primaryFont
               xs:px-4 xs:py-1
             `}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => selectedPage(page)}
             disabled={isSelectedPage(page)}
           >
             {page}
