@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback } from "react";
 
 
-const useScrollIntoView = ({ behavior = "auto", block = "start", mode = "auto" }) => {
+const useScrollIntoView = ({ behavior = "auto", block = "start", mode = "auto" } = {}) => {
 
   const scrollRef = useRef(null);
 
